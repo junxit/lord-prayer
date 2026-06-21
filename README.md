@@ -46,7 +46,10 @@ For thine is the Kingdom, Power and Glory, now and forever. Amen.
 
 ## Coverage
 
-- **Batch 1 — complete:** the 100 most-spoken living languages.
+**200 languages complete.**
+
+- **Batch 1 — complete:** the 100 most-spoken living languages (e.g. Mandarin, Spanish, Hindi, Arabic, Russian, Swahili).
+- **Batch 2 — complete:** the next 100 living languages by speakers, folding in major languages such as Odia, Uzbek, Saraiki, Zhuang, and Tibetan; iconic ones including Hebrew and Aramaic/Syriac (the Peshitta text); and a wide spread of European-minority, Southeast Asian, Pacific, African, and Indigenous American languages.
 - **Planned:** further batches of living languages, then historical and dead languages.
 
 See `prayer/INDEX.md` for the full current list with endonyms.
@@ -55,7 +58,7 @@ See `prayer/INDEX.md` for the full current list with endonyms.
 
 Translations are verified against published Bible translations (Matthew 6:9–13) and established church liturgies — sources include Bible.com/YouVersion, Omniglot, Wikipedia, and national/denominational liturgical texts. Where a tradition's standard text omits the doxology ("For thine is the Kingdom…", common in Catholic forms), the recognized Protestant/ecumenical doxology is appended so each file matches the canonical form above.
 
-Files that still need human or native-speaker review carry an inline `[UNVERIFIED]` marker. As of Batch 1 these are: **Awadhi**, **Bhojpuri**, **Konkani** (doxology line only — the prayer body is sourced), and **Lao** (full review needed).
+Files that still need human or native-speaker review carry an inline `[UNVERIFIED]` marker. As of Batch 2 these are 10: **Awadhi**, **Bhojpuri**, **Konkani**, **Lao** (from Batch 1) and **Banjar**, **Bodo**, **Central Atlas Tamazight**, **Magahi**, **Tigre**, **Umbundu** (from Batch 2). Most have a sourced prayer body; the flag usually concerns a doxology line or a published text that could not be retrieved online.
 
 ## Adding a language
 
