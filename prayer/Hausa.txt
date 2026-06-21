@@ -1,0 +1,25 @@
+Harshen Hausa
+
+=== Traditional ===
+Ya Ubanmu, wanda yake cikin Sama,
+A tsarkake sunanka.
+Mulkinka yă zo.
+A aikata nufinka a duniya kamar yadda ake yi a Sama.
+Ka ba mu abincinmu na yau.
+Ka gafarta mana laifofinmu,
+kamar yadda mu ma muke gafarta wa waɗanda suke yi mana laifi.
+Kada ka kai mu wurin jaraba,
+amma ka cece mu daga Mugun.
+
+Gama mulki, da iko, da ɗaukaka, naka ne, har abada abadin. Amin.
+
+=== Literal (mirrors the canonical English) ===
+Ya Ubanmu, wanda yake cikin Sama, a tsarkake sunanka.
+Mulkinka yă zo, a aikata nufinka a duniya kamar yadda ake yi a Sama.
+Ka ba mu yau abincinmu na yau da kullum;
+ka gafarta mana laifofinmu
+kamar yadda muke gafarta wa waɗanda suke yi mana laifi;
+kada ka kai mu wurin jaraba,
+amma ka cece mu daga Mugun.
+
+Gama mulki, da iko, da ɗaukaka, naka ne, har abada abadin. Amin.

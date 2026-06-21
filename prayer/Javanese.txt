@@ -1,0 +1,25 @@
+Basa Jawa
+
+=== Traditional ===
+Dhuh, Rama kawula ingkang wonten ing swarga,
+Asma Paduka mugi kasucekaken.
+Kraton Paduka mugi rawuh.
+Karsa Paduka mugi kalampahan wonten ing bumi kadosdene wonten ing swarga.
+Kawula nyuwun rejeki kawula ing dinten punika.
+Saha kawula mugi Paduka apunten anggen kawula kalepatan,
+kadosdene kawula inggih ngapunten dhateng tetiyang ingkang kalepatan dhateng kawula.
+Saha sampun ngantos Paduka ngajak kawula dhateng ing panggodha,
+nanging mugi Paduka uwalaken kawula saking piawon.
+
+Awitdene Paduka ingkang kagungan Kraton saha wisesa tuwin kamulyan salami-laminipun. Amin.
+
+=== Literal (mirrors the canonical English) ===
+Dhuh, Rama kawula ingkang wonten ing swarga, Asma Paduka mugi kasucekaken.
+Kraton Paduka mugi rawuh, karsa Paduka mugi kalampahan wonten ing bumi kadosdene wonten ing swarga.
+Ing dinten punika kawula mugi Paduka paringi rejeki kawula sacekapipun;
+saha kawula mugi Paduka apunten anggen kawula kalepatan,
+kadosdene kawula inggih ngapunten dhateng tetiyang ingkang kalepatan dhateng kawula;
+saha sampun ngantos Paduka ngajak kawula dhateng ing panggodha,
+nanging mugi Paduka uwalaken kawula saking piawon.
+
+Awitdene Paduka ingkang kagungan Kraton saha wisesa tuwin kamulyan salami-laminipun. Amin.

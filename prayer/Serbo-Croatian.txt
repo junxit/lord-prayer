@@ -1,0 +1,30 @@
+Српскохрватски / Srpskohrvatski
+
+=== Traditional ===
+Оче наш, који си на небесима,
+да се свети име Твоје,
+да дође царство Твоје,
+да буде воља Твоја и на земљи као на небу.
+Хлеб наш насушни дај нам данас,
+и опрости нам дугове наше
+као што и ми опраштамо дужницима својим,
+и не уведи нас у искушење,
+но избави нас од злога.
+
+Јер је Твоје царство, и сила, и слава у векове. Амин.
+
+(Latinica / Latin script:)
+Oče naš, koji si na nebesima,
+da se sveti ime Tvoje,
+da dođe carstvo Tvoje,
+da bude volja Tvoja i na zemlji kao na nebu.
+Hleb naš nasušni daj nam danas,
+i oprosti nam dugove naše
+kao što i mi opraštamo dužnicima svojim,
+i ne uvedi nas u iskušenje,
+no izbavi nas od zloga.
+
+Jer je Tvoje carstvo, i sila, i slava u vekove. Amin.
+
+=== Literal (mirrors the canonical English) ===
+Same as the Traditional form above.

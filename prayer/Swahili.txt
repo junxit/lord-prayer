@@ -1,0 +1,25 @@
+Kiswahili
+
+=== Traditional ===
+Baba yetu uliye mbinguni,
+Jina lako litukuzwe.
+Ufalme wako uje.
+Mapenzi yako yatimizwe, hapa duniani kama huko mbinguni.
+Utupe leo riziki yetu.
+Utusamehe deni zetu,
+kama sisi nasi tuwasamehevyo wadeni wetu.
+Usitutie majaribuni,
+lakini utuokoe na yule mwovu.
+
+Kwa kuwa ufalme ni wako, na nguvu, na utukufu, hata milele. Amina.
+
+=== Literal (mirrors the canonical English) ===
+Baba yetu uliye mbinguni, jina lako litukuzwe.
+Ufalme wako uje, mapenzi yako yatimizwe, duniani kama mbinguni.
+Utupe leo mkate wetu wa kila siku;
+na utusamehe makosa yetu,
+kama sisi tunavyowasamehe waliotukosea;
+wala usitutie majaribuni,
+bali utuokoe na yule mwovu.
+
+Kwa kuwa ufalme ni wako, na nguvu, na utukufu, hata milele. Amina.

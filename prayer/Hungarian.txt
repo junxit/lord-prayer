@@ -1,0 +1,13 @@
+Magyar
+
+=== Traditional ===
+Mi Atyánk, aki a mennyekben vagy, szenteltessék meg a te neved,
+jöjjön el a te országod, legyen meg a te akaratod, amint a mennyben, úgy a földön is;
+mindennapi kenyerünket add meg nekünk ma,
+és bocsásd meg vétkeinket, miképpen mi is megbocsátunk az ellenünk vétkezőknek;
+és ne vígy minket kísértésbe, de szabadíts meg a gonosztól;
+
+mert tied az ország, a hatalom és a dicsőség mindörökké. Ámen.
+
+=== Literal (mirrors the canonical English) ===
+Same as the Traditional form above.
