@@ -1,0 +1,13 @@
+Tamaziɣt (ⵜⴰⵎⴰⵣⵉⵖⵜ)
+
+=== Traditional ===
+[UNVERIFIED — no established translation confirmed; best-effort, needs human review]
+
+A published Central Atlas Tamazight (ISO tzm, Morocco) New Testament does exist — the Wycliffe "WYI Version" (fileset TZMWYI), readable at https://live.bible.is/bible/TZMWYI/MAT/6 and listed by ScriptureEarth (iso=tzm) and find.bible. Its Matthew 6:9-13 (the Lord's Prayer) could NOT be retrieved here: the reader is a JavaScript app, the site blocks crawlers/robots, no Wayback snapshot exists, and the underlying API requires a key. To avoid fabricating the exact orthography of a sacred text, no verbatim tzm wording is given.
+
+IMPORTANT: The "Tamazight" Lord's Prayer that circulates online (e.g. marysrosaries.com) is in fact KABYLE (kab, Algeria), not Central Atlas Tamazight — see the Kabyle.txt file in this folder. Do not treat the Kabyle text as Central Atlas Tamazight.
+
+To complete this entry, open https://live.bible.is/bible/TZMWYI/MAT/6 in a normal browser (or the Bible.is app) and copy verses 9-13.
+
+=== Literal (mirrors the canonical English) ===
+[UNVERIFIED] Not available — see note above.

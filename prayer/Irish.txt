@@ -1,0 +1,18 @@
+Gaeilge
+
+=== Traditional ===
+Ár nAthair, atá ar neamh,
+go naofar d'ainm,
+go dtaga do ríocht,
+go ndéantar do thoil ar an talamh,
+mar a dhéantar ar neamh.
+Ár n-arán laethúil tabhair dúinn inniu,
+agus maith dúinn ár bhfiacha,
+mar a mhaithimidne dár bhféichiúnaí féin,
+agus ná lig sinn i gcathú,
+ach saor sinn ó olc.
+
+Óir is leatsa an Ríocht agus an Chumhacht agus an Ghlóir, trí shaol na saol. Áiméan.
+
+=== Literal (mirrors the canonical English) ===
+Same as the Traditional form above.
