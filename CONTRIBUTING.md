@@ -14,7 +14,8 @@ uv run validate.py                 # must exit 0
 One file per language: `prayer/[English language name].txt`. The English name is the filename; the language's own name goes inside.
 
 ```
-Deutsch                                          ← line 1: endonym, in its native script
+Deutsch                                          ← line 1: autonym in its native script,
+                                                 ←   or exactly [autonym not recorded]
                                                  ← line 2: blank
 === Traditional ===                              ← line 3: exactly this
 Vater unser im Himmel,                           ← the recognized liturgical wording
@@ -31,13 +32,27 @@ Rules the validator enforces:
 
 - UTF-8, no BOM, LF line endings, exactly one trailing newline, no trailing blank line.
 - No tabs, no trailing whitespace, no two consecutive blank lines.
-- Line 1 is the endonym and is not empty. Line 2 is blank. Line 3 is `=== Traditional ===`.
+- Line 1 is the autonym, or exactly `[autonym not recorded]`; either way it is not empty. Line 2 is blank. Line 3 is `=== Traditional ===`.
 - Exactly two section headers, Traditional first, both spelled exactly as above.
 - The Traditional section has at least two paragraphs — the prayer, then the doxology.
 - The Literal section is not empty. Its internal shape is deliberately unconstrained; several languages legitimately vary it.
 - Filenames are ASCII, NFC-normalised, and use a plain ASCII apostrophe (`K'iche'.txt`).
 
-Endonyms use a parenthetical only to disambiguate or romanize: `Akan (Twi)`, `客家話 (Hak-kâ-fa)`, `کٲشُر (कॉशुर)`.
+Autonyms use a parenthetical only to disambiguate or romanize: `Akan (Twi)`, `客家話 (Hak-kâ-fa)`, `کٲشُر (कॉशुर)`. Use it too where a language is digraphic and the edition prints the romanised form.
+
+## When no autonym is recorded
+
+Do not guess line 1, and do not fall back on the English name — a fallback is indistinguishable from a genuine autonym that happens to equal the exonym, and the corpus has several of those (*Warlpiri*, *Tem*, *Oniyan*, *Gikyode*). Write exactly:
+
+```
+[autonym not recorded]
+```
+
+Use it when no consulted source records a name the speakers use for the language. **A reference name is not an autonym**, and neither is an English alternative name, an English geographic qualifier (*Eastern Kalagan*), an SIL inverted form (*Buang, Central/Mapos*), a country name, or a gloss in a national language (*bahasa Amarasi* names the language in Indonesian, not in Amarasi).
+
+The marker says nothing about the prayer text in that file, which is sourced and verified like any other.
+
+If you can supply a real autonym, replace the marker and **name the source in the pull request, not in the file**. `(Source: …)` and `[Verified …]` inside a file mean the *prayer text's* provenance and are counted as such by the validator.
 
 ## Where the text must come from
 
@@ -111,7 +126,7 @@ A short caveat may follow the boilerplate on the same line, in parentheses.
 
 ## Brackets versus parentheses
 
-**Square brackets are editorial** — statements by the compiler about the text: `[Verified from …]`, `[UNVERIFIED — …]`, `[No doxology in …]`.
+**Square brackets are editorial** — statements by the compiler about the text: `[Verified from …]`, `[UNVERIFIED — …]`, `[No doxology in …]`. This applies to line 1 as well: a bracketed line-1 value is an editorial statement, not a name, and `[autonym not recorded]` is the only one defined.
 
 **Parentheses are supplementary** — part of the material itself: transliterations, script labels, textual-variant notes, and a trailing `(Source: …)` paragraph.
 

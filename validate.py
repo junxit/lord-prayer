@@ -9,7 +9,7 @@ found; warnings are reported but do not fail the run. Run ``uv run validate.py
 files on disk.
 
 Every field of an index entry is derivable from the corpus itself: the English name
-is the filename stem, the endonym is line 1 of the file, the review flag is the
+is the filename stem, the autonym is line 1 of the file, the review flag is the
 presence of ``[UNVERIFIED`` anywhere in the file, and the ordinal is the position in
 sorted order. The index's prose -- its title, preamble, canonical-text blockquote and
 Notes bullets -- is human-authored and is never touched.
@@ -27,6 +27,7 @@ REPO = Path(__file__).resolve().parent
 PRAYER_DIR = REPO / "prayer"
 INDEX_PATH = PRAYER_DIR / "INDEX.md"
 README_PATH = REPO / "README.md"
+NOTICE_PATH = REPO / "NOTICE.md"
 
 TRADITIONAL_HEADER = "=== Traditional ==="
 LITERAL_HEADER = "=== Literal (mirrors the canonical English) ==="
@@ -35,12 +36,36 @@ CANONICAL_FLAG_PREFIX = "[UNVERIFIED — "
 FLAG_SUFFIX = "  — [!] contains an UNVERIFIED section (needs human review)"
 PROVENANCE_TOKENS = ("[Verified", "(Source:")
 
+# Line 1 of a prayer file is the language's autonym. Where no consulted source
+# records one, it is exactly this marker rather than a guess or the English name.
+# The wording deliberately avoids "verified" in any casing: PROVENANCE_TOKENS and
+# FLAG_TOKEN are matched over the whole file, so a marker containing that word
+# would silently inflate the provenance count.
+AUTONYM_MARKER = "[autonym not recorded]"
+
 SECTION_RE = re.compile(r"^===.*===$")
 LANGUAGES_HEADING_RE = re.compile(r"^## Languages \((\d+)\)$")
 NEXT_HEADING_RE = re.compile(r"^## ")
 CURRENTLY_RE = re.compile(r"(?<=Currently: )[^.]*(?=\.)")
-README_TOTAL_RE = re.compile(r"\*\*(\d+) languages\b")
+# Counts are written with thousands separators once the corpus passes 999.
+README_TOTAL_RE = re.compile(r"\*\*([\d,]+) languages\b")
 README_FLAGGED_RE = re.compile(r"these are (\d+):")
+NOTICE_PROVENANCE_RE = re.compile(
+    r"\*\*([\d,]+) of ([\d,]+) files record their source in the file itself\.\*\*"
+)
+NOTICE_AUTONYM_RE = re.compile(r"\*\*([\d,]+) files record no autonym\.\*\*")
+
+
+def count(text: str) -> int:
+    """Parse a documented count, tolerating thousands separators.
+
+    Args:
+        text: A number as written in prose, e.g. "1,247".
+
+    Returns:
+        The integer value.
+    """
+    return int(text.replace(",", ""))
 
 
 class Report:
@@ -148,17 +173,22 @@ def paragraphs(block: str) -> list[str]:
 def check_prayer_file(path: Path, report: Report) -> tuple[str, bool, bool] | None:
     """Validate one ``prayer/<Language>.txt`` file against the corpus format.
 
-    The format is fixed: line 1 is the endonym, line 2 is blank, line 3 is the
+    The format is fixed: line 1 is the autonym, line 2 is blank, line 3 is the
     Traditional header, then the Traditional body, then the Literal header and its
     body. The Literal body's internal structure is deliberately not constrained --
     several files legitimately vary it.
+
+    Line 1 may instead be exactly ``AUTONYM_MARKER``, recording that no consulted
+    source gives the language's own name for itself. Any other bracketed value is an
+    error rather than a warning: this construct has no legacy files, so a typo would
+    otherwise create a second, silently distinct value across hundreds of index lines.
 
     Args:
         path: Absolute path to the prayer file.
         report: Report to record findings in.
 
     Returns:
-        A tuple of (endonym, is_flagged, has_provenance), or None if the file is
+        A tuple of (autonym, is_flagged, has_provenance), or None if the file is
         malformed enough that the index cannot be built from it.
     """
     where = rel(path)
@@ -182,11 +212,13 @@ def check_prayer_file(path: Path, report: Report) -> tuple[str, bool, bool] | No
         report.error(where, "is too short to contain both sections")
         return None
 
-    endonym = lines[0]
-    if not endonym.strip():
-        report.error(where, "line 1 (endonym) is empty")
-    if endonym.startswith("==="):
-        report.error(where, "line 1 (endonym) looks like a section header")
+    autonym = lines[0]
+    if not autonym.strip():
+        report.error(where, "line 1 (autonym) is empty")
+    if autonym.startswith("==="):
+        report.error(where, "line 1 (autonym) looks like a section header")
+    if autonym.startswith("[") and autonym != AUTONYM_MARKER:
+        report.error(where, f"line 1 is bracketed but is not exactly {AUTONYM_MARKER!r}")
     if lines[1].strip():
         report.error(where, "line 2 must be blank")
     if lines[2] != TRADITIONAL_HEADER:
@@ -219,22 +251,23 @@ def check_prayer_file(path: Path, report: Report) -> tuple[str, bool, bool] | No
                 report.warn(where, f"line {number} flag is not in canonical '{CANONICAL_FLAG_PREFIX}...]' form")
     has_provenance = any(token in text for token in PROVENANCE_TOKENS)
 
-    return endonym, flagged, has_provenance
+    return autonym, flagged, has_provenance
 
 
-def index_line(ordinal: int, name: str, endonym: str, flagged: bool) -> str:
+def index_line(ordinal: int, name: str, autonym: str, flagged: bool) -> str:
     """Build the canonical INDEX.md entry line for one language.
 
     Args:
         ordinal: 1-based position in the sorted list.
         name: English language name (the filename stem).
-        endonym: The language's own name, taken from line 1 of its file.
+        autonym: The language's own name, taken from line 1 of its file. May be
+            AUTONYM_MARKER where no source records one.
         flagged: Whether the file contains an ``[UNVERIFIED`` marker.
 
     Returns:
         The entry line, without a trailing newline.
     """
-    line = f"{ordinal:3d}. {name} — {endonym}"
+    line = f"{ordinal:3d}. {name} — {autonym}"
     return line + FLAG_SUFFIX if flagged else line
 
 
@@ -271,7 +304,7 @@ def build_index_regions(lines: list[str], corpus: dict[str, tuple[str, bool, boo
 
     Args:
         lines: INDEX.md split into lines.
-        corpus: Mapping of English name to (endonym, flagged, has_provenance).
+        corpus: Mapping of English name to (autonym, flagged, has_provenance).
 
     Returns:
         The rewritten lines. Everything outside the three regions is preserved.
@@ -304,7 +337,7 @@ def check_index(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> No
     """Validate INDEX.md against the corpus on disk.
 
     Args:
-        corpus: Mapping of English name to (endonym, flagged, has_provenance).
+        corpus: Mapping of English name to (autonym, flagged, has_provenance).
         report: Report to record findings in.
     """
     where = rel(INDEX_PATH)
@@ -353,7 +386,7 @@ def check_readme(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> N
     languages is editorial and cannot be derived from the corpus.
 
     Args:
-        corpus: Mapping of English name to (endonym, flagged, has_provenance).
+        corpus: Mapping of English name to (autonym, flagged, has_provenance).
         report: Report to record findings in.
     """
     where = rel(README_PATH)
@@ -368,18 +401,62 @@ def check_readme(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> N
     total = README_TOTAL_RE.search(text)
     if total is None:
         report.error(where, "no '**N languages ...**' count claim found")
-    elif int(total.group(1)) != len(corpus):
+    elif count(total.group(1)) != len(corpus):
         report.error(where, f"claims {total.group(1)} languages, corpus has {len(corpus)}")
 
-    count = README_FLAGGED_RE.search(text)
-    if count is None:
+    flagged_claim = README_FLAGGED_RE.search(text)
+    if flagged_claim is None:
         report.error(where, "no 'these are N:' count of unverified files found")
-    elif int(count.group(1)) != len(flagged):
-        report.error(where, f"claims {count.group(1)} unverified files, corpus has {len(flagged)}")
+    elif int(flagged_claim.group(1)) != len(flagged):
+        report.error(
+            where,
+            f"claims {flagged_claim.group(1)} unverified files, corpus has {len(flagged)}",
+        )
 
     for name in flagged:
         if name not in text:
             report.error(where, f"does not mention unverified language {name}")
+
+
+def check_notice(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> None:
+    """Validate the coverage figures stated in NOTICE.md.
+
+    NOTICE.md is the document a rights holder reads, and it publishes provenance and
+    autonym coverage. Nothing checked those figures before, so they could drift from
+    the corpus indefinitely.
+
+    Args:
+        corpus: Mapping of English name to (autonym, flagged, has_provenance).
+        report: Report to record findings in.
+    """
+    where = rel(NOTICE_PATH)
+    raw = NOTICE_PATH.read_bytes()
+    text = check_encoding(raw, where, report)
+    if text is None:
+        return
+    check_whitespace(text, where, report)
+
+    sourced = sum(1 for _, _, has_provenance in corpus.values() if has_provenance)
+    unnamed = sum(1 for autonym, _, _ in corpus.values() if autonym == AUTONYM_MARKER)
+
+    claim = NOTICE_PROVENANCE_RE.search(text)
+    if claim is None:
+        report.error(where, "no '**N of M files record their source...**' claim found")
+    elif (count(claim.group(1)), count(claim.group(2))) != (sourced, len(corpus)):
+        report.error(
+            where,
+            f"claims {claim.group(1)} of {claim.group(2)} sourced, corpus has "
+            f"{sourced} of {len(corpus)}",
+        )
+
+    autonym_claim = NOTICE_AUTONYM_RE.search(text)
+    if unnamed and autonym_claim is None:
+        report.error(where, f"{unnamed} files carry the autonym marker but NOTICE.md is silent")
+    elif autonym_claim is not None and count(autonym_claim.group(1)) != unnamed:
+        report.error(
+            where,
+            f"claims {autonym_claim.group(1)} files record no autonym, corpus has {unnamed}",
+        )
 
 
 def load_corpus(report: Report) -> dict[str, tuple[str, bool, bool]]:
@@ -389,7 +466,7 @@ def load_corpus(report: Report) -> dict[str, tuple[str, bool, bool]]:
         report: Report to record findings in.
 
     Returns:
-        Mapping of English name to (endonym, flagged, has_provenance) for each file
+        Mapping of English name to (autonym, flagged, has_provenance) for each file
         that parsed successfully.
     """
     corpus: dict[str, tuple[str, bool, bool]] = {}
@@ -433,6 +510,7 @@ def main() -> int:
 
     check_index(corpus, report)
     check_readme(corpus, report)
+    check_notice(corpus, report)
 
     for warning in report.warnings:
         print(f"warning: {warning}")
@@ -443,7 +521,9 @@ def main() -> int:
 
     flagged = sorted(name for name, (_, is_flagged, _) in corpus.items() if is_flagged)
     sourced = sum(1 for _, _, has_provenance in corpus.values() if has_provenance)
+    named = sum(1 for autonym, _, _ in corpus.values() if autonym != AUTONYM_MARKER)
     print(f"\nlanguages: {len(corpus)}")
+    print(f"autonym: {named}/{len(corpus)}")
     print(f"provenance: {sourced}/{len(corpus)}")
     print(f"unverified: {len(flagged)}" + (f" ({', '.join(flagged)})" if flagged else ""))
     print(f"errors: {len(report.errors)}, warnings: {len(report.warnings)}")

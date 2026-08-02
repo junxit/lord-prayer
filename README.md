@@ -21,12 +21,14 @@ Every translation lives in `prayer/`, named `[Language].txt`, where `[Language]`
 
 Each `prayer/[Language].txt` contains, in order:
 
-1. **Line 1** — the language's own name for itself (endonym), in its native script.
+1. **Line 1** — the language's own name for itself (autonym), in its native script; or exactly `[autonym not recorded]` where no consulted source records one.
 2. A blank line.
 3. `=== Traditional ===` — the recognized traditional/liturgical wording in that language.
 4. `=== Literal (mirrors the canonical English) ===` — a faithful translation that follows the canonical English wording and clause order. When this would be identical to the Traditional form, it reads: `Same as the Traditional form above.`
 
-Files may open the Traditional section with a bracketed editorial line — `[Verified from …]` recording the source, or `[UNVERIFIED — …]` recording a gap. Square brackets always mean an editorial statement rather than prayer text.
+Files may open the Traditional section with a bracketed editorial line — `[Verified from …]` recording the source, or `[UNVERIFIED — …]` recording a gap. Square brackets always mean an editorial statement rather than prayer text, and that applies to line 1 as well.
+
+`[autonym not recorded]` says one thing and only one thing: no source consulted records a name the language's speakers use for it. It is **not** a statement about the prayer text, which is sourced and verified exactly as in every other file. A reference name, an English alternative name, or an English geographic qualifier such as *Eastern Kalagan* is not an autonym, so the marker stands even where a catalogue offers such a name. Supplying a real autonym is a welcome contribution — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Two line-structure conventions coexist. Hand-curated files (batches 1–2) follow the canonical line structure and set the doxology as a separate final paragraph. Files reproduced verbatim from a published edition (batch 3 onward) keep that edition's own line structure, so the doxology appears wherever the edition prints it — usually within the last line — and any bracketing in those files is the edition's own. Preserving the printed text was preferred over reformatting it to match, since splitting a clause correctly would mean editing scripture in a language the compiler cannot read.
 

@@ -3,6 +3,23 @@ Changelog
 
 Unreleased
 ----------
+- Add an autonym marker so a language is no longer excluded for want of a name.
+  Line 1 of a prayer file is the one field not reproduced from a published
+  source, so guessing it would be the single fabricated element in an otherwise
+  sourced file. But "cannot confirm the autonym" is not "must invent one": line 1
+  may now be exactly [autonym not recorded]. The wording avoids the word
+  "verified" in any casing, because the provenance and unverified counters match
+  their tokens over the whole file and would otherwise be inflated by it.
+  validate.py enforces the marker by exact match (an error, not a warning - the
+  construct has no legacy files, so a typo would silently create a second value
+  across hundreds of index lines) and reports autonym coverage from line 1.
+- Fix three pre-existing defects this change would have tripped over:
+  the README count regex could not match a four-digit number written with a
+  thousands separator, so the validator would have failed the moment the corpus
+  passed 999; NOTICE.md was never opened by the validator, leaving its coverage
+  figures to drift silently in the document a rights holder reads; and the
+  INDEX.md title still read "Batches 1-3: 300 languages", wrong by 402. The
+  title now carries no number, since the count beneath it is generated.
 - Batch 7: 12 languages recovered from an over-strict batch-5 filter, taking the
   corpus to 702. That filter rejected any endonym equal to the English name.
   The reasoning holds for names carrying an English qualifier (Central Cagayan

@@ -1,6 +1,8 @@
-# The Lord's Prayer — Index (Batches 1–3: 300 languages)
+# The Lord's Prayer — Index
 
-Each file is named [Language].txt (English name of the language). Inside each file: the language's own name (endonym) on line 1, then a Traditional/liturgical version (with the doxology) and a Literal version mirroring the canonical English.
+The language count in the heading below is generated, so it is always current; this title deliberately carries no number.
+
+Each file is named [Language].txt (English name of the language). Inside each file: the language's own name for itself (autonym) on line 1 — or exactly `[autonym not recorded]` where no consulted source records one — then a Traditional/liturgical version and a Literal version mirroring the canonical English.
 
 Canonical reference text used:
 
