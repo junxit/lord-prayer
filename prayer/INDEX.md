@@ -6,7 +6,7 @@ Canonical reference text used:
 
 > Our Father, who art in heaven, hallowed be Thy name. / Thy Kingdom come, Thy will be done, on earth as it is in heaven. / Give us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. / For thine is the Kingdom, Power and Glory, now and forever. Amen.
 
-## Languages (690)
+## Languages (702)
 
   1. Abaknon — Inabaknon
   2. Abureni — Mini
@@ -98,606 +98,618 @@ Canonical reference text used:
  88. Breton — Brezhoneg
  89. Bribri — Su Uhtuk
  90. Bu — Jida-Abu
- 91. Buginese — Basa Ugi
- 92. Bulgarian — Български
- 93. Buli — Kanjaga
- 94. Burmese — မြန်မာဘာသာ
- 95. Burum — Mindik
- 96. Burunge — Burungaisoo
- 97. Busa — Bisã
- 98. Bwile — Bwile
- 99. Cajamarca Quechua — Kashamarka runashimi
-100. Calamian Tagbanwa — ᝦᝲᝨᝪᝯ
-101. Cantonese — 廣東話
-102. Caquinte — Poyenisati
-103. Carapana — Mõxtã
-104. Caribbean Hindustani — Sarnámi
-105. Carpathian Romani — Romanes
-106. Catalan — Català
-107. Cebuano — Sinugbuanong Binisaya
-108. Cemuhi — Wagap
-109. Central Atlas Tamazight — Tamaziɣt (ⵜⴰⵎⴰⵣⵉⵖⵜ)  — [!] contains an UNVERIFIED section (needs human review)
-110. Central Bontok — Bontoc
-111. Central Kurdish — کوردی سۆرانی
-112. Cerma — Kirma
-113. Ch'ol — Ch'ol
-114. Ch'orti' — Ch'orti'
-115. Cha'palaa — Chaʼpalaa
-116. Chamorro — Finoʼ CHamoru
-117. Chavacano — Chabacano
-118. Chhattisgarhi — छत्तीसगढ़ी
-119. Chichewa — Chichewa
-120. Chipaya — Chipay taqu
-121. Chiquihuitlan Mazatec — nne nangui ngaxni
-122. Choapam Zapotec — Diꞌidzaꞌ xidzaꞌ
-123. Chontal Maya — Yokotʼan
-124. Chuj — Chuj
-125. Chuukese — Fóósun Chuuk
-126. Chuvash — Чӑвашла
-127. Coatzospan Mixtec — Ntudu tuhun davi
-128. Cofan — A ingae
-129. Copala Triqui — xnaꞌánj nu̱ꞌ
-130. Cubeo — pãmié
-131. Culina — Culina
-132. Cung — Chung
-133. Czech — Čeština
-134. Dagbani — Dagbani
-135. Dai — Daai
-136. Dan — ꞊daanwo
-137. Dangaleat — daŋla
-138. Danish — Dansk
-139. Delo — Deloo
-140. Desia — ଦେଶିଆ
-141. Dhao — Ndao
-142. Dhivehi — ދިވެހި
-143. Dholuo — Dholuo
-144. Digo — Digo
-145. Djambarrpuyngu — Djambarrpuyŋu
-146. Dogri — डोगरी
-147. Dombe — Toka-Leya-Dombe
-148. Dongxiang — Santa
-149. Doromu — Doromu-Koki
-150. Dutch — Nederlands
-151. Dyula — Julakan
-152. Eastern Arrernte — Eastern Arrente
-153. Eastern Bolivian Guarani — Chawuncu
-154. Eastern Khumi Chin — Asang Khongca
-155. Eastern Punjabi — ਪੰਜਾਬੀ
-156. Eastern Tamang — तामाङ
-157. Eastern Yiddish — יידיש מזרחית
-158. Egyptian Arabic — مصرى
-159. English — English
-160. Eperara — epérã pedée
-161. Ese Ejja — ese'ejja
-162. Estonian — Eesti
-163. Etulo — Taraba State
-164. Ewage — Notu
-165. Ewe — Eʋegbe
-166. Faroese — Føroyskt
-167. Fasu — Namo Me
-168. Fijian — Na Vosa Vakaviti
-169. Finnish — Suomi
-170. Fon — Fɔ̀ngbè
-171. Fordata — Vaidida
-172. French — Français
-173. Fulani — Fulfulde
-174. Fut — Bufe
-175. Ga — Gã
-176. Galician — Galego
-177. Garifuna — Garífuna
-178. Georgian — ქართული
-179. German — Deutsch
-180. Ghanongga — Ganoqa
-181. Girawa — Bagasin
-182. Glavda — Galvaxdaxa
-183. Greek — Ελληνικά
-184. Gta' — ଡିଡାୟୀ
-185. Guahibo — Jiwi jume
-186. Guambiano — Namuy Wam
-187. Guarani — Avañeʼẽ
-188. Guarayu — Gwarayú
-189. Guayabero — Jiw
-190. Guerrero Amuzgo — Ñomndaa
-191. Guerrero Nahuatl — Nawatlajtoli
-192. Gujarati — ગુજરાતી
-193. Gungu — Rugungu
-194. Gurmantche — Migulimancema
-195. Gurung — तमु क्यी
-196. Guugu Yalandji — Kuku Yalanji
-197. Gwahatike — Dahating
-198. Gwere — lugwere
-199. Gwich'in — Dinjii Zhuʼ Ginjik
-200. Haitian Creole — Kreyòl Ayisyen
-201. Hakka Chinese — 客家話 (Hak-kâ-fa)
-202. Halbi — हलबी
-203. Hamer — Banna
-204. Haryanvi — हरियाणवी
-205. Hausa — Harshen Hausa
-206. Hawaii Pidgin — Hawai'i Pidgin
-207. Hawaiian — ʻŌlelo Hawaiʻi
-208. Hdi — Xədi
-209. Hebrew — עברית
-210. Highland Chinantec — Jmii’
-211. Highland Oaxaca Chontal — Slijuala xanuk
-212. Hiligaynon — Ilonggo (Hiligaynon)
-213. Hindi — हिन्दी
-214. Hiri Motu — Hiri Motu
-215. Hmong — Hmoob
-216. Hopi — Hopilàvayi
-217. Hote — Hotê-Malê
-218. Huallaga Quechua — Wallaqa rimay
-219. Huarijio — Warihó
-220. Huastec — Tének
-221. Huaylas Quechua — Nunashimi
-222. Huehuetla Tepehua — Lhiimaqalhqama7
-223. Huichol — Wixárika
-224. Hungarian — Magyar
-225. Hwana — Hona
-226. Ibaloi — Ivadoy
-227. Iban — Jaku Iban
-228. Icelandic — Íslenska
-229. Idon — Ajiya
-230. Idun — Idṹ
-231. Igbo — Asụsụ Igbo
-232. Ikizu — Ikikizu
-233. Ilocano — Ilokano
-234. Indonesian — Bahasa Indonesia
-235. Inga — Inga
-236. Inoke — Yate
-237. Iranian Persian — فارسی
-238. Irish — Gaeilge
-239. Isanzu — Kinyihanzu
-240. Isthmus Zapotec — Diidxazá
-241. Italian — Italiano
-242. Ivatan — Chirin nu Ibatan
-243. Ixil — Ixil
-244. Iyo — Nahu
-245. Jakaltek — Popti'
-246. Jalapa Mazatec — Ndaxjò
-247. Japanese — 日本語
-248. Javanese — Basa Jawa
-249. Jingpho — Jinghpaw
-250. Juray — ଜୁରାୟ୍
-251. K'iche' — Kʼicheʼ
-252. Ka'apor — Urubu
-253. Kabba — Kabba of Gore
-254. Kabyle — Taqbaylit
-255. Kagayanen — Kagayanen
-256. Kaingang — kanhgág
-257. Kaiwa — Kayova
-258. Kajuk — Ekajuk
-259. Kakua — Kãkwã
-260. Kalagan — Eastern Kalagan
-261. Kalau Lagau Ya — Kala Lagaw
-262. Kalina — Venezuela: Kari ña auran
-263. Kaluli — Bosavi
-264. Kamentsa — Kamintšá
-265. Kamula — Wawoi
-266. Kanasi — Sona
-267. Kannada — ಕನ್ನಡ
-268. Kapampangan — Kapampangan
-269. Kapingamarangi — leelee Kilinid
-270. Kaqchikel — Kaqchikel
-271. Kara — Regi
-272. Karaja — Iny rybè
-273. Kasena — kasɩm
-274. Kashinawa — Hãtxa Kuĩ
-275. Kashmiri — کٲشُر (कॉशुर)
-276. Kayabi — Kawaiwete
-277. Kayapo — Mẽbêngôkre kabẽn
-278. Kazakh — Қазақ тілі
-279. Keapara — Kalo (Keapara)
-280. Kein — Bemal
-281. Kenyang — Nyang
-282. Kharam Naga — Kharam
-283. Khasi — Ka Ktien Khasi
-284. Khelma — Sakechep
-285. Khmer — ភាសាខ្មែរ
-286. Khowa — Kho
-287. Kikuyu — Gĩkũyũ
-288. Kilivila — Kiriwina
-289. Kimba — Tsikimba
-290. Kimre — Gabri
-291. Kinaray-a — Kinaray-a
-292. Kinga — Mahanji
-293. Kinyarwanda — Ikinyarwanda
-294. Kirundi — Ikirundi
-295. Kisar — Yotowawa
-296. Kisi — Kikisi
-297. Kogi — Kággaba
-298. Komba — Neng Den
-299. Kombio — Kombio Wampukuamp
-300. Konda — କୋଣ୍ଡା
-301. Kongo — Kikongo
-302. Konkani — कोंकणी  — [!] contains an UNVERIFIED section (needs human review)
-303. Konkomba — Likpakpaanl
-304. Konni — Koma
-305. Korafe — Gaina
-306. Korean — 한국어
-307. Koreguaje — Ko'reuaju
-308. Kosraean — kahs Kosrae
-309. Koti — Ekoti
-310. Koya — କୋୟା
-311. Kuo — Koh
-312. Kupang Malay — Melayu Kupang
-313. Kurdish — Kurdî (Kurmancî)
-314. Kutu — Kikutu
-315. Kuvi — କୁଭି
-316. Kwamera — Nəfe
-317. Kwaraqae — Fiu
-318. Kwasengen — Hanga Hundi
-319. Kwere — Chikwere
-320. Kwoma — Washkuk
-321. Kyaka — Kyaka Eŋa
-322. Kyode — Gikyode
-323. Kyrgyz — Кыргыз тили
-324. Lacandon — Jach-tʼaan
-325. Lachixio Zapotec — Dialu
-326. Lahu — Lahˍ huˆ (Lahu)
-327. Lala — Nara
-328. Lamas Quechua — Llakwash runasimi
-329. Lambayeque Quechua — Inkawasi-Kañaris
-330. Lao — ພາສາລາວ  — [!] contains an UNVERIFIED section (needs human review)
-331. Latvian — Latviešu
-332. Lavatbura-Lamusong — Nomad
-333. Lealao Chinantec — Latani Chinantec
-334. Likpe — Sεkpεlé
-335. Lingala — Lingála
-336. Lisu — ꓡꓲ-ꓢꓴ
-337. Lithuanian — Lietuvių
-338. Loxicha Zapotec — Diste
-339. Luang — Literi Lagona
-340. Luganda — Luganda
-341. Luguru — Kiluguru
-342. Lukpa — Lokpa
-343. Lumun — Kuku-Lumun
-344. Lungga — Luqa
-345. Luxembourgish — Lëtzebuergesch
-346. Luyana — Esiluyana
-347. Maasina Fulfulde — Maasina Fulfulde مَاسِنَ ڢُلْڢُلْدٜ
-348. Macedonian — Македонски
-349. Macuna — Masa ye
-350. Macushi — Macuší
-351. Madi — Jamamadí
-352. Madurese — Basa Madhurâ
-353. Mag-indi — Mag-Indi Ayata
-354. Magahi — मगही (Magadhi)  — [!] contains an UNVERIFIED section (needs human review)
-355. Mahasu Pahari — महासुई
-356. Maithili — मैथिली
-357. Makonde — Chimakonde
-358. Malagasy — Malagasy
-359. Malay — Bahasa Melayu
-360. Malayalam — മലയാളം
-361. Malila — Ishimalilia
-362. Maltese — Malti
-363. Mam — Qyool Mam
-364. Mamasa — Pattae'
-365. Mandarin Chinese — 普通话
-366. Manipuri — ꯃꯩꯇꯩꯂꯣꯟ (Meiteilon / Manipuri)
-367. Mansaka — Minansaka
-368. Maori — Te Reo Māori
-369. Map — Timap
-370. Mapos Buang — Buang, Central/Mapos
-371. Mapudungun — Mapudungun
-372. Marathi — मराठी
-373. Marwari — मारवाड़ी
-374. Masbatenyo — Masbatenyo
-375. Matal — Matal
-376. Matengo — Chimatengo
-377. Matigsalug — Matigsalug
-378. Matumbi — Kimatuumbi
-379. Maung — Gun-Marung
-380. Mauwake — Ulingan
-381. Maxakali — Tikmũũn yĩy ax
-382. Maybrat — Southwest Papua
-383. Mayo — Yoreme
-384. Mazahua — Jñatjo
-385. Mbore — Gamei
-386. Mbula-Bwazza — Mbula
-387. Mbya Guarani — ayvu
-388. Meitei — ISO Meiteilon
-389. Mekeo — Mekeo
-390. Meramera — Melamela
-391. Mi'kmaq — Miꞌkmawiꞌsimk
-392. Miahuatlan Zapotec — Diiste
-393. Michoacan Nahuatl — Pómaro Nahuatl
-394. Min Nan Chinese — 閩南語 (Bân-lâm-gí)
-395. Minangkabau — Baso Minangkabau
-396. Minica Huitoto — Witoto mɨnɨca
-397. Minyanka — Mamara
-398. Mitla Zapotec — Didxsaj
-399. Mizo — Mizo ṭawng
-400. Modern Standard Arabic — العربية الفصحى
-401. Mokilese — lal in Mwoakilloa
-402. Mokilko — Guerguiko
-403. Mokole — Monkole
-404. Molima — Fagululu
-405. Mon — ဘာသာမန်
-406. Mongolian — Монгол хэл
-407. Mossi — Mòoré
-408. Motu — Motu
-409. Mpoto — Chimpoto
-410. Muinane — Muìnánɨ
-411. Mutu — Saveeng
-412. Mwani — Kimwani
-413. Mwera — Cimwera
-414. Nagamese Creole — Nagamiz
-415. Nahuatl — Nāhuatl
-416. Naiki — కొలామి
-417. Nakanai — Lakalai
-418. Namiae — Namiai (Barai)
-419. Naso — Teribe
-420. Natugu — Natqgu
-421. Ncane — Nchane
-422. Ndali — Chindali
-423. Ndengereko — Kindengereko
-424. Ndonde — Ndondehamba
-425. Nepali — नेपाली
-426. Newar — नेवाः भाय्
-427. Newari — नेपाल भाषा (नेवाः भाय्‌)
-428. Ngangam — Gangam
-429. Ngindo — Kingindo
-430. Ngiti — Ndrǔna
-431. Ngulu — Kingulu
-432. Nigerian Pidgin — Naijá
-433. Nii — Ek Nii
-434. Nimoa — Saisai
-435. Ninzo — Ninzam
-436. Nobonob — Garuh
-437. Nomatsiguenga — inato
-438. Noon — Serer-Noon
-439. North Bolivian Quechua — Apulu qhichwa
-440. North Tanna — Nɨnakə
-441. Northeast Malakula — Uripiv
-442. Northern Embera — Eberã
-443. Northern Ndebele — isiNdebele
-444. Northern Paiute — Numu
-445. Northern Thai — คำเมือง
-446. Norwegian — Norsk
-447. Numanggang — Numaŋgaŋ
-448. Nunggubuyu — Wubuy
-449. Nyabwa — Nyaboa
-450. Nyakyusa — Ngonde
-451. Nyole — Lunyole
-452. Nyungwe — Chinyungwe
-453. O'odham — Tohono O'otham
-454. Obo — Obo Manobo
-455. Occitan — Occitan
-456. Odia — ଓଡ଼ିଆ
-457. Ogea — Erima
-458. Oromo — Afaan Oromoo
-459. Paasaal — Pasaale Sisaala
-460. Paez — Nasa Yuwe
-461. Palantla Chinantec — Tlatepuzco Chinantec
-462. Palikur — Pa'ikwené
-463. Palya Bareli — Bareli
-464. Pangasinan — Salitan Pangasinan
-465. Pangutaran Sama — Sama Pangutaran
-466. Paresi — Haliti-Paresi
-467. Pashto — پښتو
-468. Patpatar — Gelik
-469. Paumari — Pamoari
-470. Pengo — ପେଙ୍ଗୋ
-471. Pennsylvania German — Pennsilfaanisch Deitsch
-472. Piapoco — Dzáse
-473. Pintupi — Luritja
-474. Pogolo — Chipogolo
-475. Pohnpeian — mahsen en Pohnpei
-476. Polci — Barawa
-477. Polish — Polski
-478. Poqomchi' — Poqomchiiʼ
-479. Portuguese — Português
-480. Pular — Pular
-481. Q'eqchi' — Q'eqchi'
-482. Quechua — Runa Simi
-483. Quioquitani Zapotec — Quierí Zapotec
-484. Rakhine — ရခိုင်
-485. Rangi — Kɨlaangi
-486. Rennellese — Te hegeunga a Mugaba ma Mugiki
-487. Rikbaktsa — erigpaksá
-488. Rincon Zapotec — Didza Xidza
-489. Rohingya — Ruáingga
-490. Romanian — Română
-491. Romblomanon — Ini
-492. Rotokas — which lacks phonemic nasals
-493. Russian — Русский
-494. Saari — Nsari
-495. Sabaot — Sebei
-496. Safen — Saafi-Saafi
-497. Safeyoka — Ampeeli-Wojokeso
-498. Safwa — Cisafwa
-499. Saint Lucian Creole — kweyol
-500. Sakha — Саха тыла
-501. Sambal — Sambal
-502. Samoan — Gagana Sāmoa
-503. San Blas Kuna — San Blas Cuna
-504. San Marcos Tlacoyalco Popoloca — San Marcos Tlalcoyalco Popoloca
-505. Sanga — Isanga
-506. Sanio — Hiowe
-507. Santali — ᱥᱟᱱᱛᱟᱲᱤ (Santali)
-508. Saposa — Fa Saposa
-509. Saraiki — سرائیکی
-510. Saramaccan — Saamáka
-511. Sarangani — Sarangani Manobo
-512. Satawalese — kepesaen Saetaewan
-513. Scottish Gaelic — Gàidhlig
-514. Secoya — Paikoka
-515. Seim — Mende
-516. Selaru — tel Masylarkwe
-517. Sepedi — Sepedi
-518. Sepik Iwam — Yawenian
-519. Serbian — srpski jezik
-520. Serbo-Croatian — Српскохрватски / Srpskohrvatski
-521. Seward Peninsula Inupiaq — Inupiatun, Northwest Alaska
-522. Sgaw Karen — ကညီကျိာ်
-523. Shan — ၽႃႇသႃႇတႆး
-524. Sharanawa — Arara
-525. Shawi — Kanpunan
-526. Sherpa — शेर्पा
-527. Shinasha — Borni
-528. Shona — chiShona
-529. Shuar — Shiwar chicham
-530. Siane — Siane
-531. Sicilian — Sicilianu
-532. Sierra Otomi — Yųhų
-533. Sierra Popoluca — Nuntajɨyi
-534. Sinaugoro — Sinaugoro
-535. Sindhi — سنڌي
-536. Sinhala — සිංහල
-537. Siona — Gantëya coca
-538. Siriano — Sʉraya
-539. Siriono — mbia cheë
-540. Siwu — Siwusi
-541. Sizang — Siyin Chin
-542. Slovak — Slovenčina
-543. Slovenian — Slovenščina
-544. Soli — Chisoli
-545. Somali — Af-Soomaali
-546. Somrai — Chibne
-547. Sotho — Sesotho
-548. South Bolivian Quechua — Qullasuyu qhichwa
-549. South Tairora — Omwunra-Toqura (South Tairora)
-550. South Ucayali Asheninka — Ashéninka Ucayali del Sur
-551. Southeast Ambrym — Taveak
-552. Southern Carrier — Dakelh
-553. Spanish — Español
-554. Sranan Tongo — Sranantongo
-555. Sundanese — Basa Sunda
-556. Sunwar — 𑯆𑯑𑯃̐𑯌
-557. Susu — Sosoxui
-558. Swahili — Kiswahili
-559. Swati — siSwati
-560. Swedish — Svenska
-561. Sylheti — ꠍꠤꠟꠐꠤ (সিলেটি)
-562. Tagalog — Tagalog
-563. Tahitian — Reo Tahiti
-564. Tai Dam — Tai Dam
-565. Tajik — Тоҷикӣ
-566. Talinga — OluBwisi
-567. Tamajaq — Tamajǝq Tawallammat
-568. Tamasheq — Tamasheq
-569. Tamil — தமிழ்
-570. Tammari — Ditammari
-571. Tandroy — Tandroy
-572. Tangoa — Movono
-573. Tanzanian Ngoni — Chingoni
-574. Tatar — Татар теле
-575. Tatuyo — Wa’ikhana
-576. Tausug — Bahasa Sūg
-577. Tavoyan dialects — ထားဝယ်စကား
-578. Tboli — Tboli
-579. Tektitek — Bʼaʼaj
-580. Telefol — Telefol Weng
-581. Telugu — తెలుగు
-582. Tetelcingo Nahuatl — Mösiehuali̱
-583. Tetum — Tetun
-584. Tetun — Lia-tetun
-585. Thadou — Thadoupao
-586. Thai — ภาษาไทย
-587. Thaiphum — Thai Phum
-588. Tibetan — བོད་སྐད་
-589. Ticuna — Duüxügu
-590. Tigre — ትግረ  — [!] contains an UNVERIFIED section (needs human review)
-591. Tigrinya — ትግርኛ
-592. Tinputz — Vasui (Tinputz)
-593. Tlahuitoltepec Mixe — Ayuujk
-594. Tojolab'al — Tojol ab'al
-595. Tok Pisin — Tok Pisin
-596. Tol — Tolpan
-597. Tolai — Tinata Tuna
-598. Tongan — Lea faka-Tonga
-599. Torres Strait Creole — Yumplatok
-600. Tsafiki — Tsa'fiki
-601. Tsakhur — Ts'əxna miz
-602. Tshiluba — Cilubà
-603. Tsonga — Xitsonga
-604. Tswana — Setswana
-605. Tucano — Dahseyé
-606. Tulu — ತುಳು
-607. Tumbuka — Chitumbuka
-608. Tunisian Arabic — تونسي
-609. Turkish — Türkçe
-610. Turkmen — Türkmençe
-611. Tutsa — Totcha
-612. Tuyuca — Docapúaraye
-613. Twi — twi
-614. Tz'utujil — Tzʼutujiil
-615. Tzotzil — Bats'i k'op
-616. Udi — udin muz
-617. Ukrainian — Українська
-618. Ulithian — yal’ool Yiuldiy
-619. Umanakaina — Gwedena
-620. Umbu-Ungu — Umbu-Ungu Andelale
-621. Umbundu — Umbundu  — [!] contains an UNVERIFIED section (needs human review)
-622. Upper Sorbian — Hornjoserbšćina
-623. Urarina — kachá
-624. Urdu — اردو
-625. Uri — Urii
-626. Usan — Wanuma
-627. Uspantek — Uspanteko
-628. Uyghur — ئۇيغۇر تىلى
-629. Uzbek — Oʻzbekcha
-630. Venda — Tshivenḓa
-631. Vietnamese — Tiếng Việt
-632. Vitu — Pole Vitu
-633. Vlax Romani — Romani čhib (Čergarsko)
-634. Wa'ikhana — Wahicjana
-635. Waimaha — Waimaja
-636. Waja — Waja
-637. Wamey — Konyagi
-638. Wandala — Mandara
-639. Wantoat — Taap
-640. Waray — Winaray
-641. Warwar Feni — Feni
-642. Wayuu — Wayuunaiki
-643. Welsh — Cymraeg
-644. West Central Oromo — Afaan Oromoo
-645. Western Apache — Ndee biyáti'
-646. Western Bolivian Guarani — Simba
-647. Western Niger Fulfulde — Fulfulde Burkina
-648. Western Punjabi — پنجابی
-649. Western Tlacolula Valley Zapotec — Dizhsa
-650. Whitesands — Narak
-651. Wik Mungkan — Wik-Mungknh
-652. Wipi — Gidra
-653. Wiru — Witu
-654. Wolaytta — Wolaytta
-655. Wolio — Wolio
-656. Wolof — Wolof
-657. Wounaan — Woun Meu
-658. Wu Chinese — 吳語 (上海話)
-659. Xavante — Aʼuwẽ
-660. Xhosa — isiXhosa
-661. Yabem — Jabem
-662. Yaka — Ivatan
-663. Yakan — Yakan
-664. Yamalele — Ubuvala
-665. Yanesha' — Yaneshac̈h
-666. Yansi — Eyansi
-667. Yao — chiYao
-668. Yapese — thin ni Waqab
-669. Yaqui — Yoem Noki
-670. Yatzachi Zapotec — Dižə'əxon
-671. Yau — Uruwa
-672. Yele — Yele Rossel
-673. Yessan-Mayo — Yamano
-674. Yiddish — ייִדיש
-675. Yine — yinerɨ tokanɨ
-676. Yipma — Yipma
-677. Yobe — Sola
-678. Yonggom — Yongkom
-679. Yoruba — Èdè Yorùbá
-680. Yucatec Maya — Màayaʼ tʼàan
-681. Yucuna — Jukuna
-682. Zacatepec Mixtec — tu’unsavi
-683. Zaiwa — Zaiwa
-684. Zambian Tonga — Chitonga
-685. Zhuang — Vahcuengh
-686. Zigula — Chizigula
-687. Zinza — Ecizinza
-688. Zoogocho Zapotec — Diža'xon
-689. Zulu — isiZulu
-690. ut-Hun — u̱t-Hun
+ 91. Buamu — Buamu
+ 92. Buginese — Basa Ugi
+ 93. Bulgarian — Български
+ 94. Buli — Kanjaga
+ 95. Burmese — မြန်မာဘာသာ
+ 96. Burum — Mindik
+ 97. Burunge — Burungaisoo
+ 98. Busa — Bisã
+ 99. Bwile — Bwile
+100. Cajamarca Quechua — Kashamarka runashimi
+101. Calamian Tagbanwa — ᝦᝲᝨᝪᝯ
+102. Cantonese — 廣東話
+103. Caquinte — Poyenisati
+104. Carapana — Mõxtã
+105. Caribbean Hindustani — Sarnámi
+106. Carpathian Romani — Romanes
+107. Catalan — Català
+108. Cebuano — Sinugbuanong Binisaya
+109. Cemuhi — Wagap
+110. Central Atlas Tamazight — Tamaziɣt (ⵜⴰⵎⴰⵣⵉⵖⵜ)  — [!] contains an UNVERIFIED section (needs human review)
+111. Central Bontok — Bontoc
+112. Central Kurdish — کوردی سۆرانی
+113. Cerma — Kirma
+114. Ch'ol — Ch'ol
+115. Ch'orti' — Ch'orti'
+116. Cha'palaa — Chaʼpalaa
+117. Chamorro — Finoʼ CHamoru
+118. Chavacano — Chabacano
+119. Chhattisgarhi — छत्तीसगढ़ी
+120. Chichewa — Chichewa
+121. Chipaya — Chipay taqu
+122. Chiquihuitlan Mazatec — nne nangui ngaxni
+123. Choapam Zapotec — Diꞌidzaꞌ xidzaꞌ
+124. Chontal Maya — Yokotʼan
+125. Chuj — Chuj
+126. Chuukese — Fóósun Chuuk
+127. Chuvash — Чӑвашла
+128. Coatzospan Mixtec — Ntudu tuhun davi
+129. Cofan — A ingae
+130. Copala Triqui — xnaꞌánj nu̱ꞌ
+131. Cubeo — pãmié
+132. Culina — Culina
+133. Cung — Chung
+134. Czech — Čeština
+135. Dagbani — Dagbani
+136. Dai — Daai
+137. Dan — ꞊daanwo
+138. Dangaleat — daŋla
+139. Danish — Dansk
+140. Delo — Deloo
+141. Desia — ଦେଶିଆ
+142. Dhao — Ndao
+143. Dhivehi — ދިވެހި
+144. Dholuo — Dholuo
+145. Digo — Digo
+146. Djambarrpuyngu — Djambarrpuyŋu
+147. Dogri — डोगरी
+148. Dombe — Toka-Leya-Dombe
+149. Dongxiang — Santa
+150. Doromu — Doromu-Koki
+151. Dutch — Nederlands
+152. Dyula — Julakan
+153. Eastern Arrernte — Eastern Arrente
+154. Eastern Bolivian Guarani — Chawuncu
+155. Eastern Khumi Chin — Asang Khongca
+156. Eastern Punjabi — ਪੰਜਾਬੀ
+157. Eastern Tamang — तामाङ
+158. Eastern Yiddish — יידיש מזרחית
+159. Egyptian Arabic — مصرى
+160. English — English
+161. Eperara — epérã pedée
+162. Ese Ejja — ese'ejja
+163. Estonian — Eesti
+164. Etulo — Taraba State
+165. Ewage — Notu
+166. Ewe — Eʋegbe
+167. Faroese — Føroyskt
+168. Fasu — Namo Me
+169. Fijian — Na Vosa Vakaviti
+170. Finnish — Suomi
+171. Fon — Fɔ̀ngbè
+172. Fordata — Vaidida
+173. French — Français
+174. Fulani — Fulfulde
+175. Fut — Bufe
+176. Ga — Gã
+177. Galician — Galego
+178. Garifuna — Garífuna
+179. Georgian — ქართული
+180. German — Deutsch
+181. Ghanongga — Ganoqa
+182. Girawa — Bagasin
+183. Glavda — Galvaxdaxa
+184. Greek — Ελληνικά
+185. Gta' — ଡିଡାୟୀ
+186. Guahibo — Jiwi jume
+187. Guambiano — Namuy Wam
+188. Guarani — Avañeʼẽ
+189. Guarayu — Gwarayú
+190. Guayabero — Jiw
+191. Guerrero Amuzgo — Ñomndaa
+192. Guerrero Nahuatl — Nawatlajtoli
+193. Gujarati — ગુજરાતી
+194. Gungu — Rugungu
+195. Gurmantche — Migulimancema
+196. Gurung — तमु क्यी
+197. Guugu Yalandji — Kuku Yalanji
+198. Gwahatike — Dahating
+199. Gwere — lugwere
+200. Gwich'in — Dinjii Zhuʼ Ginjik
+201. Haitian Creole — Kreyòl Ayisyen
+202. Hakka Chinese — 客家話 (Hak-kâ-fa)
+203. Halbi — हलबी
+204. Hamer — Banna
+205. Haruai — Haruai
+206. Haryanvi — हरियाणवी
+207. Hausa — Harshen Hausa
+208. Hawaii Pidgin — Hawai'i Pidgin
+209. Hawaiian — ʻŌlelo Hawaiʻi
+210. Hdi — Xədi
+211. Hebrew — עברית
+212. Highland Chinantec — Jmii’
+213. Highland Oaxaca Chontal — Slijuala xanuk
+214. Hiligaynon — Ilonggo (Hiligaynon)
+215. Hindi — हिन्दी
+216. Hiri Motu — Hiri Motu
+217. Hmong — Hmoob
+218. Hopi — Hopilàvayi
+219. Hote — Hotê-Malê
+220. Huallaga Quechua — Wallaqa rimay
+221. Huarijio — Warihó
+222. Huastec — Tének
+223. Huaylas Quechua — Nunashimi
+224. Huehuetla Tepehua — Lhiimaqalhqama7
+225. Huichol — Wixárika
+226. Hungarian — Magyar
+227. Hwana — Hona
+228. Ibaloi — Ivadoy
+229. Iban — Jaku Iban
+230. Icelandic — Íslenska
+231. Idon — Ajiya
+232. Idun — Idṹ
+233. Igbo — Asụsụ Igbo
+234. Ikizu — Ikikizu
+235. Ilocano — Ilokano
+236. Indonesian — Bahasa Indonesia
+237. Inga — Inga
+238. Inoke — Yate
+239. Iranian Persian — فارسی
+240. Irish — Gaeilge
+241. Isanzu — Kinyihanzu
+242. Isthmus Zapotec — Diidxazá
+243. Italian — Italiano
+244. Ivatan — Chirin nu Ibatan
+245. Ixil — Ixil
+246. Iyo — Nahu
+247. Jakaltek — Popti'
+248. Jalapa Mazatec — Ndaxjò
+249. Japanese — 日本語
+250. Javanese — Basa Jawa
+251. Jingpho — Jinghpaw
+252. Juray — ଜୁରାୟ୍
+253. K'iche' — Kʼicheʼ
+254. Ka'apor — Urubu
+255. Kabba — Kabba of Gore
+256. Kabyle — Taqbaylit
+257. Kagayanen — Kagayanen
+258. Kaingang — kanhgág
+259. Kaiwa — Kayova
+260. Kajuk — Ekajuk
+261. Kakua — Kãkwã
+262. Kalagan — Eastern Kalagan
+263. Kalau Lagau Ya — Kala Lagaw
+264. Kalina — Venezuela: Kari ña auran
+265. Kaluli — Bosavi
+266. Kamentsa — Kamintšá
+267. Kamula — Wawoi
+268. Kanasi — Sona
+269. Kannada — ಕನ್ನಡ
+270. Kapampangan — Kapampangan
+271. Kapingamarangi — leelee Kilinid
+272. Kaqchikel — Kaqchikel
+273. Kara — Regi
+274. Karaja — Iny rybè
+275. Kasena — kasɩm
+276. Kashinawa — Hãtxa Kuĩ
+277. Kashmiri — کٲشُر (कॉशुर)
+278. Kayabi — Kawaiwete
+279. Kayapo — Mẽbêngôkre kabẽn
+280. Kazakh — Қазақ тілі
+281. Keapara — Kalo (Keapara)
+282. Kein — Bemal
+283. Kenyang — Nyang
+284. Kharam Naga — Kharam
+285. Khasi — Ka Ktien Khasi
+286. Khelma — Sakechep
+287. Khmer — ភាសាខ្មែរ
+288. Khowa — Kho
+289. Kikuyu — Gĩkũyũ
+290. Kilivila — Kiriwina
+291. Kimba — Tsikimba
+292. Kimre — Gabri
+293. Kinaray-a — Kinaray-a
+294. Kinga — Mahanji
+295. Kinyarwanda — Ikinyarwanda
+296. Kirundi — Ikirundi
+297. Kisar — Yotowawa
+298. Kisi — Kikisi
+299. Kogi — Kággaba
+300. Komba — Neng Den
+301. Kombio — Kombio Wampukuamp
+302. Konda — କୋଣ୍ଡା
+303. Kongo — Kikongo
+304. Konkani — कोंकणी  — [!] contains an UNVERIFIED section (needs human review)
+305. Konkomba — Likpakpaanl
+306. Konni — Koma
+307. Korafe — Gaina
+308. Korean — 한국어
+309. Koreguaje — Ko'reuaju
+310. Kosraean — kahs Kosrae
+311. Koti — Ekoti
+312. Koya — କୋୟା
+313. Kuo — Koh
+314. Kupang Malay — Melayu Kupang
+315. Kurdish — Kurdî (Kurmancî)
+316. Kutu — Kikutu
+317. Kuvi — କୁଭି
+318. Kwale — Kwale
+319. Kwamera — Nəfe
+320. Kwaraqae — Fiu
+321. Kwasengen — Hanga Hundi
+322. Kwere — Chikwere
+323. Kwoma — Washkuk
+324. Kyaka — Kyaka Eŋa
+325. Kyode — Gikyode
+326. Kyrgyz — Кыргыз тили
+327. Lacandon — Jach-tʼaan
+328. Lachixio Zapotec — Dialu
+329. Lahu — Lahˍ huˆ (Lahu)
+330. Lala — Nara
+331. Lamas Quechua — Llakwash runasimi
+332. Lambayeque Quechua — Inkawasi-Kañaris
+333. Langalanga — Langalanga
+334. Lao — ພາສາລາວ  — [!] contains an UNVERIFIED section (needs human review)
+335. Latvian — Latviešu
+336. Lavatbura-Lamusong — Nomad
+337. Lealao Chinantec — Latani Chinantec
+338. Likpe — Sεkpεlé
+339. Lingala — Lingála
+340. Lisu — ꓡꓲ-ꓢꓴ
+341. Lithuanian — Lietuvių
+342. Loxicha Zapotec — Diste
+343. Luang — Literi Lagona
+344. Luganda — Luganda
+345. Luguru — Kiluguru
+346. Lukpa — Lokpa
+347. Lumun — Kuku-Lumun
+348. Lungga — Luqa
+349. Luxembourgish — Lëtzebuergesch
+350. Luyana — Esiluyana
+351. Maasina Fulfulde — Maasina Fulfulde مَاسِنَ ڢُلْڢُلْدٜ
+352. Macedonian — Македонски
+353. Macuna — Masa ye
+354. Macushi — Macuší
+355. Madi — Jamamadí
+356. Madurese — Basa Madhurâ
+357. Mag-indi — Mag-Indi Ayata
+358. Magahi — मगही (Magadhi)  — [!] contains an UNVERIFIED section (needs human review)
+359. Mahasu Pahari — महासुई
+360. Maithili — मैथिली
+361. Makonde — Chimakonde
+362. Malagasy — Malagasy
+363. Malay — Bahasa Melayu
+364. Malayalam — മലയാളം
+365. Malila — Ishimalilia
+366. Maltese — Malti
+367. Mam — Qyool Mam
+368. Mamasa — Pattae'
+369. Mandarin Chinese — 普通话
+370. Manipuri — ꯃꯩꯇꯩꯂꯣꯟ (Meiteilon / Manipuri)
+371. Mansaka — Minansaka
+372. Maori — Te Reo Māori
+373. Map — Timap
+374. Mapos Buang — Buang, Central/Mapos
+375. Mapudungun — Mapudungun
+376. Marathi — मराठी
+377. Marwari — मारवाड़ी
+378. Masbatenyo — Masbatenyo
+379. Matal — Matal
+380. Matengo — Chimatengo
+381. Matigsalug — Matigsalug
+382. Matumbi — Kimatuumbi
+383. Maung — Gun-Marung
+384. Mauwake — Ulingan
+385. Maxakali — Tikmũũn yĩy ax
+386. Maybrat — Southwest Papua
+387. Mayo — Yoreme
+388. Mazahua — Jñatjo
+389. Mbore — Gamei
+390. Mbula-Bwazza — Mbula
+391. Mbya Guarani — ayvu
+392. Meitei — ISO Meiteilon
+393. Mekeo — Mekeo
+394. Meramera — Melamela
+395. Mi'kmaq — Miꞌkmawiꞌsimk
+396. Miahuatlan Zapotec — Diiste
+397. Michoacan Nahuatl — Pómaro Nahuatl
+398. Min Nan Chinese — 閩南語 (Bân-lâm-gí)
+399. Minangkabau — Baso Minangkabau
+400. Minica Huitoto — Witoto mɨnɨca
+401. Minyanka — Mamara
+402. Mitla Zapotec — Didxsaj
+403. Mizo — Mizo ṭawng
+404. Modern Standard Arabic — العربية الفصحى
+405. Mokilese — lal in Mwoakilloa
+406. Mokilko — Guerguiko
+407. Mokole — Monkole
+408. Molima — Fagululu
+409. Mon — ဘာသာမန်
+410. Mongolian — Монгол хэл
+411. Mossi — Mòoré
+412. Motu — Motu
+413. Mpoto — Chimpoto
+414. Muinane — Muìnánɨ
+415. Mutu — Saveeng
+416. Mwani — Kimwani
+417. Mwera — Cimwera
+418. Nadeb — Nadëb
+419. Nagamese Creole — Nagamiz
+420. Nahuatl — Nāhuatl
+421. Naiki — కొలామి
+422. Nakanai — Lakalai
+423. Namiae — Namiai (Barai)
+424. Naso — Teribe
+425. Natugu — Natqgu
+426. Ncane — Nchane
+427. Ndali — Chindali
+428. Ndengereko — Kindengereko
+429. Ndonde — Ndondehamba
+430. Nepali — नेपाली
+431. Newar — नेवाः भाय्
+432. Newari — नेपाल भाषा (नेवाः भाय्‌)
+433. Ngabere — Ngäbere
+434. Ngangam — Gangam
+435. Ngindo — Kingindo
+436. Ngiti — Ndrǔna
+437. Ngulu — Kingulu
+438. Nigerian Pidgin — Naijá
+439. Nii — Ek Nii
+440. Nimoa — Saisai
+441. Ninzo — Ninzam
+442. Nobonob — Garuh
+443. Nomatsiguenga — inato
+444. Noon — Serer-Noon
+445. North Bolivian Quechua — Apulu qhichwa
+446. North Tanna — Nɨnakə
+447. Northeast Malakula — Uripiv
+448. Northern Embera — Eberã
+449. Northern Ndebele — isiNdebele
+450. Northern Paiute — Numu
+451. Northern Thai — คำเมือง
+452. Norwegian — Norsk
+453. Numanggang — Numaŋgaŋ
+454. Nunggubuyu — Wubuy
+455. Nyabwa — Nyaboa
+456. Nyakyusa — Ngonde
+457. Nyole — Lunyole
+458. Nyungwe — Chinyungwe
+459. O'odham — Tohono O'otham
+460. Obo — Obo Manobo
+461. Occitan — Occitan
+462. Odia — ଓଡ଼ିଆ
+463. Ogea — Erima
+464. Omie — Ömie
+465. Oromo — Afaan Oromoo
+466. Paasaal — Pasaale Sisaala
+467. Paez — Nasa Yuwe
+468. Palantla Chinantec — Tlatepuzco Chinantec
+469. Palikur — Pa'ikwené
+470. Palya Bareli — Bareli
+471. Pangasinan — Salitan Pangasinan
+472. Pangutaran Sama — Sama Pangutaran
+473. Paresi — Haliti-Paresi
+474. Pashto — پښتو
+475. Patpatar — Gelik
+476. Paumari — Pamoari
+477. Pengo — ପେଙ୍ଗୋ
+478. Pennsylvania German — Pennsilfaanisch Deitsch
+479. Piapoco — Dzáse
+480. Pintupi — Luritja
+481. Pogolo — Chipogolo
+482. Pohnpeian — mahsen en Pohnpei
+483. Polci — Barawa
+484. Polish — Polski
+485. Poqomchi' — Poqomchiiʼ
+486. Portuguese — Português
+487. Pular — Pular
+488. Q'eqchi' — Q'eqchi'
+489. Quechua — Runa Simi
+490. Quioquitani Zapotec — Quierí Zapotec
+491. Rakhine — ရခိုင်
+492. Rangi — Kɨlaangi
+493. Rennellese — Te hegeunga a Mugaba ma Mugiki
+494. Rikbaktsa — erigpaksá
+495. Rincon Zapotec — Didza Xidza
+496. Rohingya — Ruáingga
+497. Romanian — Română
+498. Romblomanon — Ini
+499. Rotokas — which lacks phonemic nasals
+500. Russian — Русский
+501. Saari — Nsari
+502. Sabaot — Sebei
+503. Safen — Saafi-Saafi
+504. Safeyoka — Ampeeli-Wojokeso
+505. Safwa — Cisafwa
+506. Saint Lucian Creole — kweyol
+507. Sakha — Саха тыла
+508. Sambal — Sambal
+509. Samoan — Gagana Sāmoa
+510. San Blas Kuna — San Blas Cuna
+511. San Marcos Tlacoyalco Popoloca — San Marcos Tlalcoyalco Popoloca
+512. Sanga — Isanga
+513. Sanio — Hiowe
+514. Santali — ᱥᱟᱱᱛᱟᱲᱤ (Santali)
+515. Saposa — Fa Saposa
+516. Saraiki — سرائیکی
+517. Saramaccan — Saamáka
+518. Sarangani — Sarangani Manobo
+519. Satawalese — kepesaen Saetaewan
+520. Scottish Gaelic — Gàidhlig
+521. Secoya — Paikoka
+522. Seim — Mende
+523. Selaru — tel Masylarkwe
+524. Sepedi — Sepedi
+525. Sepik Iwam — Yawenian
+526. Serbian — srpski jezik
+527. Serbo-Croatian — Српскохрватски / Srpskohrvatski
+528. Seward Peninsula Inupiaq — Inupiatun, Northwest Alaska
+529. Sgaw Karen — ကညီကျိာ်
+530. Shan — ၽႃႇသႃႇတႆး
+531. Sharanawa — Arara
+532. Shawi — Kanpunan
+533. Sherpa — शेर्पा
+534. Shinasha — Borni
+535. Shona — chiShona
+536. Shuar — Shiwar chicham
+537. Siane — Siane
+538. Sicilian — Sicilianu
+539. Sierra Otomi — Yųhų
+540. Sierra Popoluca — Nuntajɨyi
+541. Sinaugoro — Sinaugoro
+542. Sindhi — سنڌي
+543. Sinhala — සිංහල
+544. Siona — Gantëya coca
+545. Siriano — Sʉraya
+546. Siriono — mbia cheë
+547. Siwu — Siwusi
+548. Sizang — Siyin Chin
+549. Slovak — Slovenčina
+550. Slovenian — Slovenščina
+551. Soli — Chisoli
+552. Somali — Af-Soomaali
+553. Somrai — Chibne
+554. Sotho — Sesotho
+555. South Bolivian Quechua — Qullasuyu qhichwa
+556. South Tairora — Omwunra-Toqura (South Tairora)
+557. South Ucayali Asheninka — Ashéninka Ucayali del Sur
+558. Southeast Ambrym — Taveak
+559. Southern Carrier — Dakelh
+560. Spanish — Español
+561. Sranan Tongo — Sranantongo
+562. Sundanese — Basa Sunda
+563. Sunwar — 𑯆𑯑𑯃̐𑯌
+564. Supyire — sùpyìré
+565. Susu — Sosoxui
+566. Swahili — Kiswahili
+567. Swati — siSwati
+568. Swedish — Svenska
+569. Sylheti — ꠍꠤꠟꠐꠤ (সিলেটি)
+570. Tabo — Tabo
+571. Tagalog — Tagalog
+572. Tahitian — Reo Tahiti
+573. Tai Dam — Tai Dam
+574. Tajik — Тоҷикӣ
+575. Talinga — OluBwisi
+576. Tamajaq — Tamajǝq Tawallammat
+577. Tamasheq — Tamasheq
+578. Tamil — தமிழ்
+579. Tammari — Ditammari
+580. Tandroy — Tandroy
+581. Tangoa — Movono
+582. Tanzanian Ngoni — Chingoni
+583. Tatar — Татар теле
+584. Tatuyo — Wa’ikhana
+585. Tausug — Bahasa Sūg
+586. Tavoyan dialects — ထားဝယ်စကား
+587. Tboli — Tboli
+588. Tektitek — Bʼaʼaj
+589. Telefol — Telefol Weng
+590. Telugu — తెలుగు
+591. Tem — Tem
+592. Tembagla — Tembagla
+593. Tetelcingo Nahuatl — Mösiehuali̱
+594. Tetum — Tetun
+595. Tetun — Lia-tetun
+596. Thadou — Thadoupao
+597. Thai — ภาษาไทย
+598. Thaiphum — Thai Phum
+599. Tibetan — བོད་སྐད་
+600. Ticuna — Duüxügu
+601. Tigre — ትግረ  — [!] contains an UNVERIFIED section (needs human review)
+602. Tigrinya — ትግርኛ
+603. Tinputz — Vasui (Tinputz)
+604. Tlahuitoltepec Mixe — Ayuujk
+605. Tojolab'al — Tojol ab'al
+606. Tok Pisin — Tok Pisin
+607. Tol — Tolpan
+608. Tolai — Tinata Tuna
+609. Tongan — Lea faka-Tonga
+610. Torres Strait Creole — Yumplatok
+611. Tsafiki — Tsa'fiki
+612. Tsakhur — Ts'əxna miz
+613. Tshiluba — Cilubà
+614. Tsonga — Xitsonga
+615. Tswana — Setswana
+616. Tucano — Dahseyé
+617. Tulu — ತುಳು
+618. Tumbuka — Chitumbuka
+619. Tunisian Arabic — تونسي
+620. Turkish — Türkçe
+621. Turkmen — Türkmençe
+622. Tutsa — Totcha
+623. Tuyuca — Docapúaraye
+624. Twi — twi
+625. Tz'utujil — Tzʼutujiil
+626. Tzotzil — Bats'i k'op
+627. Udi — udin muz
+628. Ukrainian — Українська
+629. Ulithian — yal’ool Yiuldiy
+630. Umanakaina — Gwedena
+631. Umbu-Ungu — Umbu-Ungu Andelale
+632. Umbundu — Umbundu  — [!] contains an UNVERIFIED section (needs human review)
+633. Upper Sorbian — Hornjoserbšćina
+634. Urarina — kachá
+635. Urdu — اردو
+636. Uri — Urii
+637. Usan — Wanuma
+638. Uspantek — Uspanteko
+639. Uyghur — ئۇيغۇر تىلى
+640. Uzbek — Oʻzbekcha
+641. Venda — Tshivenḓa
+642. Vietnamese — Tiếng Việt
+643. Vitu — Pole Vitu
+644. Vlax Romani — Romani čhib (Čergarsko)
+645. Wa'ikhana — Wahicjana
+646. Waimaha — Waimaja
+647. Waja — Waja
+648. Wamey — Konyagi
+649. Wandala — Mandara
+650. Wantoat — Taap
+651. Waray — Winaray
+652. Warlpiri — Warlpiri
+653. Warwar Feni — Feni
+654. Wayuu — Wayuunaiki
+655. Welsh — Cymraeg
+656. West Central Oromo — Afaan Oromoo
+657. Western Apache — Ndee biyáti'
+658. Western Bolivian Guarani — Simba
+659. Western Niger Fulfulde — Fulfulde Burkina
+660. Western Punjabi — پنجابی
+661. Western Tlacolula Valley Zapotec — Dizhsa
+662. Whitesands — Narak
+663. Wik Mungkan — Wik-Mungknh
+664. Wipi — Gidra
+665. Wiru — Witu
+666. Wolaytta — Wolaytta
+667. Wolio — Wolio
+668. Wolof — Wolof
+669. Wounaan — Woun Meu
+670. Wu Chinese — 吳語 (上海話)
+671. Xavante — Aʼuwẽ
+672. Xhosa — isiXhosa
+673. Yabem — Jabem
+674. Yaka — Ivatan
+675. Yakan — Yakan
+676. Yamalele — Ubuvala
+677. Yanesha' — Yaneshac̈h
+678. Yansi — Eyansi
+679. Yao — chiYao
+680. Yapese — thin ni Waqab
+681. Yaqui — Yoem Noki
+682. Yatzachi Zapotec — Dižə'əxon
+683. Yau — Uruwa
+684. Yele — Yele Rossel
+685. Yessan-Mayo — Yamano
+686. Yiddish — ייִדיש
+687. Yine — yinerɨ tokanɨ
+688. Yipma — Yipma
+689. Yobe — Sola
+690. Yonggom — Yongkom
+691. Yoruba — Èdè Yorùbá
+692. Yucatec Maya — Màayaʼ tʼàan
+693. Yucuna — Jukuna
+694. Zacatepec Mixtec — tu’unsavi
+695. Zaiwa — Zaiwa
+696. Zambian Tonga — Chitonga
+697. Zhuang — Vahcuengh
+698. Zigula — Chizigula
+699. Zinza — Ecizinza
+700. Zoogocho Zapotec — Diža'xon
+701. Zulu — isiZulu
+702. ut-Hun — u̱t-Hun
 
 ## Notes
 

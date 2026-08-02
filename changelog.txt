@@ -3,6 +3,12 @@ Changelog
 
 Unreleased
 ----------
+- Batch 7: 12 languages recovered from an over-strict batch-5 filter, taking the
+  corpus to 702. That filter rejected any endonym equal to the English name.
+  The reasoning holds for names carrying an English qualifier (Central Cagayan
+  Agta, Pamplona Atta) but not for single-word names like Tem, Tabo or Warlpiri,
+  where the autonym genuinely is the name. The narrower rule keeps the 36
+  genuine pseudo-autonyms excluded.
 - Batch 6: 85 languages from prose editions, taking the corpus to 690. These
   editions carry no poetry markers, so the narrative introduction to verse 9
   cannot be separated structurally. They are handled as Malayalam was: the
