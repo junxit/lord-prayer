@@ -58,8 +58,34 @@ See `prayer/INDEX.md` for the full current list with endonyms.
 
 Translations are verified against published Bible translations (Matthew 6:9–13) and established church liturgies — sources include Bible.com/YouVersion, Omniglot, Wikipedia, and national/denominational liturgical texts. Where a tradition's standard text omits the doxology ("For thine is the Kingdom…", common in Catholic forms), the recognized Protestant/ecumenical doxology is appended so each file matches the canonical form above.
 
-Files that still need human or native-speaker review carry an inline `[UNVERIFIED]` marker. As of Batch 2 these are 10: **Awadhi**, **Bhojpuri**, **Konkani**, **Lao** (from Batch 1) and **Banjar**, **Bodo**, **Central Atlas Tamazight**, **Magahi**, **Tigre**, **Umbundu** (from Batch 2). Most have a sourced prayer body; the flag usually concerns a doxology line or a published text that could not be retrieved online.
+Files that still need human or native-speaker review carry an inline `[UNVERIFIED]` marker, always as the first line of the section it applies to. As of Batch 2 these are 10: **Awadhi**, **Bhojpuri**, **Konkani**, **Lao** (from Batch 1) and **Banjar**, **Bodo**, **Central Atlas Tamazight**, **Magahi**, **Tigre**, **Umbundu** (from Batch 2).
+
+They are not all unverified in the same way, and the marker says which:
+
+| What the marker says | Files | Meaning |
+|---|---|---|
+| `composed, not a published translation` | Bhojpuri, Bodo, Magahi; the Literal section of Banjar | The wording was composed for this repo because the published edition could not be retrieved. **Do not treat it as scripture.** Each note names the published edition that should replace it. |
+| `composed` (doxology only) | Awadhi, Konkani | The prayer body is sourced; only the appended doxology is composed, because the tradition has no published one. |
+| `partly composed` | Lao, Umbundu | Opening verses confirmed from a published text; later petitions are a best-effort reconstruction. |
+| `no text` | Central Atlas Tamazight, Tigre | No wording is given at all. A published translation exists but could not be retrieved, and nothing was composed in its place. |
 
 ## Adding a language
 
-Create `prayer/[English language name].txt` following the file format above, then update `prayer/INDEX.md`.
+Create `prayer/[English language name].txt` following the file format above, then regenerate the index:
+
+```bash
+uv run validate.py --write-index   # rebuild prayer/INDEX.md from the files on disk
+uv run validate.py                 # check the corpus; exits non-zero on any error
+```
+
+Do not hand-edit `prayer/INDEX.md` — its language list, count and review-flag markers are generated. Everything else in that file is prose and is left untouched.
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before adding a language. It covers what counts as an acceptable source, what to do when a tradition has no doxology, when a distinct Literal rendering is required, and how to flag text that could not be verified.
+
+## Licensing
+
+The compilation is licensed **CC BY 4.0** — see [LICENSE](LICENSE).
+
+That covers the selection, arrangement, endonym research, editorial notes, index and tooling. It does **not** cover the underlying translations of Matthew 6:9–13, which belong to their translators and publishers and are not the compiler's to license. Some are public domain; others remain under active copyright.
+
+[NOTICE.md](NOTICE.md) records the corpora relied on, per-file copyright statements, current provenance coverage, which files contain composed rather than published text, and a contact for rights holders who want material corrected or removed.

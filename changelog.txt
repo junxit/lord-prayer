@@ -1,0 +1,28 @@
+Changelog
+=========
+
+Unreleased
+----------
+- Add validate.py: checks the corpus format and regenerates the derived regions
+  of prayer/INDEX.md (language list, count, review-flag markers). Verified by
+  reproducing the hand-built index byte-for-byte on the pre-change tree.
+- Add GitHub Actions workflow running the validator on push and pull request,
+  and failing if prayer/INDEX.md is out of date.
+- Standardise the 10 [UNVERIFIED] files onto one marker syntax at one position.
+  The marker now states which kind of gap it is: "composed, not a published
+  translation", "partly composed", or "no text". Banjar's Traditional section is
+  published text and now carries [Verified from ...] instead of a blanket flag;
+  its doxology note becomes an explicit "omitted rather than composed".
+- Add CONTRIBUTING.md: source tiers, the rule against composing scripture
+  unmarked, doxology handling, when a distinct Literal rendering is required,
+  and the bracket-vs-parenthesis convention.
+- Add LICENSE (CC BY 4.0) scoped to the compilation, expressly disclaiming the
+  underlying translations, plus NOTICE.md recording corpora relied on, per-file
+  copyright statements, provenance coverage and a rights-holder contact.
+- README: document the generator command, correct the description of the
+  unverified files, and add a Licensing section.
+
+2026-06-21
+----------
+- Batch 2: next 100 living languages by speaker count (200 total).
+- Batch 1: the 100 most-spoken living languages.
