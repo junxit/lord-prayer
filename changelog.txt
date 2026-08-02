@@ -3,6 +3,18 @@ Changelog
 
 Unreleased
 ----------
+- Add Malayalam, which was missing from batches 1 and 2 despite ~37 million
+  speakers. Hand-curated: the IRV edition prints the prayer as prose, so the
+  narrative introduction to verse 9 was removed and the clauses set out at the
+  edition's own punctuation.
+- Batch 3 continues (22 of 100): Northern Thai, Wolaytta, Dyula, Rohingya,
+  Makonde, South Bolivian Quechua, Eastern Tamang, Tausug, Kinaray-a, Rakhine,
+  Tai Dam, Hawaii Pidgin, Luguru, Tamajaq, Balkan Romani, Vlax Romani.
+  Excluded after checking: swh (duplicates Swahili), twi (the repo's Akan is
+  already "Akan (Twi)"), and azb, which the catalogue labels South Azerbaijani
+  but whose text is Latin-script North Azerbaijani from the Baku Bible Society.
+  Deferred: fuv, whose Ajami endonym could not be verified and which overlaps
+  the existing Fulani entry.
 - Batch 3 begins (5 of 100): Eastern Punjabi, Haryanvi, Central Kurdish,
   Tunisian Arabic and Susu. Selection is by speaker count within the set of
   languages that have a published New Testament, since Ethnologue publishes a
