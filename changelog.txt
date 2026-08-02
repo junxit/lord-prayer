@@ -3,6 +3,17 @@ Changelog
 
 Unreleased
 ----------
+- Batch 4: 92 further living languages, taking the corpus to 392. Selected for
+  verifiability rather than speaker count, since the ranking data runs out long
+  before the supply of published translations does. A language qualified only if
+  its edition sets the prayer as poetry and its endonym came from a citable
+  source written in the same script as the text.
+  Of 1,049 remaining languages with a published New Testament, 222 had a sourced
+  endonym; 93 of those had no poetry structure and 17 failed the script check -
+  the check that catches a catalogue offering a Telugu-script name for an
+  Oriya-script edition. 13 more were dropped because their "endonym" was an
+  Indonesian gloss ("bahasa Amarasi") rather than an autonym, and 7 collided with
+  languages already in the corpus. Per-file provenance rises to 216 of 392.
 - Audit the ten provenance claims that predate this process and whose working
   notes were lost. Chhattisgarhi and Sylheti match their cited editions exactly;
   K'iche' matches its cited edition in every word but one (kaex vs k'aex, an
