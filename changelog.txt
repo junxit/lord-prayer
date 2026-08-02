@@ -3,6 +3,26 @@ Changelog
 
 Unreleased
 ----------
+- Audit the 85 files whose line 1 might not have been an autonym, using a
+  positive test: mark only where no consulted source records one, never merely
+  where a machine source failed to confirm. The distinction matters. A first pass
+  using absence-of-evidence would have deleted genuine autonyms such as Oniyan,
+  Gikyode, Ditammari, Inabaknon and Woun Meu, whose Niger-Congo class prefixes
+  make them unmistakable, because the harvest that produced the evidence had
+  deliberately excluded languages already in the corpus.
+  Result: 6 files improved, 19 marked, 60 left alone.
+  Improved, where a source records a better name than was there: Adjukru
+  Adjukru->Mↄjukru, Bantoanon->Binantoanon, Ixil->Ixhil, Masbatenyo->Minasbate,
+  Waja->Wɪyáà, Wolaytta->Wolayttatto Doonaa. Two further Wikipedia suggestions
+  were rejected on inspection: Tigwa is a dialect of Matigsalug, and Tagabili is
+  an exonym for T'boli.
+  Marked: 14 where nothing is recorded anywhere, plus 5 holding a reference or
+  place name rather than an autonym - Kalagan held "Eastern Kalagan", Mapos Buang
+  held the SIL inverted form "Buang, Central/Mapos", and Maybrat held "Southwest
+  Papua", an Indonesian province.
+  Not marked: files whose line 1 carries diacritics its ASCII filename lost
+  (Asháninka, u̱t-Hun, Nadëb, Ömie). A fallback to the English name would be
+  byte-identical to the stem, so the extra characters prove a source.
 - Add an autonym marker so a language is no longer excluded for want of a name.
   Line 1 of a prayer file is the one field not reproduced from a published
   source, so guessing it would be the single fabricated element in an otherwise

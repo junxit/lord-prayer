@@ -68,6 +68,18 @@ Identifying the specific liturgy or printing behind each of those files needs a 
 
 `uv run validate.py` prints the current coverage figure on every run.
 
+## Some files record no autonym
+
+Line 1 of a prayer file is normally the language's own name for itself. Where no consulted source records one, line 1 is exactly `[autonym not recorded]` rather than a guess or a fallback to the English name — a fallback would be indistinguishable from a genuine autonym that happens to equal the exonym, and the corpus has several of those (*Warlpiri*, *Oniyan*, *Gikyode*).
+
+**19 files record no autonym.**
+
+This says nothing about the prayer text in those files, which is sourced and verified exactly as in every other file. Detect it by testing whether line 1 equals that string; more generally, a line-1 value beginning with `[` is an editorial statement, not a name.
+
+A reference name is not an autonym, and neither is an English alternative name, an English geographic qualifier, an SIL inverted form, or a place name. Five files were marked on that basis even though a name was recorded for them: `Kalagan` held *Eastern Kalagan*, `Mapos Buang` held the inverted form *Buang, Central/Mapos*, and `Maybrat` held *Southwest Papua*, an Indonesian province.
+
+If you know one of these languages, supplying its autonym is the single most useful correction you can make.
+
 ## Some text in this repository was composed, not translated
 
 **This is the most important thing on this page for anyone reusing the corpus.**

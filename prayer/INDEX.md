@@ -16,8 +16,8 @@ Canonical reference text used:
   4. Achagua — Achawa
   5. Achi — Achiʼ
   6. Achuar-Shiwiar — Shiwiar chicham
-  7. Adjukru — Adjukru
-  8. Agarabi — Agarabi
+  7. Adjukru — Mↄjukru
+  8. Agarabi — [autonym not recorded]
   9. Aguaruna — Awajún
  10. Akan — Akan (Twi)
  11. Akatek — Kuti'
@@ -60,10 +60,10 @@ Canonical reference text used:
  48. Balkan Romani — Romani čhib (Arli)
  49. Balochi — بلۏچی
  50. Bambara — Bamanankan
- 51. Bana — Bana
+ 51. Bana — [autonym not recorded]
  52. Bandial — Banjaal
  53. Banjar — Bahasa Banjar  — [!] contains an UNVERIFIED section (needs human review)
- 54. Bantoanon — Bantoanon
+ 54. Bantoanon — Binantoanon
  55. Barasana-Eduria — Jãnerã - Eduria Oca
  56. Bariba — Bariba
  57. Baruga — Bareji
@@ -108,7 +108,7 @@ Canonical reference text used:
  96. Burum — Mindik
  97. Burunge — Burungaisoo
  98. Busa — Bisã
- 99. Bwile — Bwile
+ 99. Bwile — [autonym not recorded]
 100. Cajamarca Quechua — Kashamarka runashimi
 101. Calamian Tagbanwa — ᝦᝲᝨᝪᝯ
 102. Cantonese — 廣東話
@@ -162,7 +162,7 @@ Canonical reference text used:
 150. Doromu — Doromu-Koki
 151. Dutch — Nederlands
 152. Dyula — Julakan
-153. Eastern Arrernte — Eastern Arrente
+153. Eastern Arrernte — [autonym not recorded]
 154. Eastern Bolivian Guarani — Chawuncu
 155. Eastern Khumi Chin — Asang Khongca
 156. Eastern Punjabi — ਪੰਜਾਬੀ
@@ -246,7 +246,7 @@ Canonical reference text used:
 234. Ikizu — Ikikizu
 235. Ilocano — Ilokano
 236. Indonesian — Bahasa Indonesia
-237. Inga — Inga
+237. Inga — [autonym not recorded]
 238. Inoke — Yate
 239. Iranian Persian — فارسی
 240. Irish — Gaeilge
@@ -254,7 +254,7 @@ Canonical reference text used:
 242. Isthmus Zapotec — Diidxazá
 243. Italian — Italiano
 244. Ivatan — Chirin nu Ibatan
-245. Ixil — Ixil
+245. Ixil — Ixhil
 246. Iyo — Nahu
 247. Jakaltek — Popti'
 248. Jalapa Mazatec — Ndaxjò
@@ -266,12 +266,12 @@ Canonical reference text used:
 254. Ka'apor — Urubu
 255. Kabba — Kabba of Gore
 256. Kabyle — Taqbaylit
-257. Kagayanen — Kagayanen
+257. Kagayanen — [autonym not recorded]
 258. Kaingang — kanhgág
 259. Kaiwa — Kayova
 260. Kajuk — Ekajuk
 261. Kakua — Kãkwã
-262. Kalagan — Eastern Kalagan
+262. Kalagan — [autonym not recorded]
 263. Kalau Lagau Ya — Kala Lagaw
 264. Kalina — Venezuela: Kari ña auran
 265. Kaluli — Bosavi
@@ -383,26 +383,26 @@ Canonical reference text used:
 371. Mansaka — Minansaka
 372. Maori — Te Reo Māori
 373. Map — Timap
-374. Mapos Buang — Buang, Central/Mapos
+374. Mapos Buang — [autonym not recorded]
 375. Mapudungun — Mapudungun
 376. Marathi — मराठी
 377. Marwari — मारवाड़ी
-378. Masbatenyo — Masbatenyo
-379. Matal — Matal
+378. Masbatenyo — Minasbate
+379. Matal — [autonym not recorded]
 380. Matengo — Chimatengo
 381. Matigsalug — Matigsalug
 382. Matumbi — Kimatuumbi
 383. Maung — Gun-Marung
 384. Mauwake — Ulingan
 385. Maxakali — Tikmũũn yĩy ax
-386. Maybrat — Southwest Papua
+386. Maybrat — [autonym not recorded]
 387. Mayo — Yoreme
 388. Mazahua — Jñatjo
 389. Mbore — Gamei
 390. Mbula-Bwazza — Mbula
 391. Mbya Guarani — ayvu
 392. Meitei — ISO Meiteilon
-393. Mekeo — Mekeo
+393. Mekeo — [autonym not recorded]
 394. Meramera — Melamela
 395. Mi'kmaq — Miꞌkmawiꞌsimk
 396. Miahuatlan Zapotec — Diiste
@@ -421,7 +421,7 @@ Canonical reference text used:
 409. Mon — ဘာသာမန်
 410. Mongolian — Монгол хэл
 411. Mossi — Mòoré
-412. Motu — Motu
+412. Motu — [autonym not recorded]
 413. Mpoto — Chimpoto
 414. Muinane — Muìnánɨ
 415. Mutu — Saveeng
@@ -517,7 +517,7 @@ Canonical reference text used:
 505. Safwa — Cisafwa
 506. Saint Lucian Creole — kweyol
 507. Sakha — Саха тыла
-508. Sambal — Sambal
+508. Sambal — [autonym not recorded]
 509. Samoan — Gagana Sāmoa
 510. San Blas Kuna — San Blas Cuna
 511. San Marcos Tlacoyalco Popoloca — San Marcos Tlalcoyalco Popoloca
@@ -537,7 +537,7 @@ Canonical reference text used:
 525. Sepik Iwam — Yawenian
 526. Serbian — srpski jezik
 527. Serbo-Croatian — Српскохрватски / Srpskohrvatski
-528. Seward Peninsula Inupiaq — Inupiatun, Northwest Alaska
+528. Seward Peninsula Inupiaq — [autonym not recorded]
 529. Sgaw Karen — ကညီကျိာ်
 530. Shan — ၽႃႇသႃႇတႆး
 531. Sharanawa — Arara
@@ -550,7 +550,7 @@ Canonical reference text used:
 538. Sicilian — Sicilianu
 539. Sierra Otomi — Yųhų
 540. Sierra Popoluca — Nuntajɨyi
-541. Sinaugoro — Sinaugoro
+541. Sinaugoro — [autonym not recorded]
 542. Sindhi — سنڌي
 543. Sinhala — සිංහල
 544. Siona — Gantëya coca
@@ -582,7 +582,7 @@ Canonical reference text used:
 570. Tabo — Tabo
 571. Tagalog — Tagalog
 572. Tahitian — Reo Tahiti
-573. Tai Dam — Tai Dam
+573. Tai Dam — [autonym not recorded]
 574. Tajik — Тоҷикӣ
 575. Talinga — OluBwisi
 576. Tamajaq — Tamajǝq Tawallammat
@@ -656,7 +656,7 @@ Canonical reference text used:
 644. Vlax Romani — Romani čhib (Čergarsko)
 645. Wa'ikhana — Wahicjana
 646. Waimaha — Waimaja
-647. Waja — Waja
+647. Waja — Wɪyáà
 648. Wamey — Konyagi
 649. Wandala — Mandara
 650. Wantoat — Taap
@@ -675,8 +675,8 @@ Canonical reference text used:
 663. Wik Mungkan — Wik-Mungknh
 664. Wipi — Gidra
 665. Wiru — Witu
-666. Wolaytta — Wolaytta
-667. Wolio — Wolio
+666. Wolaytta — Wolayttatto Doonaa
+667. Wolio — [autonym not recorded]
 668. Wolof — Wolof
 669. Wounaan — Woun Meu
 670. Wu Chinese — 吳語 (上海話)
@@ -684,7 +684,7 @@ Canonical reference text used:
 672. Xhosa — isiXhosa
 673. Yabem — Jabem
 674. Yaka — Ivatan
-675. Yakan — Yakan
+675. Yakan — [autonym not recorded]
 676. Yamalele — Ubuvala
 677. Yanesha' — Yaneshac̈h
 678. Yansi — Eyansi
@@ -704,7 +704,7 @@ Canonical reference text used:
 692. Yucatec Maya — Màayaʼ tʼàan
 693. Yucuna — Jukuna
 694. Zacatepec Mixtec — tu’unsavi
-695. Zaiwa — Zaiwa
+695. Zaiwa — [autonym not recorded]
 696. Zambian Tonga — Chitonga
 697. Zhuang — Vahcuengh
 698. Zigula — Chizigula
