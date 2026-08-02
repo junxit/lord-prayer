@@ -3,6 +3,18 @@ Changelog
 
 Unreleased
 ----------
+- Commit scripts/generate_prayer.py. Every batch from 3 to 7 was produced by code
+  that no longer existed, which is why the README's blocked-language table could
+  not be re-derived. The script merges the two extraction paths (USFM poetry
+  markers; prose editions split at the edition's own colon or opening quotation
+  mark) and has a --calibrate mode that replays the classifier against files
+  already in the corpus: it reproduces the recorded decision for 502 of 502.
+  Two bugs in the calibration harness were fixed to get there - it took the first
+  parenthesis in a provenance line as the translation id, which is the title's own
+  parenthetical for editions like "Indian Revised Version (IRV) Malayalam", and it
+  did not exclude files that were backfilled or composed rather than generated.
+  Census of the remaining 592 languages: 397 poetry, 67 prose-with-boundary,
+  32 prose-without, 87 no Gospel of Matthew, 9 fetch failures - 464 usable.
 - Audit the 85 files whose line 1 might not have been an autonym, using a
   positive test: mark only where no consulted source records one, never merely
   where a machine source failed to confirm. The distinction matters. A first pass
