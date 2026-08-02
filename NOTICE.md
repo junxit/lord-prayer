@@ -42,9 +42,9 @@ Others are under active copyright, and four files record it inline:
 
 ## Provenance coverage is incomplete
 
-**12 of 200 files currently record their source in the file itself.** The remaining 188 were added in Batches 1 and 2, before per-file sourcing became a requirement, and carry only the collection-level attribution above.
+**112 of 300 files record their source in the file itself.** All 100 batch-3 files do; only 12 of the 200 from batches 1 and 2 do, because those predate the requirement and carry only the collection-level attribution above.
 
-This is a known gap, stated plainly rather than papered over. Every file added from Batch 3 onward carries a `[Verified from …]` line naming the edition, publisher and year, or an explicit marker saying why it does not. Backfilling the earlier files is ongoing work.
+This is a known gap, stated plainly rather than papered over. Every file added from batch 3 onward carries a `[Verified from …]` line naming the edition, publisher and year, or an explicit marker saying why it does not. Backfilling batches 1 and 2 is the largest outstanding piece of work in this repository.
 
 `uv run validate.py` prints the current coverage figure on every run.
 

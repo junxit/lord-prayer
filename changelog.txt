@@ -7,7 +7,10 @@ Unreleased
   speakers. Hand-curated: the IRV edition prints the prayer as prose, so the
   narrative introduction to verse 9 was removed and the clauses set out at the
   edition's own punctuation.
-- Batch 3 continues (58 of 100): Northern Thai, Wolaytta, Dyula, Rohingya,
+- Batch 3 complete (100 of 100): 100 languages with a published New Testament,
+  ranked by speakers, each reproduced verbatim from its published edition and
+  carrying a [Verified from ...] line. Per-file provenance rises from 11 of 200
+  to 112 of 300. Beginning with Northern Thai, Wolaytta, Dyula, Rohingya,
   Makonde, South Bolivian Quechua, Eastern Tamang, Tausug, Kinaray-a, Rakhine,
   Tai Dam, Hawaii Pidgin, Luguru, Tamajaq, Balkan Romani, Vlax Romani.
   Excluded after checking: swh (duplicates Swahili), twi (the repo's Akan is
