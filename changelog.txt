@@ -3,6 +3,19 @@ Changelog
 
 Unreleased
 ----------
+- Batch 6: 85 languages from prose editions, taking the corpus to 690. These
+  editions carry no poetry markers, so the narrative introduction to verse 9
+  cannot be separated structurally. They are handled as Malayalam was: the
+  content of Matthew 6:9 is fixed across translations, so an explicit boundary
+  printed there - a colon or opening quotation mark - is the 9a/9b split. Guards
+  require a short introduction and a substantial remainder; 38 candidates
+  printing no such boundary were left alone, and each generated file records
+  where the cut was made.
+- Remove two duplicate entries found by a corpus-wide audit: Standard Arabic
+  duplicated Modern Standard Arabic under the same ISO code arb, and Standard
+  Estonian was byte-identical to Estonian. Macrolanguage-plus-variety pairs
+  (Yiddish/Eastern Yiddish, Oromo/West Central Oromo, Quechua and Nahuatl
+  varieties) were kept, matching existing practice in the corpus.
 - Batch 5: 213 further living languages, taking the corpus to 605. The binding
   constraint on earlier batches was endonyms, not translations - a file cannot be
   written if line 1 would be a guess. Autonyms harvested from Wikipedia's
