@@ -1,6 +1,8 @@
 العربية الفصحى
 
 === Traditional ===
+[Verified from الكتاب المقدس باللغة العربية، فان دايك (arb-vd), public domain, Matthew 6:9-13. The wording in this file matches that edition word for word; collated against the text published at eBible.org.]
+
 أَبَانَا ٱلَّذِي فِي ٱلسَّمَاوَاتِ، لِيَتَقَدَّسِ ٱسْمُكَ.
 لِيَأْتِ مَلَكُوتُكَ. لِتَكُنْ مَشِيئَتُكَ كَمَا فِي ٱلسَّمَاءِ كَذَلِكَ عَلَى ٱلْأَرْضِ.
 خُبْزَنَا كَفَافَنَا أَعْطِنَا ٱلْيَوْمَ.

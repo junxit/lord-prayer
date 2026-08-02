@@ -42,7 +42,7 @@ Others are under active copyright, and four files record it inline:
 
 ## Provenance coverage is incomplete
 
-**123 of 300 files record their source in the file itself.** All 100 batch-3 files do, plus 23 of the 200 from batches 1 and 2.
+**124 of 300 files record their source in the file itself.** All 100 batch-3 files do, plus 24 of the 200 from batches 1 and 2.
 
 Every file added from batch 3 onward carries a `[Verified from …]` line naming the edition, publisher and year, or an explicit marker saying why it does not.
 
@@ -50,9 +50,17 @@ Every file added from batch 3 onward carries a `[Verified from …]` line naming
 
 Batches 1 and 2 predate that requirement. Rather than label those files with a plausible-looking edition, each was **verified**: `scripts/verify_provenance.py` downloads every candidate New Testament for the language from eBible.org and compares Matthew 6:9–13 against the wording already in the file, word for word.
 
-- **11 files matched a published edition exactly** and now carry a `[Verified from …]` line: Breton, Dutch, Maithili, Mandarin Chinese, Maori, Newari, Nigerian Pidgin, Odia, Somali, Tibetan, Tok Pisin.
+- **12 files matched a published edition exactly** and now carry a `[Verified from …]` line: Breton, Dutch, Maithili, Mandarin Chinese, Maori, Modern Standard Arabic, Newari, Nigerian Pidgin, Odia, Somali, Tibetan, Tok Pisin.
 - **The rest did not.** Around 60 more have a testable edition in the open catalogue, and none matched word for word — differences range from a single word to most of the text.
 - The remainder have no edition in that catalogue at all, which carries only freely redistributable translations. Most major-language Bibles are commercially published and absent from it.
+
+### The older claims were audited too
+
+Ten files carried a source note written before this process existed, with no surviving record of how it was checked. They were re-tested with the same tool:
+
+- **Chhattisgarhi and Sylheti** match their cited editions exactly.
+- **Kʼicheʼ** matches the 2011 Wycliffe New Orthography edition it cites in every word but one — the file reads *käx* where that edition reads *kꞌäx*. The attribution stands; the variant is noted here rather than silently absorbed.
+- **Dogri, Kabyle, Kashmiri, Manipuri, Santali, Saraiki and Tulu** cite editions that are not in the open catalogue, so the tool cannot reach them. Their claims are neither confirmed nor contradicted, and remain as originally written.
 
 A mismatch is information, not failure. Batches 1 and 2 deliberately drew on **liturgical** texts as well as Bible translations, and those will never match a Bible edition: the German file is the ecumenical liturgical *Vater unser*, the Spanish is the Catholic liturgical text, and neither is a rendering of Matthew. Naming a Bible edition for them would be false attribution — worse than recording no source at all.
 

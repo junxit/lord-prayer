@@ -17,8 +17,11 @@ edition by even one word is reported, never attributed: batches 1 and 2 drew on
 liturgical texts as well as Bible translations, so a mismatch usually means the
 wording came from a liturgy or a different printing, which this tool cannot identify.
 
-Comparison folds case, punctuation and zero-width joiners, since editions differ in
-all three without differing in wording.
+Comparison folds case, punctuation, zero-width joiners and the several characters
+used for a glottal stop, since editions differ in all of these without differing in
+wording. The last matters more than it sounds: a Kʼicheʼ text written with U+02BC and
+the same text written with the saltillo U+A78C share no words at all under a naive
+comparison, and neither character is Unicode punctuation.
 """
 
 from __future__ import annotations
@@ -41,6 +44,12 @@ CATALOGUE = "https://ebible.org/Scriptures/translations.csv"
 UA = "lord-prayer-corpus/1.0 (+https://github.com/junxit/lord-prayer)"
 HEADER = "=== Traditional ==="
 ZERO_WIDTH = {0x200B, 0x200C, 0x200D, 0x2060, 0xFEFF}
+# Characters used interchangeably for a glottal stop or ejective across orthographies.
+# Most are letters, not punctuation, so stripping punctuation alone does not fold them.
+GLOTTAL = {0x0027, 0x02BB, 0x02BC, 0x02C8, 0x055A, 0x2018, 0x2019, 0xA78B, 0xA78C}
+# They fold to U+0294, a letter, so that folding does not split the word in two. The
+# glottal is phonemic in many of these languages, so it is unified, never discarded.
+GLOTTAL_FOLD = "ʔ"
 
 
 def fetch(url: str) -> bytes:
@@ -60,21 +69,48 @@ def fetch(url: str) -> bytes:
 def normalise(name: str) -> str:
     """Reduce a language name to a comparison key.
 
+    Diacritics are stripped, because the catalogue writes "Māori" where the repo
+    writes "Maori", and SIL-style "Chinese, Mandarin" is inverted.
+
     Args:
         name: A language name from either the repo or the catalogue.
 
     Returns:
-        Lowercase alphabetic tokens, with SIL-style "Chinese, Mandarin" inverted.
+        Lowercase, unaccented alphabetic tokens.
     """
-    text = name.strip().lower()
+    text = unicodedata.normalize("NFD", name.strip().lower())
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
     if "," in text:
         text = " ".join(reversed([part.strip() for part in text.split(",")]))
     text = re.sub(r"\(.*?\)", " ", text)
     return " ".join(re.sub(r"[^a-z ]", " ", text).split())
 
 
+# Repo names the catalogue records under a different name entirely. Without these the
+# tool silently reports "no candidate editions" for languages that do have one.
+ALIASES = {
+    "odia": "oriya",
+    "newari": "newar",
+    "shona": "chishona",
+    "tok pisin": "melanesian pidgin",
+    "mandarin chinese": "chinese",
+    "dholuo": "luo",
+    "chichewa": "nyanja",
+    "sepedi": "northern sotho",
+    "kirundi": "rundi",
+    "iranian persian": "persian",
+    "modern standard arabic": "arabic",
+    "serbo-croatian": "serbian",
+    "western punjabi": "western panjabi",
+    "eastern punjabi": "eastern panjabi",
+}
+
+
 def words(text: str) -> list[str]:
-    """Split text into comparison tokens, folding case, punctuation and joiners.
+    """Split text into comparison tokens, folding away orthographic-only differences.
+
+    Case, punctuation, zero-width joiners and the various glottal-stop characters are
+    all folded, because editions vary in each without varying in wording.
 
     Args:
         text: Text to tokenise.
@@ -84,7 +120,18 @@ def words(text: str) -> list[str]:
     """
     text = unicodedata.normalize("NFC", text).lower()
     text = "".join(ch for ch in text if ord(ch) not in ZERO_WIDTH)
-    text = "".join(" " if unicodedata.category(ch).startswith("P") else ch for ch in text)
+    chars = list(text)
+    for i, ch in enumerate(chars):
+        if ord(ch) not in GLOTTAL:
+            continue
+        # Word-internal: a glottal stop or ejective, and part of the word.
+        # At a word edge: a quotation mark, and not part of the word.
+        before = chars[i - 1].isalpha() if i else False
+        after = chars[i + 1].isalpha() if i + 1 < len(chars) else False
+        chars[i] = GLOTTAL_FOLD if before and after else " "
+    text = "".join(
+        " " if unicodedata.category(ch).startswith("P") else ch for ch in chars
+    )
     return text.split()
 
 
@@ -181,20 +228,39 @@ def compare(path: Path, translation_id: str) -> tuple[float, int]:
 
 
 def catalogue() -> dict[str, list[dict]]:
-    """Download the eBible catalogue, indexed by normalised English language name.
+    """Download the eBible catalogue and index it by every name it is known under.
+
+    Editions are grouped by ISO 639-3 code, then exposed under each name the
+    catalogue records for that code -- both the English name and the autonym. Going
+    via the code matters: the Chinese Union Version is filed under "Chinese" while
+    other Mandarin editions are filed under "Mandarin Chinese", and a name-only index
+    would test one and never see the other.
 
     Returns:
-        Mapping of normalised name to the editions that contain a New Testament.
+        Mapping of normalised name to every New Testament edition for that language.
     """
     rows = csv.DictReader(io.StringIO(fetch(CATALOGUE).decode("utf-8-sig")))
-    index: dict[str, list[dict]] = {}
+    by_code: dict[str, list[dict]] = {}
+    names: dict[str, set[str]] = {}
     for row in rows:
         try:
             if int(row.get("NTbooks") or 0) <= 0:
                 continue
         except ValueError:
             continue
-        index.setdefault(normalise(row["languageNameInEnglish"] or ""), []).append(row)
+        code = row["languageCode"]
+        by_code.setdefault(code, []).append(row)
+        for field in ("languageNameInEnglish", "languageName"):
+            key = normalise(row.get(field) or "")
+            if key:
+                names.setdefault(key, set()).add(code)
+
+    index: dict[str, list[dict]] = {}
+    for name, codes in names.items():
+        index[name] = [row for code in sorted(codes) for row in by_code[code]]
+    for repo_name, catalogue_name in ALIASES.items():
+        if catalogue_name in index:
+            index.setdefault(repo_name, []).extend(index[catalogue_name])
     return index
 
 
