@@ -1,6 +1,8 @@
 Brezhoneg
 
 === Traditional ===
+[Verified from an Bibl (breBRG), public domain, Matthew 6:9-13. The wording in this file matches that edition word for word; collated against the text published at eBible.org.]
+
 Hon Tad hag a zo en neñv,
 ra vo santelaet da anv,
 ra zeuio da rouantelezh,

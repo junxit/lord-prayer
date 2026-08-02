@@ -42,9 +42,21 @@ Others are under active copyright, and four files record it inline:
 
 ## Provenance coverage is incomplete
 
-**112 of 300 files record their source in the file itself.** All 100 batch-3 files do; only 12 of the 200 from batches 1 and 2 do, because those predate the requirement and carry only the collection-level attribution above.
+**123 of 300 files record their source in the file itself.** All 100 batch-3 files do, plus 23 of the 200 from batches 1 and 2.
 
-This is a known gap, stated plainly rather than papered over. Every file added from batch 3 onward carries a `[Verified from …]` line naming the edition, publisher and year, or an explicit marker saying why it does not. Backfilling batches 1 and 2 is the largest outstanding piece of work in this repository.
+Every file added from batch 3 onward carries a `[Verified from …]` line naming the edition, publisher and year, or an explicit marker saying why it does not.
+
+### What the backfill established
+
+Batches 1 and 2 predate that requirement. Rather than label those files with a plausible-looking edition, each was **verified**: `scripts/verify_provenance.py` downloads every candidate New Testament for the language from eBible.org and compares Matthew 6:9–13 against the wording already in the file, word for word.
+
+- **11 files matched a published edition exactly** and now carry a `[Verified from …]` line: Breton, Dutch, Maithili, Mandarin Chinese, Maori, Newari, Nigerian Pidgin, Odia, Somali, Tibetan, Tok Pisin.
+- **The rest did not.** Around 60 more have a testable edition in the open catalogue, and none matched word for word — differences range from a single word to most of the text.
+- The remainder have no edition in that catalogue at all, which carries only freely redistributable translations. Most major-language Bibles are commercially published and absent from it.
+
+A mismatch is information, not failure. Batches 1 and 2 deliberately drew on **liturgical** texts as well as Bible translations, and those will never match a Bible edition: the German file is the ecumenical liturgical *Vater unser*, the Spanish is the Catholic liturgical text, and neither is a rendering of Matthew. Naming a Bible edition for them would be false attribution — worse than recording no source at all.
+
+Identifying the specific liturgy or printing behind each of those files needs a human who knows the tradition. That is the largest outstanding piece of work in this repository, and it is not automatable.
 
 `uv run validate.py` prints the current coverage figure on every run.
 

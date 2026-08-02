@@ -57,6 +57,15 @@ Record the source as the first line of the Traditional section, followed by a bl
 [Verified from the Dogri New Testament (नमां नियम, Free Bibles India / Bible Society work), Matthew 6:9-13.]
 ```
 
+**Only cite an edition the text actually came from.** If you are adding provenance to an existing file rather than a new one, verify it first:
+
+```bash
+uv run scripts/verify_provenance.py Somali        # compare against published editions
+uv run scripts/verify_provenance.py --apply       # record only exact matches
+```
+
+The tool compares the file's wording against Matthew 6:9–13 in every eBible edition for that language and reports how many words differ. It writes a source line only on an exact word-for-word match. A near miss means the text came from somewhere else — a liturgy, or a different printing — and must not be attributed to the edition tested.
+
 ## When no published text exists
 
 This is the situation that produces bad data, so the rules are strict.
