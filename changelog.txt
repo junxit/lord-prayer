@@ -7,7 +7,7 @@ Unreleased
   speakers. Hand-curated: the IRV edition prints the prayer as prose, so the
   narrative introduction to verse 9 was removed and the clauses set out at the
   edition's own punctuation.
-- Batch 3 continues (22 of 100): Northern Thai, Wolaytta, Dyula, Rohingya,
+- Batch 3 continues (58 of 100): Northern Thai, Wolaytta, Dyula, Rohingya,
   Makonde, South Bolivian Quechua, Eastern Tamang, Tausug, Kinaray-a, Rakhine,
   Tai Dam, Hawaii Pidgin, Luguru, Tamajaq, Balkan Romani, Vlax Romani.
   Excluded after checking: swh (duplicates Swahili), twi (the repo's Akan is

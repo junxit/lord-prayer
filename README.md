@@ -50,11 +50,11 @@ For thine is the Kingdom, Power and Glory, now and forever. Amen.
 
 ## Coverage
 
-**222 languages.**
+**258 languages.**
 
 - **Batch 1 — complete:** the 100 most-spoken living languages (e.g. Mandarin, Spanish, Hindi, Arabic, Russian, Swahili).
 - **Batch 2 — complete:** the next 100 living languages by speakers, folding in major languages such as Odia, Uzbek, Saraiki, Zhuang, and Tibetan; iconic ones including Hebrew and Aramaic/Syriac (the Peshitta text); and a wide spread of European-minority, Southeast Asian, Pacific, African, and Indigenous American languages.
-- **Batch 3 — in progress (22 of 100):** languages with a published New Testament, ranked by speakers. Candidates come from the [eBible.org](https://ebible.org) translation catalogue joined to Wikidata speaker counts; the text of each is reproduced verbatim from the published edition rather than assembled from secondary sources. Every batch-3 file carries a `[Verified from …]` line naming its edition.
+- **Batch 3 — in progress (58 of 100):** languages with a published New Testament, ranked by speakers. Candidates come from the [eBible.org](https://ebible.org) translation catalogue joined to Wikidata speaker counts; the text of each is reproduced verbatim from the published edition rather than assembled from secondary sources. Every batch-3 file carries a `[Verified from …]` line naming its edition.
 - **Planned:** the rest of batch 3, then historical and dead languages.
 
 Batches 1 and 2 were selected by speaker count. That criterion could not be continued: Ethnologue publishes a ranking only to position 200, and the deeper data is neither free nor machine-readable. Batch 3 therefore ranks by speakers *within* the set of languages that have a published New Testament — which is also the set for which a verbatim, citable text actually exists.
