@@ -3,6 +3,16 @@ Changelog
 
 Unreleased
 ----------
+- Batch 5: 213 further living languages, taking the corpus to 605. The binding
+  constraint on earlier batches was endonyms, not translations - a file cannot be
+  written if line 1 would be a guess. Autonyms harvested from Wikipedia's
+  Infobox language raised endonym coverage of the remaining pool from 222
+  languages to 478, of which 272 also passed the poetry-structure and script
+  checks. Filters removed a further 59: 28 whose "autonym" was the English
+  exonym verbatim, 15 carrying an English geographic qualifier, 8 that were
+  country names leaked from the infobox's states field, 5 collisions, one ISO
+  reference name, and azb, which was confirmed earlier this session to be
+  mislabelled. Per-file provenance rises to 429 of 605.
 - Batch 4: 92 further living languages, taking the corpus to 392. Selected for
   verifiability rather than speaker count, since the ranking data runs out long
   before the supply of published translations does. A language qualified only if

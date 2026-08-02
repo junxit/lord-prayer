@@ -42,7 +42,7 @@ Others are under active copyright, and four files record it inline:
 
 ## Provenance coverage is incomplete
 
-**216 of 392 files record their source in the file itself.** All 100 batch-3 and all 92 batch-4 files do, plus 24 of the 200 from batches 1 and 2.
+**429 of 605 files record their source in the file itself.** Every file from batches 3, 4 and 5 does, plus 24 of the 200 from batches 1 and 2.
 
 Every file added from batch 3 onward carries a `[Verified from …]` line naming the edition, publisher and year, or an explicit marker saying why it does not.
 
