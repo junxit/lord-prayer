@@ -1,4 +1,4 @@
-# The Lord's Prayer — Index (Batches 1–2: 200 most-spoken living languages)
+# The Lord's Prayer — Index (Batches 1–3, in progress)
 
 Each file is named [Language].txt (English name of the language). Inside each file: the language's own name (endonym) on line 1, then a Traditional/liturgical version (with the doxology) and a Literal version mirroring the canonical English.
 
@@ -6,7 +6,7 @@ Canonical reference text used:
 
 > Our Father, who art in heaven, hallowed be Thy name. / Thy Kingdom come, Thy will be done, on earth as it is in heaven. / Give us this day our daily bread; and forgive us our trespasses as we forgive those who trespass against us; and lead us not into temptation, but deliver us from evil. / For thine is the Kingdom, Power and Glory, now and forever. Amen.
 
-## Languages (200)
+## Languages (205)
 
   1. Acehnese — Bahsa Acèh
   2. Akan — Akan (Twi)
@@ -39,175 +39,180 @@ Canonical reference text used:
  29. Catalan — Català
  30. Cebuano — Sinugbuanong Binisaya
  31. Central Atlas Tamazight — Tamaziɣt (ⵜⴰⵎⴰⵣⵉⵖⵜ)  — [!] contains an UNVERIFIED section (needs human review)
- 32. Chamorro — Finoʼ CHamoru
- 33. Chhattisgarhi — छत्तीसगढ़ी
- 34. Chichewa — Chichewa
- 35. Chuvash — Чӑвашла
- 36. Czech — Čeština
- 37. Dagbani — Dagbani
- 38. Danish — Dansk
- 39. Dholuo — Dholuo
- 40. Dogri — डोगरी
- 41. Dutch — Nederlands
- 42. Egyptian Arabic — مصرى
- 43. English — English
- 44. Estonian — Eesti
- 45. Ewe — Eʋegbe
- 46. Faroese — Føroyskt
- 47. Fijian — Na Vosa Vakaviti
- 48. Finnish — Suomi
- 49. Fon — Fɔ̀ngbè
- 50. French — Français
- 51. Fulani — Fulfulde
- 52. Ga — Gã
- 53. Galician — Galego
- 54. Georgian — ქართული
- 55. German — Deutsch
- 56. Greek — Ελληνικά
- 57. Guarani — Avañeʼẽ
- 58. Gujarati — ગુજરાતી
- 59. Haitian Creole — Kreyòl Ayisyen
- 60. Hakka Chinese — 客家話 (Hak-kâ-fa)
- 61. Hausa — Harshen Hausa
- 62. Hawaiian — ʻŌlelo Hawaiʻi
- 63. Hebrew — עברית
- 64. Hiligaynon — Ilonggo (Hiligaynon)
- 65. Hindi — हिन्दी
- 66. Hmong — Hmoob
- 67. Hungarian — Magyar
- 68. Iban — Jaku Iban
- 69. Icelandic — Íslenska
- 70. Igbo — Asụsụ Igbo
- 71. Ilocano — Ilokano
- 72. Indonesian — Bahasa Indonesia
- 73. Iranian Persian — فارسی
- 74. Irish — Gaeilge
- 75. Italian — Italiano
- 76. Japanese — 日本語
- 77. Javanese — Basa Jawa
- 78. Jingpho — Jinghpaw
- 79. K'iche' — Kʼicheʼ
- 80. Kabyle — Taqbaylit
- 81. Kannada — ಕನ್ನಡ
- 82. Kapampangan — Kapampangan
- 83. Kashmiri — کٲشُر (कॉशुर)
- 84. Kazakh — Қазақ тілі
- 85. Khasi — Ka Ktien Khasi
- 86. Khmer — ភាសាខ្មែរ
- 87. Kikuyu — Gĩkũyũ
- 88. Kinyarwanda — Ikinyarwanda
- 89. Kirundi — Ikirundi
- 90. Kongo — Kikongo
- 91. Konkani — कोंकणी  — [!] contains an UNVERIFIED section (needs human review)
- 92. Korean — 한국어
- 93. Kurdish — Kurdî (Kurmancî)
- 94. Kyrgyz — Кыргыз тили
- 95. Lahu — Lahˍ huˆ (Lahu)
- 96. Lao — ພາສາລາວ  — [!] contains an UNVERIFIED section (needs human review)
- 97. Latvian — Latviešu
- 98. Lingala — Lingála
- 99. Lisu — ꓡꓲ-ꓢꓴ
-100. Lithuanian — Lietuvių
-101. Luganda — Luganda
-102. Luxembourgish — Lëtzebuergesch
-103. Macedonian — Македонски
-104. Madurese — Basa Madhurâ
-105. Magahi — मगही (Magadhi)  — [!] contains an UNVERIFIED section (needs human review)
-106. Maithili — मैथिली
-107. Malagasy — Malagasy
-108. Malay — Bahasa Melayu
-109. Maltese — Malti
-110. Mandarin Chinese — 普通话
-111. Manipuri — ꯃꯩꯇꯩꯂꯣꯟ (Meiteilon / Manipuri)
-112. Maori — Te Reo Māori
-113. Marathi — मराठी
-114. Marwari — मारवाड़ी
-115. Min Nan Chinese — 閩南語 (Bân-lâm-gí)
-116. Minangkabau — Baso Minangkabau
-117. Mizo — Mizo ṭawng
-118. Modern Standard Arabic — العربية الفصحى
-119. Mon — ဘာသာမန်
-120. Mongolian — Монгол хэл
-121. Mossi — Mòoré
-122. Nahuatl — Nāhuatl
-123. Nepali — नेपाली
-124. Newari — नेपाल भाषा (नेवाः भाय्‌)
-125. Nigerian Pidgin — Naijá
-126. Northern Ndebele — isiNdebele
-127. Norwegian — Norsk
-128. Occitan — Occitan
-129. Odia — ଓଡ଼ିଆ
-130. Oromo — Afaan Oromoo
-131. Pangasinan — Salitan Pangasinan
-132. Pashto — پښتو
-133. Polish — Polski
-134. Portuguese — Português
-135. Quechua — Runa Simi
-136. Romanian — Română
-137. Russian — Русский
-138. Sakha — Саха тыла
-139. Samoan — Gagana Sāmoa
-140. Santali — ᱥᱟᱱᱛᱟᱲᱤ (Santali)
-141. Saraiki — سرائیکی
-142. Scottish Gaelic — Gàidhlig
-143. Sepedi — Sepedi
-144. Serbo-Croatian — Српскохрватски / Srpskohrvatski
-145. Sgaw Karen — ကညီကျိာ်
-146. Shan — ၽႃႇသႃႇတႆး
-147. Shona — chiShona
-148. Sicilian — Sicilianu
-149. Sindhi — سنڌي
-150. Sinhala — සිංහල
-151. Slovak — Slovenčina
-152. Slovenian — Slovenščina
-153. Somali — Af-Soomaali
-154. Sotho — Sesotho
-155. Spanish — Español
-156. Sundanese — Basa Sunda
-157. Swahili — Kiswahili
-158. Swati — siSwati
-159. Swedish — Svenska
-160. Sylheti — ꠍꠤꠟꠐꠤ (সিলেটি)
-161. Tagalog — Tagalog
-162. Tahitian — Reo Tahiti
-163. Tajik — Тоҷикӣ
-164. Tamil — தமிழ்
-165. Tatar — Татар теле
-166. Telugu — తెలుగు
-167. Tetum — Tetun
-168. Thai — ภาษาไทย
-169. Tibetan — བོད་སྐད་
-170. Tigre — ትግረ  — [!] contains an UNVERIFIED section (needs human review)
-171. Tigrinya — ትግርኛ
-172. Tok Pisin — Tok Pisin
-173. Tongan — Lea faka-Tonga
-174. Tshiluba — Cilubà
-175. Tsonga — Xitsonga
-176. Tswana — Setswana
-177. Tulu — ತುಳು
-178. Tumbuka — Chitumbuka
-179. Turkish — Türkçe
-180. Turkmen — Türkmençe
-181. Ukrainian — Українська
-182. Umbundu — Umbundu  — [!] contains an UNVERIFIED section (needs human review)
-183. Upper Sorbian — Hornjoserbšćina
-184. Urdu — اردو
-185. Uyghur — ئۇيغۇر تىلى
-186. Uzbek — Oʻzbekcha
-187. Venda — Tshivenḓa
-188. Vietnamese — Tiếng Việt
-189. Waray — Winaray
-190. Welsh — Cymraeg
-191. Western Punjabi — پنجابی
-192. Wolof — Wolof
-193. Wu Chinese — 吳語 (上海話)
-194. Xhosa — isiXhosa
-195. Yiddish — ייִדיש
-196. Yoruba — Èdè Yorùbá
-197. Yucatec Maya — Màayaʼ tʼàan
-198. Zambian Tonga — Chitonga
-199. Zhuang — Vahcuengh
-200. Zulu — isiZulu
+ 32. Central Kurdish — کوردی سۆرانی
+ 33. Chamorro — Finoʼ CHamoru
+ 34. Chhattisgarhi — छत्तीसगढ़ी
+ 35. Chichewa — Chichewa
+ 36. Chuvash — Чӑвашла
+ 37. Czech — Čeština
+ 38. Dagbani — Dagbani
+ 39. Danish — Dansk
+ 40. Dholuo — Dholuo
+ 41. Dogri — डोगरी
+ 42. Dutch — Nederlands
+ 43. Eastern Punjabi — ਪੰਜਾਬੀ
+ 44. Egyptian Arabic — مصرى
+ 45. English — English
+ 46. Estonian — Eesti
+ 47. Ewe — Eʋegbe
+ 48. Faroese — Føroyskt
+ 49. Fijian — Na Vosa Vakaviti
+ 50. Finnish — Suomi
+ 51. Fon — Fɔ̀ngbè
+ 52. French — Français
+ 53. Fulani — Fulfulde
+ 54. Ga — Gã
+ 55. Galician — Galego
+ 56. Georgian — ქართული
+ 57. German — Deutsch
+ 58. Greek — Ελληνικά
+ 59. Guarani — Avañeʼẽ
+ 60. Gujarati — ગુજરાતી
+ 61. Haitian Creole — Kreyòl Ayisyen
+ 62. Hakka Chinese — 客家話 (Hak-kâ-fa)
+ 63. Haryanvi — हरियाणवी
+ 64. Hausa — Harshen Hausa
+ 65. Hawaiian — ʻŌlelo Hawaiʻi
+ 66. Hebrew — עברית
+ 67. Hiligaynon — Ilonggo (Hiligaynon)
+ 68. Hindi — हिन्दी
+ 69. Hmong — Hmoob
+ 70. Hungarian — Magyar
+ 71. Iban — Jaku Iban
+ 72. Icelandic — Íslenska
+ 73. Igbo — Asụsụ Igbo
+ 74. Ilocano — Ilokano
+ 75. Indonesian — Bahasa Indonesia
+ 76. Iranian Persian — فارسی
+ 77. Irish — Gaeilge
+ 78. Italian — Italiano
+ 79. Japanese — 日本語
+ 80. Javanese — Basa Jawa
+ 81. Jingpho — Jinghpaw
+ 82. K'iche' — Kʼicheʼ
+ 83. Kabyle — Taqbaylit
+ 84. Kannada — ಕನ್ನಡ
+ 85. Kapampangan — Kapampangan
+ 86. Kashmiri — کٲشُر (कॉशुर)
+ 87. Kazakh — Қазақ тілі
+ 88. Khasi — Ka Ktien Khasi
+ 89. Khmer — ភាសាខ្មែរ
+ 90. Kikuyu — Gĩkũyũ
+ 91. Kinyarwanda — Ikinyarwanda
+ 92. Kirundi — Ikirundi
+ 93. Kongo — Kikongo
+ 94. Konkani — कोंकणी  — [!] contains an UNVERIFIED section (needs human review)
+ 95. Korean — 한국어
+ 96. Kurdish — Kurdî (Kurmancî)
+ 97. Kyrgyz — Кыргыз тили
+ 98. Lahu — Lahˍ huˆ (Lahu)
+ 99. Lao — ພາສາລາວ  — [!] contains an UNVERIFIED section (needs human review)
+100. Latvian — Latviešu
+101. Lingala — Lingála
+102. Lisu — ꓡꓲ-ꓢꓴ
+103. Lithuanian — Lietuvių
+104. Luganda — Luganda
+105. Luxembourgish — Lëtzebuergesch
+106. Macedonian — Македонски
+107. Madurese — Basa Madhurâ
+108. Magahi — मगही (Magadhi)  — [!] contains an UNVERIFIED section (needs human review)
+109. Maithili — मैथिली
+110. Malagasy — Malagasy
+111. Malay — Bahasa Melayu
+112. Maltese — Malti
+113. Mandarin Chinese — 普通话
+114. Manipuri — ꯃꯩꯇꯩꯂꯣꯟ (Meiteilon / Manipuri)
+115. Maori — Te Reo Māori
+116. Marathi — मराठी
+117. Marwari — मारवाड़ी
+118. Min Nan Chinese — 閩南語 (Bân-lâm-gí)
+119. Minangkabau — Baso Minangkabau
+120. Mizo — Mizo ṭawng
+121. Modern Standard Arabic — العربية الفصحى
+122. Mon — ဘာသာမန်
+123. Mongolian — Монгол хэл
+124. Mossi — Mòoré
+125. Nahuatl — Nāhuatl
+126. Nepali — नेपाली
+127. Newari — नेपाल भाषा (नेवाः भाय्‌)
+128. Nigerian Pidgin — Naijá
+129. Northern Ndebele — isiNdebele
+130. Norwegian — Norsk
+131. Occitan — Occitan
+132. Odia — ଓଡ଼ିଆ
+133. Oromo — Afaan Oromoo
+134. Pangasinan — Salitan Pangasinan
+135. Pashto — پښتو
+136. Polish — Polski
+137. Portuguese — Português
+138. Quechua — Runa Simi
+139. Romanian — Română
+140. Russian — Русский
+141. Sakha — Саха тыла
+142. Samoan — Gagana Sāmoa
+143. Santali — ᱥᱟᱱᱛᱟᱲᱤ (Santali)
+144. Saraiki — سرائیکی
+145. Scottish Gaelic — Gàidhlig
+146. Sepedi — Sepedi
+147. Serbo-Croatian — Српскохрватски / Srpskohrvatski
+148. Sgaw Karen — ကညီကျိာ်
+149. Shan — ၽႃႇသႃႇတႆး
+150. Shona — chiShona
+151. Sicilian — Sicilianu
+152. Sindhi — سنڌي
+153. Sinhala — සිංහල
+154. Slovak — Slovenčina
+155. Slovenian — Slovenščina
+156. Somali — Af-Soomaali
+157. Sotho — Sesotho
+158. Spanish — Español
+159. Sundanese — Basa Sunda
+160. Susu — Sosoxui
+161. Swahili — Kiswahili
+162. Swati — siSwati
+163. Swedish — Svenska
+164. Sylheti — ꠍꠤꠟꠐꠤ (সিলেটি)
+165. Tagalog — Tagalog
+166. Tahitian — Reo Tahiti
+167. Tajik — Тоҷикӣ
+168. Tamil — தமிழ்
+169. Tatar — Татар теле
+170. Telugu — తెలుగు
+171. Tetum — Tetun
+172. Thai — ภาษาไทย
+173. Tibetan — བོད་སྐད་
+174. Tigre — ትግረ  — [!] contains an UNVERIFIED section (needs human review)
+175. Tigrinya — ትግርኛ
+176. Tok Pisin — Tok Pisin
+177. Tongan — Lea faka-Tonga
+178. Tshiluba — Cilubà
+179. Tsonga — Xitsonga
+180. Tswana — Setswana
+181. Tulu — ತುಳು
+182. Tumbuka — Chitumbuka
+183. Tunisian Arabic — تونسي
+184. Turkish — Türkçe
+185. Turkmen — Türkmençe
+186. Ukrainian — Українська
+187. Umbundu — Umbundu  — [!] contains an UNVERIFIED section (needs human review)
+188. Upper Sorbian — Hornjoserbšćina
+189. Urdu — اردو
+190. Uyghur — ئۇيغۇر تىلى
+191. Uzbek — Oʻzbekcha
+192. Venda — Tshivenḓa
+193. Vietnamese — Tiếng Việt
+194. Waray — Winaray
+195. Welsh — Cymraeg
+196. Western Punjabi — پنجابی
+197. Wolof — Wolof
+198. Wu Chinese — 吳語 (上海話)
+199. Xhosa — isiXhosa
+200. Yiddish — ייִדיש
+201. Yoruba — Èdè Yorùbá
+202. Yucatec Maya — Màayaʼ tʼàan
+203. Zambian Tonga — Chitonga
+204. Zhuang — Vahcuengh
+205. Zulu — isiZulu
 
 ## Notes
 

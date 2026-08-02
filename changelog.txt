@@ -3,6 +3,15 @@ Changelog
 
 Unreleased
 ----------
+- Batch 3 begins (5 of 100): Eastern Punjabi, Haryanvi, Central Kurdish,
+  Tunisian Arabic and Susu. Selection is by speaker count within the set of
+  languages that have a published New Testament, since Ethnologue publishes a
+  ranking only to position 200. Each text is reproduced verbatim from its
+  published edition via eBible.org and carries a [Verified from ...] line.
+- README: record the two line-structure conventions now in the corpus, and why
+  batch 3's selection criterion differs from batches 1 and 2.
+- validate.py: accept an in-progress language count in README ("**N languages")
+  rather than requiring the word "complete".
 - Add validate.py: checks the corpus format and regenerates the derived regions
   of prayer/INDEX.md (language list, count, review-flag markers). Verified by
   reproducing the hand-built index byte-for-byte on the pre-change tree.

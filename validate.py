@@ -39,7 +39,7 @@ SECTION_RE = re.compile(r"^===.*===$")
 LANGUAGES_HEADING_RE = re.compile(r"^## Languages \((\d+)\)$")
 NEXT_HEADING_RE = re.compile(r"^## ")
 CURRENTLY_RE = re.compile(r"(?<=Currently: )[^.]*(?=\.)")
-README_TOTAL_RE = re.compile(r"\*\*(\d+) languages complete\.\*\*")
+README_TOTAL_RE = re.compile(r"\*\*(\d+) languages\b")
 README_FLAGGED_RE = re.compile(r"these are (\d+):")
 
 
@@ -367,7 +367,7 @@ def check_readme(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> N
 
     total = README_TOTAL_RE.search(text)
     if total is None:
-        report.error(where, "no '**N languages complete.**' claim found")
+        report.error(where, "no '**N languages ...**' count claim found")
     elif int(total.group(1)) != len(corpus):
         report.error(where, f"claims {total.group(1)} languages, corpus has {len(corpus)}")
 
