@@ -1,6 +1,6 @@
 # The Lord's Prayer in Every Language
 
-A growing collection of the Lord's Prayer translated into every language — living and dead. Each language has a plain-text file containing the language's own name (endonym) and two renderings of the prayer.
+A growing collection of the Lord's Prayer translated into every language — living and dead. Each language has a plain-text file containing the language's own name (autonym) and two renderings of the prayer.
 
 ## Repository layout
 
@@ -8,7 +8,7 @@ A growing collection of the Lord's Prayer translated into every language — liv
 .
 ├── README.md          ← this file
 └── prayer/            ← one file per language
-    ├── INDEX.md       ← index of every language included, with endonyms and review flags
+    ├── INDEX.md       ← index of every language, with autonyms and review flags
     ├── English.txt
     ├── Spanish.txt
     ├── Mandarin Chinese.txt
@@ -52,7 +52,7 @@ For thine is the Kingdom, Power and Glory, now and forever. Amen.
 
 ## Coverage
 
-**702 languages.**
+**1,171 languages** — 723 with a recorded autonym, 448 where no consulted source records one.
 
 - **Batch 1 — complete:** the 100 most-spoken living languages (e.g. Mandarin, Spanish, Hindi, Arabic, Russian, Swahili).
 - **Batch 2 — complete:** the next 100 living languages by speakers, folding in major languages such as Odia, Uzbek, Saraiki, Zhuang, and Tibetan; iconic ones including Hebrew and Aramaic/Syriac (the Peshitta text); and a wide spread of European-minority, Southeast Asian, Pacific, African, and Indigenous American languages.
@@ -61,28 +61,24 @@ For thine is the Kingdom, Power and Glory, now and forever. Amen.
 - **Batch 5 — complete:** 213 further living languages. The limit on batches 3 and 4 was never the supply of translations but the supply of *endonyms*: a file cannot be written if line 1 would be a guess. Harvesting autonyms from Wikipedia's language infoboxes raised coverage from 222 languages to 478 and unlocked this batch.
 - **Batch 6 — complete:** 85 languages whose editions print the prayer as running prose, with no poetry markers to separate the narrative introduction of verse 9 from the prayer. These are handled the way Malayalam was: the content of Matthew 6:9 is fixed across translations — 9a is the introduction, 9b begins the prayer — so where the edition prints an explicit boundary there, that boundary is the split. Only a colon or opening quotation mark counts, the introduction must be short and the remainder substantial, and each file records where the cut was made. 38 candidates that printed no such boundary were left alone.
 - **Batch 7 — complete:** 12 languages recovered from an over-strict filter. Batch 5 rejected any file whose endonym matched its English name, on the reasoning that a true autonym rarely equals the exonym. That holds for a name carrying an English qualifier (*Central Cagayan Agta*) but not for a single-word name like *Tem* or *Warlpiri*, where the autonym genuinely is the name.
+- **Batch 8 — complete:** 469 further living languages. These were previously blocked for one reason only: no source records what their speakers call the language. Their prayer text was always as well sourced as anything in the corpus. `[autonym not recorded]` removes the need to guess line 1, so the block no longer applies — nothing is invented, the absence is stated.
 - **Planned:** historical and dead languages.
 
-### Why the living-language batches stop at 702
+### What is still missing, and why
 
-1,225 languages in the [eBible.org](https://ebible.org) catalogue have a published New Testament. 702 are in this corpus. The 603 that are not are blocked for reasons that are recorded rather than glossed over, because the binding constraint is not translations — it is **endonyms**. A file cannot be written if line 1 would be a guess.
+1,225 languages in the [eBible.org](https://ebible.org) catalogue have a published New Testament, and 1,171 of them are here. Earlier batches stopped well short of that because a language was excluded whenever line 1 would have been a guess. That was the right instinct and the wrong remedy: recording the absence is honest, and inventing a name is not, but excluding the language served neither.
+
+The residual gap is no longer about names. It is text-structural:
 
 | Blocked | Why |
 |---:|---|
-| 253 | Has an English Wikipedia article, but the article records no autonym |
-| 155 | The only "autonym" available is an exonym, an English alternative name, or a country name leaked from an infobox field left empty |
-| 143 | No Wikipedia article at all, and no autonym in Wikidata or the catalogue |
-| 34 | The published edition contains no Gospel of Matthew |
-| 11 | The only autonym is written in a different script from the text |
-| 7 | Prose edition printing no explicit boundary between verse 9a and 9b |
+| 89 | The published edition contains no Gospel of Matthew — often a partial translation covering only Luke and John |
+| 32 | The edition prints the prayer as running prose with no explicit boundary between verse 9a and 9b, so the narrative introduction cannot be separated without guessing at a clause boundary |
+| a few | Transient fetch failures, retried |
 
-Sources tried for autonyms: Wikidata's native-name property, Wikidata labels written in the language itself, English Wikipedia's `Infobox language`, the eBible catalogue's own autonym field, Glottolog and ScriptureEarth. The last two carry reference names and undifferentiated lists of alternative names — Kalagan is listed as "Kaagan, Kalagan, Minuslim, Kinalagan, Isamal, Lupon" with no indication which the speakers use — so neither can settle an endonym.
+Those 32 are workable by hand, exactly as Malayalam was: read the verse, find the boundary the edition itself prints, cut there. They are slow rather than impossible, and they tend to produce the best files in the corpus.
 
-Unblocking these needs a source that distinguishes an autonym from an exonym, or a speaker who knows. Both are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-Batches 1 and 2 were selected by speaker count. That criterion could not be continued: Ethnologue publishes a ranking only to position 200, and the deeper data is neither free nor machine-readable. Batch 3 therefore ranks by speakers *within* the set of languages that have a published New Testament — which is also the set for which a verbatim, citable text actually exists.
-
-See `prayer/INDEX.md` for the full current list with endonyms.
+Autonyms remain the largest open invitation. 448 files record none, and every one of them is a question a speaker of that language could answer in a sentence.
 
 ## Sourcing & verification
 

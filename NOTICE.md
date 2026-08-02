@@ -42,7 +42,7 @@ Others are under active copyright, and four files record it inline:
 
 ## Provenance coverage is incomplete
 
-**526 of 702 files record their source in the file itself.** Every file from batches 3 to 7 does, plus 24 of the 200 from batches 1 and 2.
+**995 of 1,171 files record their source in the file itself.** Every file from batches 3 to 8 does, plus 24 of the 200 from batches 1 and 2.
 
 Every file added from batch 3 onward carries a `[Verified from …]` line naming the edition, publisher and year, or an explicit marker saying why it does not.
 
@@ -72,11 +72,13 @@ Identifying the specific liturgy or printing behind each of those files needs a 
 
 Line 1 of a prayer file is normally the language's own name for itself. Where no consulted source records one, line 1 is exactly `[autonym not recorded]` rather than a guess or a fallback to the English name — a fallback would be indistinguishable from a genuine autonym that happens to equal the exonym, and the corpus has several of those (*Warlpiri*, *Oniyan*, *Gikyode*).
 
-**19 files record no autonym.**
+**448 files record no autonym.**
 
 This says nothing about the prayer text in those files, which is sourced and verified exactly as in every other file. Detect it by testing whether line 1 equals that string; more generally, a line-1 value beginning with `[` is an editorial statement, not a name.
 
-A reference name is not an autonym, and neither is an English alternative name, an English geographic qualifier, an SIL inverted form, or a place name. Five files were marked on that basis even though a name was recorded for them: `Kalagan` held *Eastern Kalagan*, `Mapos Buang` held the inverted form *Buang, Central/Mapos*, and `Maybrat` held *Southwest Papua*, an Indonesian province.
+A reference name is not an autonym, and neither is an English alternative name, an English geographic qualifier, an SIL inverted form, or a place name. Five existing files were marked on that basis even though a name was recorded for them: `Kalagan` held *Eastern Kalagan*, `Mapos Buang` held the inverted form *Buang, Central/Mapos*, and `Maybrat` held *Southwest Papua*, an Indonesian province.
+
+A marked file still carries its ISO 639-3 code in its provenance line. That matters because the filename is otherwise its only name, and the ASCII filename rule strips diacritics — `prayer/Cavinena.txt` would otherwise hold no correct name at all.
 
 If you know one of these languages, supplying its autonym is the single most useful correction you can make.
 

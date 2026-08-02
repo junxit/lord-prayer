@@ -1,0 +1,16 @@
+Ἀρχαία Ἑλληνική
+
+=== Traditional ===
+[Verified from Η Καινή Διαθήκη (grcbyz, ISO 639-3 grc), public domain, Matthew 6:9-13, obtained from eBible.org. Reproduced as printed, including the edition's own line structure.]
+
+Πάτερ ἡμῶν ὁ ἐν τοῖς οὐρανοῖς ·
+ἁγιασθήτω τὸ ὄνομά σου ·
+ἐλθέτω ἡ βασιλεία σου ·
+γενηθήτω τὸ θέλημά σου , ὡς ἐν οὐρανῷ , καὶ ἐπὶ τῆς γῆς ·
+τὸν ἄρτον ἡμῶν τὸν ἐπιούσιον δὸς ἡμῖν σήμερον ·
+καὶ ἄφες ἡμῖν τὰ ὀφειλήματα ἡμῶν , ὡς καὶ ἡμεῖς ἀφίεμεν τοῖς ὀφειλέταις ἡμῶν ·
+καὶ μὴ εἰσενέγκῃς ἡμᾶς εἰς πειρασμόν , ἀλλὰ ῥῦσαι ἡμᾶς ἀπὸ τοῦ πονηροῦ .
+ὅτι σοῦ ἐστιν ἡ βασιλεία καὶ ἡ δύναμις καὶ ἡ δόξα εἰς τοὺς αἰῶνας · ἀμήν .
+
+=== Literal (mirrors the canonical English) ===
+Same as the Traditional form above.

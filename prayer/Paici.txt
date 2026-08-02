@@ -1,0 +1,13 @@
+[autonym not recorded]
+
+=== Traditional ===
+[Verified from Tii Pwicîri: Âmu Aamwari naa na cî (priNT, ISO 639-3 pri), © 2012 Wycliffe Bible Translators, Inc., Matthew 6:9-13, obtained from eBible.org. This edition prints the prayer as running prose; the narrative introduction to verse 9 has been removed at the boundary the edition itself prints, and the verses are set one per line. No other change was made.]
+
+“Pwi Caa kâbà na wânidò napwéretòotù; Wâdé naa papwicîri ê neegà.
+Wâdé naa pacoo ê Mwaciri'gà. Wâdé naa pwa câbawâdé'gà naani gòropuu, ma pwacèwii naanidò napwéretòotù.
+Gà naa tâbà cè utimuru cèna pâribà na diri pâ tòotù.
+Gà pwanauri pâ èpà kâbà, pwacèwii na bà pwanauri tàra ê pâ èpà kàra.
+Gà cibwaa panuâbà târa tacai. Gà upabà jii ê èpà. {Ba nye tâa tâgà ê Mwaciri, ma pàtàmee, ma pwényuâa, dàra gòiri awé. Amen.}”
+
+=== Literal (mirrors the canonical English) ===
+Same as the Traditional form above.

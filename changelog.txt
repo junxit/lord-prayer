@@ -3,6 +3,17 @@ Changelog
 
 Unreleased
 ----------
+- Batch 8: 469 living languages, taking the corpus from 702 to 1,171. These were
+  blocked for one reason only - no source records what their speakers call the
+  language - while their prayer text was as well sourced as anything here. The
+  autonym marker removes the need to guess line 1, so the block no longer applies.
+  448 of the corpus now carry the marker; per-file provenance reaches 995 of 1,171.
+  Exclusion is by ISO 639-3 code wherever one can be resolved, not by name: name
+  matching alone had already admitted duplicates twice. No duplicate codes remain
+  across the 469 files carrying one.
+  Still missing, and no longer for want of names: 89 editions contain no Gospel of
+  Matthew, and 32 print the prayer as prose with no explicit 9a/9b boundary. The
+  latter are workable by hand as Malayalam was.
 - Commit scripts/generate_prayer.py. Every batch from 3 to 7 was produced by code
   that no longer existed, which is why the README's blocked-language table could
   not be re-derived. The script merges the two extraction paths (USFM poetry
