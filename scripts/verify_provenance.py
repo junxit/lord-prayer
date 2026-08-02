@@ -281,6 +281,15 @@ def provenance_line(row: dict) -> str:
     )
 
 
+def prayer_files() -> list[Path]:
+    """List every prayer file, in a shard directory or directly in prayer/.
+
+    Returns:
+        Paths, sorted by filename stem.
+    """
+    return sorted(PRAYER_DIR.glob("**/*.txt"), key=lambda p: p.stem)
+
+
 def main() -> int:
     """Verify the requested files and, with --apply, record confirmed sources."""
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -288,18 +297,19 @@ def main() -> int:
     parser.add_argument("--apply", action="store_true", help="write provenance lines for exact matches")
     args = parser.parse_args()
 
+    by_stem = {p.stem: p for p in prayer_files()}
     if args.languages:
-        targets = [PRAYER_DIR / f"{name}.txt" for name in args.languages]
-        missing = [p for p in targets if not p.exists()]
-        if missing:
-            print(f"no such file: {', '.join(p.name for p in missing)}", file=sys.stderr)
+        unknown = [n for n in args.languages if n not in by_stem]
+        if unknown:
+            print(f"no such language: {', '.join(unknown)}", file=sys.stderr)
             return 1
+        targets = [by_stem[n] for n in args.languages]
     else:
-        targets = [
-            p for p in sorted(PRAYER_DIR.glob("*.txt"))
-            if "[Verified" not in p.read_text(encoding="utf-8")
-            and "(Source:" not in p.read_text(encoding="utf-8")
-        ]
+        targets = []
+        for path in prayer_files():
+            text = path.read_text(encoding="utf-8")
+            if "[Verified" not in text and "(Source:" not in text:
+                targets.append(path)
 
     index = catalogue()
     jobs = [(p, row) for p in targets for row in index.get(normalise(p.stem), [])]

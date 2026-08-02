@@ -3,6 +3,14 @@ Changelog
 
 Unreleased
 ----------
+- Prepare prayer/ for sharding. GitHub truncates a directory listing at 1,000
+  entries; the web UI says so, but the Contents API does not - it returns the
+  first 1,000 with HTTP 200, no truncation flag, and ignores ?page=2, handing a
+  consumer 85% of the corpus with no indication anything is missing.
+  validate.py, generate_prayer.py and verify_provenance.py now accept a file
+  either directly in prayer/ or inside a shard directory, so this change is inert
+  against the current tree. INDEX.md entries become percent-encoded links, since
+  the index is now the only complete listing of the corpus.
 - Batch 8: 469 living languages, taking the corpus from 702 to 1,171. These were
   blocked for one reason only - no source records what their speakers call the
   language - while their prayer text was as well sourced as anything here. The

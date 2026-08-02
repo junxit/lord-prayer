@@ -40,6 +40,7 @@ import io
 import json
 import re
 import sys
+import unicodedata
 import urllib.request
 import zipfile
 from concurrent.futures import ThreadPoolExecutor
@@ -47,6 +48,8 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 PRAYER_DIR = REPO / "prayer"
+
+
 UA = "lord-prayer-corpus/1.0 (+https://github.com/junxit/lord-prayer)"
 AUTONYM_MARKER = "[autonym not recorded]"
 
@@ -57,6 +60,46 @@ MIN_REMAINDER_WORDS = 3
 
 POETRY, PROSE_BOUNDARY, PROSE_NO_BOUNDARY, NO_MATTHEW, FETCH_FAIL = (
     "POETRY", "PROSE_BOUNDARY", "PROSE_NO_BOUNDARY", "NO_MATTHEW", "FETCH_FAIL")
+
+
+def prayer_files() -> list[Path]:
+    """List every prayer file, in a shard directory or directly in prayer/.
+
+    Returns:
+        Paths, sorted by filename stem.
+    """
+    return sorted(PRAYER_DIR.glob("**/*.txt"), key=lambda p: p.stem)
+
+
+def target_path(english: str) -> Path:
+    """Decide where a language's file belongs.
+
+    An existing file keeps its place, so regenerating never leaves a second copy in
+    another shard -- the corpus is keyed by filename stem, and a duplicate would
+    silently displace the original. A new language goes into the shard its name
+    selects, or directly into prayer/ while the corpus is still flat.
+
+    Args:
+        english: The language's English name.
+
+    Returns:
+        The path to write.
+    """
+    for path in prayer_files():
+        if path.stem == english:
+            return path
+    shards = sorted(d.name for d in PRAYER_DIR.iterdir()
+                    if d.is_dir() and re.match(r"^[a-z]-[a-z]$", d.name))
+    if not shards:
+        return PRAYER_DIR / f"{english}.txt"
+    key = unicodedata.normalize("NFD", english).lower()
+    key = re.sub(r"^[^a-z]+", "", "".join(c for c in key if not unicodedata.combining(c)))
+    lows = [s.split("-")[0] for s in shards]
+    uppers = lows[1:] + ["{"]
+    for name, low, high in zip(shards, lows, uppers):
+        if key and low <= key[0] < high:
+            return PRAYER_DIR / name / f"{english}.txt"
+    return PRAYER_DIR / shards[-1] / f"{english}.txt"
 
 
 def fetch(url: str) -> bytes:
@@ -241,7 +284,7 @@ def calibrate() -> int:
         Process exit code.
     """
     cases = []
-    for path in sorted(PRAYER_DIR.glob("*.txt")):
+    for path in prayer_files():
         text = path.read_text(encoding="utf-8")
         # Only this script's own output records an extraction path. Files backfilled
         # by verify_provenance.py were collated rather than generated, and composed
@@ -292,7 +335,7 @@ def main() -> int:
     for record, verdict, lines, detail in results:
         tally[verdict] = tally.get(verdict, 0) + 1
         if lines and not args.census:
-            (PRAYER_DIR / f"{record['english']}.txt").write_text(
+            target_path(record["english"]).write_text(
                 build(record, verdict, lines), encoding="utf-8")
             written += 1
         if verdict in (PROSE_NO_BOUNDARY, NO_MATTHEW, FETCH_FAIL) and args.census:

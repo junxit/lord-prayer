@@ -21,7 +21,9 @@ import argparse
 import re
 import sys
 import unicodedata
+import urllib.parse
 from pathlib import Path
+from typing import NamedTuple
 
 REPO = Path(__file__).resolve().parent
 PRAYER_DIR = REPO / "prayer"
@@ -56,6 +58,30 @@ NOTICE_PROVENANCE_RE = re.compile(
 NOTICE_AUTONYM_RE = re.compile(r"\*\*([\d,]+) files record no autonym\.\*\*")
 
 
+# Prayer files live in letter-range shard directories -- prayer/a-h/, prayer/i-o/ --
+# because GitHub truncates a directory listing at 1,000 entries. The web UI says so;
+# the Contents API does not: it returns the first 1,000 with HTTP 200, no truncation
+# flag, and ignores ?page=2. Sharding turns that silent failure into an obvious one.
+#
+# The directory names ARE the manifest. Boundaries are frozen data in the tree, not
+# recomputed here: rebalancing on every change would rename every folder each time the
+# shard count changed, moving the whole corpus. Placement stays fully verifiable
+# because it is a pure function of a filename and the committed boundaries.
+SHARD_RE = re.compile(r"^([a-z])-([a-z])$")
+SHARD_WARN_AT = 800
+SHARD_HARD_CAP = 1000   # GitHub's per-directory limit
+INDEX_ENTRY_RE = re.compile(r"^\s*\d+\. \[(?P<name>[^\]]+)\]\((?P<href>\S+)\) — ")
+
+
+class Entry(NamedTuple):
+    """One language's facts, every one of them derived from its own file."""
+
+    autonym: str
+    flagged: bool
+    has_provenance: bool
+    shard: str   # "" while the corpus is still flat; otherwise the directory name
+
+
 def count(text: str) -> int:
     """Parse a documented count, tolerating thousands separators.
 
@@ -66,6 +92,63 @@ def count(text: str) -> int:
         The integer value.
     """
     return int(text.replace(",", ""))
+
+
+def shard_key(stem: str) -> str:
+    """Fold a filename stem to the key that decides its shard.
+
+    Lowercasing must precede stripping. Stripping first removes the initial capital
+    of every name -- "Ashaninka" would become "shaninka" and file under s.
+
+    Args:
+        stem: A filename stem, e.g. "'Auhelawa".
+
+    Returns:
+        The shard key, e.g. "auhelawa". Empty if the stem has no ASCII letters.
+    """
+    text = unicodedata.normalize("NFD", stem).lower()
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    return re.sub(r"^[^a-z]+", "", text)
+
+
+def shard_bounds(names: list[str]) -> list[tuple[str, str, str]]:
+    """Turn shard directory names into ordered lower bounds.
+
+    Membership is decided by lower bound alone: shard i owns keys k where
+    lo_i <= k < lo_i+1. The upper letter in a directory name is derived and
+    decorative, which is what makes the ranges contiguous and exhaustive by
+    construction, and gives a home to letters no language currently starts with.
+
+    Args:
+        names: Shard directory names, e.g. ["a-h", "i-o", "p-z"].
+
+    Returns:
+        Tuples of (name, lower bound, exclusive upper bound), in order. The final
+        upper bound is "{" -- the codepoint after "z".
+    """
+    ordered = sorted(names, key=lambda n: n.split("-")[0])
+    lows = [n.split("-")[0] for n in ordered]
+    uppers = lows[1:] + ["{"]
+    return list(zip(ordered, lows, uppers))
+
+
+def shard_for(stem: str, bounds: list[tuple[str, str, str]]) -> str | None:
+    """Find the shard a filename belongs in.
+
+    Args:
+        stem: A filename stem.
+        bounds: The output of :func:`shard_bounds`.
+
+    Returns:
+        The shard directory name, or None if the stem has no usable key.
+    """
+    key = shard_key(stem)
+    if not key:
+        return None
+    for name, low, high in bounds:
+        if low <= key[0] < high:
+            return name
+    return bounds[-1][0] if bounds else None
 
 
 class Report:
@@ -170,7 +253,7 @@ def paragraphs(block: str) -> list[str]:
     return [part for part in re.split(r"\n\s*\n", block.strip()) if part.strip()]
 
 
-def check_prayer_file(path: Path, report: Report) -> tuple[str, bool, bool] | None:
+def check_prayer_file(path: Path, report: Report) -> Entry | None:
     """Validate one ``prayer/<Language>.txt`` file against the corpus format.
 
     The format is fixed: line 1 is the autonym, line 2 is blank, line 3 is the
@@ -188,8 +271,8 @@ def check_prayer_file(path: Path, report: Report) -> tuple[str, bool, bool] | No
         report: Report to record findings in.
 
     Returns:
-        A tuple of (autonym, is_flagged, has_provenance), or None if the file is
-        malformed enough that the index cannot be built from it.
+        The language's Entry, or None if the file is malformed enough that the
+        index cannot be built from it.
     """
     where = rel(path)
     stem = path.stem
@@ -251,24 +334,35 @@ def check_prayer_file(path: Path, report: Report) -> tuple[str, bool, bool] | No
                 report.warn(where, f"line {number} flag is not in canonical '{CANONICAL_FLAG_PREFIX}...]' form")
     has_provenance = any(token in text for token in PROVENANCE_TOKENS)
 
-    return autonym, flagged, has_provenance
+    shard = path.parent.name if path.parent != PRAYER_DIR else ""
+    return Entry(autonym, flagged, has_provenance, shard)
 
 
-def index_line(ordinal: int, name: str, autonym: str, flagged: bool) -> str:
+def index_line(ordinal: int, name: str, entry: Entry) -> str:
     """Build the canonical INDEX.md entry line for one language.
+
+    The name is a link, because the index is the only complete listing of the corpus
+    -- no directory view shows every language once the corpus passes 1,000 files.
+    The target is percent-encoded: an unencoded space makes Markdown render the whole
+    thing as literal text rather than a link.
+
+    A trailing AUTONYM_MARKER is safe here. An unmatched ``[...]`` is a shortcut
+    reference, and with no matching definition anywhere in INDEX.md it falls back to
+    literal text -- which is already how several hundred entries render.
 
     Args:
         ordinal: 1-based position in the sorted list.
         name: English language name (the filename stem).
-        autonym: The language's own name, taken from line 1 of its file. May be
-            AUTONYM_MARKER where no source records one.
-        flagged: Whether the file contains an ``[UNVERIFIED`` marker.
+        entry: The language's facts, including the shard its file sits in.
 
     Returns:
         The entry line, without a trailing newline.
     """
-    line = f"{ordinal:3d}. {name} — {autonym}"
-    return line + FLAG_SUFFIX if flagged else line
+    href = urllib.parse.quote(f"{name}.txt", safe="")
+    if entry.shard:
+        href = f"{entry.shard}/{href}"
+    line = f"{ordinal:3d}. [{name}]({href}) — {entry.autonym}"
+    return line + FLAG_SUFFIX if entry.flagged else line
 
 
 def locate_index_regions(lines: list[str], report: Report) -> tuple[int, int, int] | None:
@@ -299,12 +393,12 @@ def locate_index_regions(lines: list[str], report: Report) -> tuple[int, int, in
     return heading, end, currently
 
 
-def build_index_regions(lines: list[str], corpus: dict[str, tuple[str, bool, bool]]) -> list[str]:
+def build_index_regions(lines: list[str], corpus: dict[str, Entry]) -> list[str]:
     """Return INDEX.md's lines with the three generated regions rewritten.
 
     Args:
         lines: INDEX.md split into lines.
-        corpus: Mapping of English name to (autonym, flagged, has_provenance).
+        corpus: Mapping of English name to its Entry.
 
     Returns:
         The rewritten lines. Everything outside the three regions is preserved.
@@ -320,10 +414,10 @@ def build_index_regions(lines: list[str], corpus: dict[str, tuple[str, bool, boo
 
     names = sorted(corpus)
     entries = [
-        index_line(ordinal, name, corpus[name][0], corpus[name][1])
+        index_line(ordinal, name, corpus[name])
         for ordinal, name in enumerate(names, start=1)
     ]
-    flagged = ", ".join(name for name in names if corpus[name][1])
+    flagged = ", ".join(name for name in names if corpus[name].flagged)
 
     rebuilt = list(lines)
     rebuilt[heading] = f"## Languages ({len(names)})"
@@ -333,11 +427,11 @@ def build_index_regions(lines: list[str], corpus: dict[str, tuple[str, bool, boo
     return rebuilt
 
 
-def check_index(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> None:
+def check_index(corpus: dict[str, Entry], report: Report) -> None:
     """Validate INDEX.md against the corpus on disk.
 
     Args:
-        corpus: Mapping of English name to (autonym, flagged, has_provenance).
+        corpus: Mapping of English name to its Entry.
         report: Report to record findings in.
     """
     where = rel(INDEX_PATH)
@@ -360,9 +454,9 @@ def check_index(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> No
 
     heading, end, _ = located
     listed = {
-        line.split(" — ", 1)[0].split(". ", 1)[1]
+        match["name"]
         for line in lines[heading + 1 : end]
-        if ". " in line and " — " in line
+        if (match := INDEX_ENTRY_RE.match(line))
     }
     missing = sorted(set(corpus) - listed)
     orphans = sorted(listed - set(corpus))
@@ -379,14 +473,14 @@ def check_index(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> No
             report.error(where, f"has {len(lines)} lines, expected {len(expected)}")
 
 
-def check_readme(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> None:
+def check_readme(corpus: dict[str, Entry], report: Report) -> None:
     """Validate the counts and flagged-language names stated in README.md.
 
     README.md is checked but never rewritten: its per-batch grouping of flagged
     languages is editorial and cannot be derived from the corpus.
 
     Args:
-        corpus: Mapping of English name to (autonym, flagged, has_provenance).
+        corpus: Mapping of English name to its Entry.
         report: Report to record findings in.
     """
     where = rel(README_PATH)
@@ -396,7 +490,7 @@ def check_readme(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> N
         return
     check_whitespace(text, where, report)
 
-    flagged = sorted(name for name, (_, is_flagged, _) in corpus.items() if is_flagged)
+    flagged = sorted(name for name, e in corpus.items() if e.flagged)
 
     total = README_TOTAL_RE.search(text)
     if total is None:
@@ -418,7 +512,7 @@ def check_readme(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> N
             report.error(where, f"does not mention unverified language {name}")
 
 
-def check_notice(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> None:
+def check_notice(corpus: dict[str, Entry], report: Report) -> None:
     """Validate the coverage figures stated in NOTICE.md.
 
     NOTICE.md is the document a rights holder reads, and it publishes provenance and
@@ -426,7 +520,7 @@ def check_notice(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> N
     the corpus indefinitely.
 
     Args:
-        corpus: Mapping of English name to (autonym, flagged, has_provenance).
+        corpus: Mapping of English name to its Entry.
         report: Report to record findings in.
     """
     where = rel(NOTICE_PATH)
@@ -436,8 +530,8 @@ def check_notice(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> N
         return
     check_whitespace(text, where, report)
 
-    sourced = sum(1 for _, _, has_provenance in corpus.values() if has_provenance)
-    unnamed = sum(1 for autonym, _, _ in corpus.values() if autonym == AUTONYM_MARKER)
+    sourced = sum(1 for e in corpus.values() if e.has_provenance)
+    unnamed = sum(1 for e in corpus.values() if e.autonym == AUTONYM_MARKER)
 
     claim = NOTICE_PROVENANCE_RE.search(text)
     if claim is None:
@@ -459,22 +553,152 @@ def check_notice(corpus: dict[str, tuple[str, bool, bool]], report: Report) -> N
         )
 
 
-def load_corpus(report: Report) -> dict[str, tuple[str, bool, bool]]:
+def prayer_files() -> list[Path]:
+    """List every prayer file, wherever it sits.
+
+    Both layouts are accepted while the corpus is being migrated into shards: a file
+    directly in ``prayer/`` and a file inside a shard directory are equally valid.
+
+    Returns:
+        Paths, sorted by filename stem so the index order does not depend on layout.
+    """
+    return sorted(PRAYER_DIR.glob("**/*.txt"), key=lambda p: p.stem)
+
+
+def load_corpus(report: Report) -> dict[str, Entry]:
     """Read and validate every prayer file.
+
+    A stem appearing in more than one place is an error rather than a silent
+    overwrite: the corpus is keyed by stem, so a second copy would displace the first
+    and make every published count quietly wrong.
 
     Args:
         report: Report to record findings in.
 
     Returns:
-        Mapping of English name to (autonym, flagged, has_provenance) for each file
-        that parsed successfully.
+        Mapping of English name to its Entry, for each file that parsed successfully.
     """
-    corpus: dict[str, tuple[str, bool, bool]] = {}
-    for path in sorted(PRAYER_DIR.glob("*.txt")):
+    seen: dict[str, list[Path]] = {}
+    for path in prayer_files():
+        seen.setdefault(path.stem, []).append(path)
+    for stem, paths in sorted(seen.items()):
+        if len(paths) > 1:
+            report.error(rel(paths[0]), f"{stem} also exists at " +
+                         ", ".join(rel(p) for p in paths[1:]))
+
+    corpus: dict[str, Entry] = {}
+    for path in prayer_files():
         parsed = check_prayer_file(path, report)
         if parsed is not None:
             corpus[path.stem] = parsed
     return corpus
+
+
+def check_shards(report: Report) -> None:
+    """Check the shard layout, where the corpus has been sharded.
+
+    Verifies only what the committed directory names claim: that each is a valid
+    range, that every file sits in the shard its name selects, and that no shard is
+    near GitHub's per-directory limit. Boundaries are not recomputed -- they are
+    frozen data, and rebalancing them on every change would move the whole corpus
+    each time the shard count changed.
+
+    Args:
+        report: Report to record findings in.
+    """
+    where = rel(PRAYER_DIR)
+    directories = sorted(p for p in PRAYER_DIR.iterdir() if p.is_dir())
+    if not directories:
+        return   # still flat; nothing to check
+
+    bad = [d.name for d in directories if not SHARD_RE.match(d.name)]
+    if bad:
+        report.error(where, f"subdirectories are not valid shard ranges: {', '.join(bad)}")
+        return
+
+    bounds = shard_bounds([d.name for d in directories])
+    if bounds[0][1] != "a":
+        report.error(where, f"the first shard must start at 'a', not {bounds[0][1]!r}")
+    for name, low, high in bounds:
+        derived = "z" if high == "{" else chr(ord(high) - 1)
+        if name != f"{low}-{derived}":
+            report.error(where, f"shard {name!r} should be named {low}-{derived!r} "
+                                f"-- the upper letter is derived from the next shard")
+
+    for path in prayer_files():
+        if path.parent == PRAYER_DIR:
+            continue
+        want = shard_for(path.stem, bounds)
+        if want and path.parent.name != want:
+            report.error(rel(path), f"belongs in shard {want}, not {path.parent.name}")
+
+    for directory in directories:
+        n = len(list(directory.glob("*.txt")))
+        if n >= SHARD_HARD_CAP:
+            report.error(rel(directory), f"holds {n} files, at or over GitHub's "
+                                         f"{SHARD_HARD_CAP}-entry directory limit")
+        elif n > SHARD_WARN_AT:
+            report.warn(rel(directory), f"holds {n} files; reshard before {SHARD_HARD_CAP}")
+
+
+def plan_shards(stems: list[str], target: int = 400) -> list[tuple[str, str]]:
+    """Compute a fresh, balanced shard layout for a set of filenames.
+
+    Used only by ``--reshard``, which is a deliberate and rare operation. The layout
+    is the minimax contiguous partition of the letter histogram: binary-search the
+    smallest capacity that fits the target number of shards, then pack greedily.
+
+    Args:
+        stems: Every filename stem in the corpus.
+        target: Preferred files per shard; sets how many shards are aimed for.
+
+    Returns:
+        Tuples of (shard name, lower bound), in order.
+
+    Raises:
+        SystemExit: If one letter alone reaches the hard cap, which the single-letter
+            scheme cannot express and which needs a human decision, not a fallback.
+    """
+    histogram: dict[str, int] = {}
+    for stem in stems:
+        key = shard_key(stem)
+        histogram[key[0]] = histogram.get(key[0], 0) + 1
+    letters = sorted(histogram)
+    sizes = [histogram[letter] for letter in letters]
+    if max(sizes) >= SHARD_HARD_CAP:
+        worst = letters[sizes.index(max(sizes))]
+        raise SystemExit(
+            f"letter {worst!r} alone has {max(sizes)} files, at or over the "
+            f"{SHARD_HARD_CAP}-entry limit. The single-letter shard scheme is "
+            f"exhausted; this needs a deliberate redesign, not an automatic fallback."
+        )
+
+    wanted = max(1, -(-sum(sizes) // target))
+
+    def bins(cap: int) -> int:
+        used, current = 1, 0
+        for size in sizes:
+            if current and current + size > cap:
+                used, current = used + 1, 0
+            current += size
+        return used
+
+    low, high = max(sizes), sum(sizes)
+    while low < high:
+        middle = (low + high) // 2
+        if bins(middle) <= wanted:
+            high = middle
+        else:
+            low = middle + 1
+
+    starts, current = [letters[0]], 0
+    for letter, size in zip(letters, sizes):
+        if current and current + size > low:
+            starts.append(letter)
+            current = 0
+        current += size
+    uppers = starts[1:] + ["{"]
+    return [(f"{s}-{'z' if u == '{' else chr(ord(u) - 1)}", s) for s, u in zip(starts, uppers)]
 
 
 def main() -> int:
@@ -489,6 +713,11 @@ def main() -> int:
         action="store_true",
         help="rewrite the generated regions of prayer/INDEX.md and exit",
     )
+    parser.add_argument(
+        "--reshard",
+        action="store_true",
+        help="recompute the shard layout and move every file into it, then exit",
+    )
     args = parser.parse_args()
 
     report = Report()
@@ -496,6 +725,34 @@ def main() -> int:
     if not corpus:
         print("error: no prayer files found", file=sys.stderr)
         return 1
+
+    if args.reshard:
+        if report.errors:
+            for error in report.errors:
+                print(f"error: {error}", file=sys.stderr)
+            print("\nrefusing to reshard: fix the errors above first", file=sys.stderr)
+            return 1
+        layout = plan_shards(sorted(corpus))
+        bounds = shard_bounds([name for name, _ in layout])
+        for name, _ in layout:
+            (PRAYER_DIR / name).mkdir(exist_ok=True)
+        moved = 0
+        for path in prayer_files():
+            want = shard_for(path.stem, bounds)
+            destination = PRAYER_DIR / want / path.name
+            if path != destination:
+                path.rename(destination)
+                moved += 1
+        for directory in sorted(p for p in PRAYER_DIR.iterdir() if p.is_dir()):
+            if not any(directory.iterdir()):
+                directory.rmdir()
+        lines = INDEX_PATH.read_text(encoding="utf-8").split("\n")
+        INDEX_PATH.write_text(
+            "\n".join(build_index_regions(lines, load_corpus(Report()))), encoding="utf-8")
+        print(f"moved {moved} files into {len(layout)} shards: "
+              f"{', '.join(name for name, _ in layout)}")
+        print("now run: git add -A")
+        return 0
 
     if args.write_index:
         lines = INDEX_PATH.read_text(encoding="utf-8").split("\n")
@@ -508,6 +765,7 @@ def main() -> int:
         print(f"wrote {rel(INDEX_PATH)} ({len(corpus)} languages)")
         return 0
 
+    check_shards(report)
     check_index(corpus, report)
     check_readme(corpus, report)
     check_notice(corpus, report)
@@ -519,9 +777,9 @@ def main() -> int:
         print(f"error: {error}", file=sys.stderr)
     sys.stderr.flush()
 
-    flagged = sorted(name for name, (_, is_flagged, _) in corpus.items() if is_flagged)
-    sourced = sum(1 for _, _, has_provenance in corpus.values() if has_provenance)
-    named = sum(1 for autonym, _, _ in corpus.values() if autonym != AUTONYM_MARKER)
+    flagged = sorted(name for name, e in corpus.items() if e.flagged)
+    sourced = sum(1 for e in corpus.values() if e.has_provenance)
+    named = sum(1 for e in corpus.values() if e.autonym != AUTONYM_MARKER)
     print(f"\nlanguages: {len(corpus)}")
     print(f"autonym: {named}/{len(corpus)}")
     print(f"provenance: {sourced}/{len(corpus)}")
