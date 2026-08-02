@@ -1,7 +1,7 @@
 ትግረ
 
 === Traditional ===
-[UNVERIFIED — no established translation confirmed; best-effort, needs human review]
+[UNVERIFIED — no text. The published Tigre wording could not be retrieved and nothing has been composed in its place. See the note below.]
 
 Tigre (ISO 639-3 "tig"; Eritrea/Sudan, Ge'ez script) is a distinct language from Tigrinya (ትግርኛ); no Tigrinya text was substituted here.
 
@@ -12,4 +12,4 @@ http://www.christusrex.org/www1/pater/images/tigre-LP.jpg (1931 Asmara Tigre NT)
 or a page scan of Matthew 6 from the 1988 Kitab Qidus / the 1902-1934 Tigre NT.
 
 === Literal (mirrors the canonical English) ===
-[UNVERIFIED] Not available — see note above.
+[UNVERIFIED — no text; see the note above.]

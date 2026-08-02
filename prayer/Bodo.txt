@@ -1,7 +1,7 @@
 बर'
 
 === Traditional ===
-[UNVERIFIED — no established published translation could be confirmed from any open source; the Boro/Bodo (brx) Bible exists (Bible Society of India, Common Language Version) but its Matthew 6 text is not exposed as readable text on the open web. The text below is a best-effort reconstruction in Devanagari and MUST be reviewed and corrected by a competent Boro speaker before any liturgical use.]
+[UNVERIFIED — composed, not a published translation. A published Boro/Bodo (brx) Bible exists (Bible Society of India, Common Language Version) but its Matthew 6 text is not available as readable text online. The wording below is a best-effort reconstruction in Devanagari; it must be replaced with the published text, and must not be used liturgically until a competent Boro speaker has reviewed it.]
 
 ओ स्वर्गाव थानाय जोंनि आफा,
 नोंथांनि मुं गोसोखौ गावजोरनाय जायोब्ला।
@@ -17,4 +17,4 @@
 दिनैखौ आरो गोबां सान, नोंथांनिल'। आमेन।
 
 === Literal (mirrors the canonical English) ===
-Same as the Traditional form above. [UNVERIFIED — best-effort; needs human review.]
+Same as the Traditional form above. [UNVERIFIED — composed; see the note above.]

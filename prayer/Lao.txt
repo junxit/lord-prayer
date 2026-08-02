@@ -1,7 +1,7 @@
 ພາສາລາວ
 
 === Traditional ===
-[UNVERIFIED — opening line confirmed against MasterAnyLanguage Lao "Our Father" and dominicweb.eu Lao prayers; remaining lines are a best-effort reconstruction in the standard Lao Catholic form and need human review against the printed text. Full source page could not be loaded for character-by-character verification.]
+[UNVERIFIED — partly composed. The opening line is confirmed against MasterAnyLanguage Lao "Our Father" and dominicweb.eu Lao prayers; the remaining lines are a best-effort reconstruction in the standard Lao Catholic form and must be checked against the printed text, which could not be loaded for character-by-character verification.]
 
 ຂ້າແດ່ພຣະບິດາເຈົ້າ ຂອງພວກຂ້ານ້ອຍທັງຫລາຍ ຜູ້ຊົງສະຖິດຢູ່ໃນສະຫວັນ
 ຂໍໃຫ້ພຣະນາມຂອງພຣະອົງເປັນທີ່ສັກສິດ

@@ -1,9 +1,7 @@
 मगही (Magadhi)
 
 === Traditional ===
-[UNVERIFIED — no established translation confirmed; best-effort, needs human review]
-
-NOTE: A genuine published Magahi New Testament DOES exist — "The New Testament in Magahi" (fileset MAGSSI), © 2014 Asian Sahyogi Sanstha India (ASSI), Gorakhpur, in Devanagari script, distributed by Faith Comes By Hearing / Bible.is (https://live.bible.is/bible/MAGSSI/MAT/6). However, its text is locked inside a JavaScript app and a key-gated API and could not be retrieved verbatim through available tools, so the exact published Magahi wording of Matthew 6:9-13 (and whether it includes the doxology) could NOT be confirmed. The text below is a best-effort rendering in the Magahi vernacular, grounded in verified Magahi orthography, and MUST be checked against the actual MAGSSI New Testament before any liturgical or authoritative use.
+[UNVERIFIED — composed, not a published translation. A published Magahi New Testament exists ("The New Testament in Magahi", fileset MAGSSI, © 2014 Asian Sahyogi Sanstha India (ASSI), Gorakhpur, Devanagari script, distributed by Faith Comes By Hearing at https://live.bible.is/bible/MAGSSI/MAT/6), but its text sits behind a JavaScript app and a key-gated API and could not be retrieved. The wording below is a best-effort rendering in the Magahi vernacular, grounded in verified Magahi orthography; it must be replaced with the published MAGSSI text. Whether that edition carries the doxology is also unconfirmed.]
 
 हे हमर बाबूजी, जे सरग में बाड़ऽ,
 तोहर नाम पवित्र मानल जाय।
@@ -13,7 +11,7 @@ NOTE: A genuine published Magahi New Testament DOES exist — "The New Testament
 आउर जइसन हमनी ओकनी के माफ कइलिअइ जे हमनी के खिलाफ कसूर कइलकइ, ओइसने तोहूँ हमनी के कसूर माफ कर।
 आउर हमनी के परीक्षा में मत ले जा, बलुक बुराई से बचा।
 
-[कारन कि राज, सामर्थ आउर महिमा सदा-सरबदा तोहरे के हइ। आमेन।]
+कारन कि राज, सामर्थ आउर महिमा सदा-सरबदा तोहरे के हइ। आमेन।
 
 === Literal (mirrors the canonical English) ===
-Same as the best-effort Traditional form above. [UNVERIFIED — needs human review against the published Magahi (MAGSSI) New Testament.]
+Same as the Traditional form above. [UNVERIFIED — composed; see the note above.]

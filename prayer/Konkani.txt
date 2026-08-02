@@ -1,6 +1,8 @@
 कोंकणी
 
 === Traditional ===
+[UNVERIFIED — the prayer body is the traditional Goan Catholic "Amchea Bapa"; the doxology below is composed, not published. See the note at the doxology.]
+
 आमच्या बापा सर्गींच्या,
 तुजें नांव पवित्र जावं,
 तुजें राज आमकां येवं,
@@ -11,7 +13,7 @@
 पुण वायटांतल्लीं आमकां निवार.
 आमेन
 
-[UNVERIFIED — the traditional Goan Catholic "Amchea Bapa" and the Bible Society Konkani New Testament both end at "deliver us from evil. Amen" and carry no doxology; no established Konkani source for the doxology was confirmed. Best-effort rendering, needs human review:]
+[UNVERIFIED — composed. The traditional Goan Catholic "Amchea Bapa" and the Bible Society Konkani New Testament both end at "deliver us from evil. Amen" and carry no doxology; no established Konkani source for the line below was found.]
 कित्याक राज, सत्ता आनी म्हयमा सदांकाळ तुजींच. आमेन.
 
 === Literal (mirrors the canonical English) ===
