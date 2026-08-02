@@ -565,6 +565,34 @@ def prayer_files() -> list[Path]:
     return sorted(PRAYER_DIR.glob("**/*.txt"), key=lambda p: p.stem)
 
 
+def check_doc_filenames(corpus: dict[str, Entry], report: Report) -> None:
+    """Check that every prayer file named in prose actually exists.
+
+    Documentation names files without their shard -- `Spanish.txt`, never
+    `prayer/p-z/Spanish.txt` -- so that a reshard can never turn prose into a lie.
+    This verifies the other half of that bargain: the bare name must resolve.
+
+    Args:
+        corpus: Mapping of English name to its Entry.
+        report: Report to record findings in.
+    """
+    for path in (README_PATH, NOTICE_PATH, REPO / "CONTRIBUTING.md"):
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for named in sorted(set(re.findall(r"`([^`/\n]+)\.txt`", text))):
+            if "[" in named:
+                continue   # a template placeholder such as `[Language].txt`
+            if named not in corpus:
+                report.error(rel(path), f"names `{named}.txt`, which is not in the corpus")
+        for slashed in sorted(set(re.findall(r"`(prayer/[^`\n]*\.txt)`", text))):
+            if "[" in slashed:
+                continue   # a template placeholder such as `prayer/[Language].txt`
+            report.error(rel(path), f"names a path with a shard in it, `{slashed}` -- "
+                                    f"prose should name the file alone so a reshard "
+                                    f"cannot invalidate it")
+
+
 def load_corpus(report: Report) -> dict[str, Entry]:
     """Read and validate every prayer file.
 
@@ -609,7 +637,16 @@ def check_shards(report: Report) -> None:
     where = rel(PRAYER_DIR)
     directories = sorted(p for p in PRAYER_DIR.iterdir() if p.is_dir())
     if not directories:
-        return   # still flat; nothing to check
+        report.error(where, "holds no shard directories; run 'validate.py --reshard'")
+        return
+
+    # A file left directly in prayer/ would still be found by the recursive glob, but
+    # it would sit outside every shard and outside the layout the index describes.
+    stray = sorted(p.name for p in PRAYER_DIR.glob("*.txt"))
+    if stray:
+        report.error(where, f"holds .txt files directly rather than in a shard: "
+                            f"{', '.join(stray[:5])}"
+                            + (f" and {len(stray) - 5} more" if len(stray) > 5 else ""))
 
     bad = [d.name for d in directories if not SHARD_RE.match(d.name)]
     if bad:
@@ -622,12 +659,12 @@ def check_shards(report: Report) -> None:
     for name, low, high in bounds:
         derived = "z" if high == "{" else chr(ord(high) - 1)
         if name != f"{low}-{derived}":
-            report.error(where, f"shard {name!r} should be named {low}-{derived!r} "
+            report.error(where, f"shard {name!r} should be named {f'{low}-{derived}'!r} "
                                 f"-- the upper letter is derived from the next shard")
 
     for path in prayer_files():
         if path.parent == PRAYER_DIR:
-            continue
+            continue   # already reported as stray
         want = shard_for(path.stem, bounds)
         if want and path.parent.name != want:
             report.error(rel(path), f"belongs in shard {want}, not {path.parent.name}")
@@ -769,6 +806,7 @@ def main() -> int:
     check_index(corpus, report)
     check_readme(corpus, report)
     check_notice(corpus, report)
+    check_doc_filenames(corpus, report)
 
     for warning in report.warnings:
         print(f"warning: {warning}")

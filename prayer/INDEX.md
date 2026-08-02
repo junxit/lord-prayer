@@ -2,7 +2,9 @@
 
 The language count in the heading below is generated, so it is always current; this title deliberately carries no number.
 
-Each file is named [Language].txt (English name of the language). Inside each file: the language's own name for itself (autonym) on line 1 — or exactly `[autonym not recorded]` where no consulted source records one — then a Traditional/liturgical version and a Literal version mirroring the canonical English.
+Each file is named [Language].txt (English name of the language) and lives in the letter-range directory its first letter selects — a-h/, i-o/, p-z/ — because GitHub truncates any directory listing at 1,000 entries. Inside each file: the language's own name for itself (autonym) on line 1 — or exactly `[autonym not recorded]` where no consulted source records one — then a Traditional/liturgical version and a Literal version mirroring the canonical English.
+
+**This file is the complete listing.** No directory view shows every language. Each entry links to its file.
 
 Canonical reference text used:
 

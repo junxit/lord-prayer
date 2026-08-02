@@ -3,6 +3,23 @@ Changelog
 
 Unreleased
 ----------
+- Shard prayer/ into letter-range directories a-h, i-o and p-z, 385/398/388
+  files. prayer/ itself now holds 4 entries, so GitHub's 1,000-entry limit no
+  longer applies to it and the Contents API returns an obviously wrong 4 rather
+  than a plausible-looking 1,000.
+  Boundaries are frozen: the directory names are the manifest and the validator
+  checks placement against them rather than recomputing them. Recomputing would
+  rename every directory whenever the shard count changed - adding 30 languages
+  flips it from 3 to 4 and moves all 1,201 files.
+  New checks, each of which would otherwise lose data silently: a .txt directly
+  in prayer/ (invisible to the sharded glob), a subdirectory that is not a valid
+  range, the same stem in two shards (the corpus is keyed by stem, so the second
+  copy would displace the first), and a file in the wrong shard.
+  Documentation now names a file without its shard, and the validator enforces
+  both halves: a bare name must resolve to a real file, and a path with a shard
+  in it is an error, so a reshard can never turn prose into a lie.
+  Every existing blob/main and raw/main URL under prayer/<Name>.txt is now a 404;
+  SHA-pinned permalinks are unaffected.
 - Prepare prayer/ for sharding. GitHub truncates a directory listing at 1,000
   entries; the web UI says so, but the Contents API does not - it returns the
   first 1,000 with HTTP 200, no truncation flag, and ignores ?page=2, handing a

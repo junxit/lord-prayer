@@ -35,10 +35,10 @@ Others are under active copyright, and four files record it inline:
 
 | File | Rights statement recorded in the file |
 |---|---|
-| `prayer/Bhojpuri.txt` | © 2007 Asian Sahyogi Sanstha, Gorakhpur |
-| `prayer/K'iche'.txt` | © 2011 Wycliffe Bible Translators |
-| `prayer/Magahi.txt` | © 2014 Asian Sahyogi Sanstha India (ASSI) |
-| `prayer/Yucatec Maya.txt` | © Sociedades Bíblicas Unidas 1992 |
+| `Bhojpuri.txt` | © 2007 Asian Sahyogi Sanstha, Gorakhpur |
+| `K'iche'.txt` | © 2011 Wycliffe Bible Translators |
+| `Magahi.txt` | © 2014 Asian Sahyogi Sanstha India (ASSI) |
+| `Yucatec Maya.txt` | © Sociedades Bíblicas Unidas 1992 |
 
 ## Provenance coverage is incomplete
 
@@ -78,7 +78,7 @@ This says nothing about the prayer text in those files, which is sourced and ver
 
 A reference name is not an autonym, and neither is an English alternative name, an English geographic qualifier, an SIL inverted form, or a place name. Five existing files were marked on that basis even though a name was recorded for them: `Kalagan` held *Eastern Kalagan*, `Mapos Buang` held the inverted form *Buang, Central/Mapos*, and `Maybrat` held *Southwest Papua*, an Indonesian province.
 
-A marked file still carries its ISO 639-3 code in its provenance line. That matters because the filename is otherwise its only name, and the ASCII filename rule strips diacritics — `prayer/Cavinena.txt` would otherwise hold no correct name at all.
+A marked file still carries its ISO 639-3 code in its provenance line. That matters because the filename is otherwise its only name, and the ASCII filename rule strips diacritics — `Cavinena.txt` would otherwise hold no correct name at all.
 
 If you know one of these languages, supplying its autonym is the single most useful correction you can make.
 

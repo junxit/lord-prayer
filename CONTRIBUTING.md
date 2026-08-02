@@ -11,7 +11,9 @@ uv run validate.py                 # must exit 0
 
 ## The file format
 
-One file per language: `prayer/[English language name].txt`. The English name is the filename; the language's own name goes inside.
+One file per language, named for the language **in English**, inside the shard directory its first letter selects — `prayer/[shard]/[Language].txt`. The English name is the filename; the language's own name goes inside.
+
+Do not work out the shard by hand. `uv run validate.py` tells you if a file is in the wrong one, and the generator places new files itself.
 
 ```
 Deutsch                                          ← line 1: autonym in its native script,
@@ -64,7 +66,7 @@ If you can supply a real autonym, replace the marker and **name the source in th
 
 **Never acceptable:** machine translation, back-translation from English, or text taken from a *related* language.
 
-> **The worked example.** The "Central Atlas Tamazight" Lord's Prayer circulating online — including on prayer aggregator sites — is in fact **Kabyle**, a different language. Anyone assembling this repo from secondary sources would have filed it under Tamazight and been wrong. `prayer/Central Atlas Tamazight.txt` records the trap; `prayer/Kabyle.txt` holds the actual Kabyle text. Check that a secondary source's language label matches the ISO code and the script you expect.
+> **The worked example.** The "Central Atlas Tamazight" Lord's Prayer circulating online — including on prayer aggregator sites — is in fact **Kabyle**, a different language. Anyone assembling this repo from secondary sources would have filed it under Tamazight and been wrong. `Central Atlas Tamazight.txt` records the trap; `Kabyle.txt` holds the actual Kabyle text. Check that a secondary source's language label matches the ISO code and the script you expect.
 
 Record the source as the first line of the Traditional section, followed by a blank line:
 
@@ -91,9 +93,9 @@ This is the situation that produces bad data, so the rules are strict.
 [UNVERIFIED — composed, not a published translation. <Name the published edition that should replace this, and why it could not be retrieved.>]
 ```
 
-Naming the edition matters: it turns a defect into a work item for whoever fixes it. `prayer/Magahi.txt` and `prayer/Bodo.txt` are the models — both name the exact fileset and publisher that should supersede them.
+Naming the edition matters: it turns a defect into a work item for whoever fixes it. `Magahi.txt` and `Bodo.txt` are the models — both name the exact fileset and publisher that should supersede them.
 
-Use the variants when they fit: `[UNVERIFIED — partly composed. …]` when only some petitions are reconstructed, and `[UNVERIFIED — no text. …]` when you are submitting a record of the gap and no wording at all. `prayer/Tigre.txt` is the model for the last case, and it is a perfectly good contribution — an honest gap with a retrieval route beats invented scripture.
+Use the variants when they fit: `[UNVERIFIED — partly composed. …]` when only some petitions are reconstructed, and `[UNVERIFIED — no text. …]` when you are submitting a record of the gap and no wording at all. `Tigre.txt` is the model for the last case, and it is a perfectly good contribution — an honest gap with a retrieval route beats invented scripture.
 
 **Before concluding a text cannot be retrieved,** try ScriptureEarth (downloadable USFM and PDF, which bypass JavaScript readers), YouVersion's version list for the ISO code, archive.org, and a plain `curl` with a browser User-Agent. Several existing gaps in this repo exist only because a Bible.is reader is a JavaScript app behind a key-gated API — not because the translation is missing.
 
@@ -109,7 +111,7 @@ If the tradition's standard text omits it, append a **published** doxology in th
 [No doxology in the Lukan form or in any published Banjar text; omitted rather than composed.]
 ```
 
-`prayer/Banjar.txt` is the model. Its published Scripture covers only Luke and John, so it carries the shorter Lukan prayer verbatim and simply records that the remaining lines do not exist in Banjar.
+`Banjar.txt` is the model. Its published Scripture covers only Luke and John, so it carries the shorter Lukan prayer verbatim and simply records that the remaining lines do not exist in Banjar.
 
 ## The Literal section
 
@@ -117,10 +119,10 @@ Use the exact string `Same as the Traditional form above.` only when the Traditi
 
 Supply a genuinely distinct Literal when the Traditional is a free or liturgical rendering that reorders, merges or drops clauses:
 
-- `prayer/Spanish.txt` — the liturgical text reorders the kingdom/will clauses; the Literal restores canonical order.
-- `prayer/Italian.txt` — the 2008 revision reads *non abbandonarci alla tentazione*; the Literal keeps the older *non indurci in tentazione*.
-- `prayer/Japanese.txt` — Traditional is the Catholic 共同訳, Literal the Protestant 口語訳.
-- `prayer/Cantonese.txt` — Traditional is the Chinese Union Version in written Mandarin; the Literal is genuine written Cantonese.
+- `Spanish.txt` — the liturgical text reorders the kingdom/will clauses; the Literal restores canonical order.
+- `Italian.txt` — the 2008 revision reads *non abbandonarci alla tentazione*; the Literal keeps the older *non indurci in tentazione*.
+- `Japanese.txt` — Traditional is the Catholic 共同訳, Literal the Protestant 口語訳.
+- `Cantonese.txt` — Traditional is the Chinese Union Version in written Mandarin; the Literal is genuine written Cantonese.
 
 A short caveat may follow the boilerplate on the same line, in parentheses.
 
@@ -132,9 +134,46 @@ A short caveat may follow the boilerplate on the same line, in parentheses.
 
 Never put prayer text in square brackets. A reader scanning for the prayer must be able to skip every `[…]` and lose nothing.
 
+## How the sharding works
+
+GitHub truncates any directory listing at 1,000 entries, and the Contents API does it *silently* — HTTP 200, no truncation flag, `?page=2` ignored. So prayer files live in letter-range directories, each far below that limit.
+
+**A file's shard is a pure function of its filename.** Fold the stem to a key, then find the range whose lower bound it falls in:
+
+```python
+key = unicodedata.normalize("NFD", stem).lower()      # lowercase FIRST
+key = "".join(c for c in key if not unicodedata.combining(c))
+key = re.sub(r"^[^a-z]+", "", key)                    # 'Auhelawa -> auhelawa
+```
+
+Lowercasing must come before stripping. Strip first and you remove the initial capital of every name: `Ashaninka` → `shaninka`, filed under `s`.
+
+**Membership is decided by the lower bound alone.** Shard *i* owns keys *k* where `lo_i ≤ k < lo_(i+1)`. The second letter in a name like `a-h` is *derived* from the next shard's lower bound and is decorative. That is what makes the ranges contiguous and exhaustive by construction, and it means a letter no language currently starts with still has a home.
+
+**Boundaries are frozen data.** The directory names are the manifest. `validate.py` reads them and checks placement against them; it does not recompute them. This is deliberate — recomputing on every change would rename every directory whenever the shard count changed, moving the entire corpus. Adding a language never moves another file.
+
+### Resharding
+
+Only when a shard approaches the limit. `validate.py` warns above 800 files and errors at 1,000. On current proportions that is thousands of languages away.
+
+```bash
+uv run validate.py --reshard    # recompute the layout and move the files
+git add -A                      # git detects the renames by content
+```
+
+Then commit **the moves and nothing else**. Exact renames are matched by blob hash, but change any file's bytes in the same commit and rename detection degrades — turning a reviewable move into an unreadable diff.
+
+Resharding breaks every existing link to the old paths. That is the cost of doing it, which is why the boundaries are frozen rather than continuously rebalanced.
+
+### Naming files in prose
+
+Documentation names a file **without its shard** — write `Spanish.txt`, not the full path with the shard directory in it. A reshard would turn the second into a lie, and nothing would catch it. `validate.py` enforces both halves: a bare name must resolve to a real file, and a path with a shard in it is an error.
+
 ## Do not hand-edit `prayer/INDEX.md`
 
-Its language list, count, and review-flag markers are generated from the files on disk. Run `uv run validate.py --write-index`. The title, preamble, canonical-text blockquote and Notes bullets are prose and are never touched by the generator — edit those by hand.
+Its language list, count, and review-flag markers are generated from the files on disk. Run `uv run validate.py --write-index`.
+
+The index is also the **only complete listing** of the corpus, since no directory view can show more than 1,000 languages. Its entries are links, and their targets are percent-encoded — an unencoded space makes Markdown render the line as literal text instead of a link. The title, preamble, canonical-text blockquote and Notes bullets are prose and are never touched by the generator — edit those by hand.
 
 CI fails a PR whose index is out of date.
 

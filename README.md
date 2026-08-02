@@ -7,15 +7,24 @@ A growing collection of the Lord's Prayer translated into every language — liv
 ```
 .
 ├── README.md          ← this file
-└── prayer/            ← one file per language
-    ├── INDEX.md       ← index of every language, with autonyms and review flags
-    ├── English.txt
-    ├── Spanish.txt
-    ├── Mandarin Chinese.txt
-    └── … (one [Language].txt per language)
+└── prayer/
+    ├── INDEX.md       ← every language, with autonyms and review flags — the complete listing
+    ├── a-h/           ← English.txt, Acehnese.txt, Hausa.txt …
+    ├── i-o/           ← Italian.txt, Malayalam.txt, Odia.txt …
+    └── p-z/           ← Spanish.txt, Swahili.txt, Zulu.txt …
 ```
 
-Every translation lives in `prayer/`, named `[Language].txt`, where `[Language]` is the name of the language **in English**. New translations are always added to `prayer/`.
+Every translation is named `[Language].txt`, where `[Language]` is the name of the language **in English**, and lives in the shard directory its first letter selects.
+
+**[`prayer/INDEX.md`](prayer/INDEX.md) is the complete listing** — every language, linked, with its autonym. No directory view shows them all.
+
+### Why the files are sharded
+
+GitHub truncates a directory listing at 1,000 entries. The corpus passed that. The web UI at least says so; the **Contents API does not** — it returns the first 1,000 with HTTP 200, sets no truncation flag, and ignores `?page=2`, handing a caller 85% of the corpus with nothing to indicate the rest exists.
+
+Splitting the files into letter-range directories keeps every directory well under the limit and turns that silent failure into an obvious one: `GET /contents/prayer` now returns 4 entries, and a caller expecting 1,171 notices immediately.
+
+> **Programmatic consumers:** do not use the GitHub Contents API to enumerate this corpus. Use the Git Trees API (`?recursive=1`, and check `truncated`), clone the repository, or parse [`prayer/INDEX.md`](prayer/INDEX.md), which is generated from the files on disk. See [CONTRIBUTING.md](CONTRIBUTING.md) for the sharding rules.
 
 ## File format
 
