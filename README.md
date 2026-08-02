@@ -61,6 +61,23 @@ For thine is the Kingdom, Power and Glory, now and forever. Amen.
 - **Batch 7 — complete:** 12 languages recovered from an over-strict filter. Batch 5 rejected any file whose endonym matched its English name, on the reasoning that a true autonym rarely equals the exonym. That holds for a name carrying an English qualifier (*Central Cagayan Agta*) but not for a single-word name like *Tem* or *Warlpiri*, where the autonym genuinely is the name.
 - **Planned:** historical and dead languages.
 
+### Why the living-language batches stop at 702
+
+1,225 languages in the [eBible.org](https://ebible.org) catalogue have a published New Testament. 702 are in this corpus. The 603 that are not are blocked for reasons that are recorded rather than glossed over, because the binding constraint is not translations — it is **endonyms**. A file cannot be written if line 1 would be a guess.
+
+| Blocked | Why |
+|---:|---|
+| 253 | Has an English Wikipedia article, but the article records no autonym |
+| 155 | The only "autonym" available is an exonym, an English alternative name, or a country name leaked from an infobox field left empty |
+| 143 | No Wikipedia article at all, and no autonym in Wikidata or the catalogue |
+| 34 | The published edition contains no Gospel of Matthew |
+| 11 | The only autonym is written in a different script from the text |
+| 7 | Prose edition printing no explicit boundary between verse 9a and 9b |
+
+Sources tried for autonyms: Wikidata's native-name property, Wikidata labels written in the language itself, English Wikipedia's `Infobox language`, the eBible catalogue's own autonym field, Glottolog and ScriptureEarth. The last two carry reference names and undifferentiated lists of alternative names — Kalagan is listed as "Kaagan, Kalagan, Minuslim, Kinalagan, Isamal, Lupon" with no indication which the speakers use — so neither can settle an endonym.
+
+Unblocking these needs a source that distinguishes an autonym from an exonym, or a speaker who knows. Both are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 Batches 1 and 2 were selected by speaker count. That criterion could not be continued: Ethnologue publishes a ranking only to position 200, and the deeper data is neither free nor machine-readable. Batch 3 therefore ranks by speakers *within* the set of languages that have a published New Testament — which is also the set for which a verbatim, citable text actually exists.
 
 See `prayer/INDEX.md` for the full current list with endonyms.
