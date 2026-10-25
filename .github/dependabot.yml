@@ -1,0 +1,16 @@
+# Dependabot version updates: a weekly check of the GitHub Actions in validate.yml, all in one
+# pull request. The repo has no package manifests, so the actions are the only dependencies
+# Dependabot can update. validate.yml runs on each of these pull requests. Security updates are
+# switched on in the repository settings.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore"
+    groups:
+      github-actions:
+        patterns:
+          - "*"

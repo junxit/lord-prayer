@@ -3,6 +3,9 @@ Changelog
 
 Unreleased
 ----------
+- Dependabot: .github/dependabot.yml proposes GitHub Actions updates weekly,
+  in one pull request, and alerts and security updates are enabled on the
+  repository.
 - Shard prayer/ into letter-range directories a-h, i-o and p-z, 385/398/388
   files. prayer/ itself now holds 4 entries, so GitHub's 1,000-entry limit no
   longer applies to it and the Contents API returns an obviously wrong 4 rather
