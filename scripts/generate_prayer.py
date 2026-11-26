@@ -1,5 +1,5 @@
 # /// script
-# requires-python = ">=3.11"
+# requires-python = ">=3.15"
 # ///
 """Generate prayer files from published Scripture hosted by eBible.org.
 
@@ -33,8 +33,6 @@ it as a bracketed textual variant, and some carry it without an "Amen", so any
 automatic claim would be wrong for a meaningful share of files.
 """
 
-from __future__ import annotations
-
 import argparse
 import io
 import json
@@ -44,6 +42,7 @@ import unicodedata
 import urllib.request
 import zipfile
 from concurrent.futures import ThreadPoolExecutor
+from itertools import batched
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -198,9 +197,9 @@ def prose_lines(chapter: str) -> list[str]:
     """
     parts = re.split(r"\\v\s+(\d+)", chapter)
     verses: dict[int, str] = {}
-    for i in range(1, len(parts) - 1, 2):
+    for number, body in batched(parts[1:], 2, strict=True):
         try:
-            verses[int(parts[i])] = strip_usfm(parts[i + 1])
+            verses[int(number)] = strip_usfm(body)
         except ValueError:
             continue
     missing = [n for n in range(9, 14) if not verses.get(n)]

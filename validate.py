@@ -1,5 +1,5 @@
 # /// script
-# requires-python = ">=3.11"
+# requires-python = ">=3.15"
 # ///
 """Validate the Lord's Prayer corpus and regenerate the derived regions of INDEX.md.
 
@@ -14,8 +14,6 @@ presence of ``[UNVERIFIED`` anywhere in the file, and the ordinal is the positio
 sorted order. The index's prose -- its title, preamble, canonical-text blockquote and
 Notes bullets -- is human-authored and is never touched.
 """
-
-from __future__ import annotations
 
 import argparse
 import re
@@ -611,8 +609,7 @@ def load_corpus(report: Report) -> dict[str, Entry]:
         seen.setdefault(path.stem, []).append(path)
     for stem, paths in sorted(seen.items()):
         if len(paths) > 1:
-            report.error(rel(paths[0]), f"{stem} also exists at " +
-                         ", ".join(rel(p) for p in paths[1:]))
+            report.error(rel(paths[0]), f"{stem} also exists at {', '.join(rel(p) for p in paths[1:])}")
 
     corpus: dict[str, Entry] = {}
     for path in prayer_files():
@@ -644,9 +641,11 @@ def check_shards(report: Report) -> None:
     # it would sit outside every shard and outside the layout the index describes.
     stray = sorted(p.name for p in PRAYER_DIR.glob("*.txt"))
     if stray:
-        report.error(where, f"holds .txt files directly rather than in a shard: "
-                            f"{', '.join(stray[:5])}"
-                            + (f" and {len(stray) - 5} more" if len(stray) > 5 else ""))
+        report.error(
+            where,
+            f"holds .txt files directly rather than in a shard: {', '.join(stray[:5])}"
+            f"{f' and {len(stray) - 5} more' if len(stray) > 5 else ''}",
+        )
 
     bad = [d.name for d in directories if not SHARD_RE.match(d.name)]
     if bad:
@@ -658,8 +657,9 @@ def check_shards(report: Report) -> None:
         report.error(where, f"the first shard must start at 'a', not {bounds[0][1]!r}")
     for name, low, high in bounds:
         derived = "z" if high == "{" else chr(ord(high) - 1)
-        if name != f"{low}-{derived}":
-            report.error(where, f"shard {name!r} should be named {f'{low}-{derived}'!r} "
+        expected = f"{low}-{derived}"
+        if name != expected:
+            report.error(where, f"shard {name!r} should be named {expected!r} "
                                 f"-- the upper letter is derived from the next shard")
 
     for path in prayer_files():
@@ -821,7 +821,7 @@ def main() -> int:
     print(f"\nlanguages: {len(corpus)}")
     print(f"autonym: {named}/{len(corpus)}")
     print(f"provenance: {sourced}/{len(corpus)}")
-    print(f"unverified: {len(flagged)}" + (f" ({', '.join(flagged)})" if flagged else ""))
+    print(f"unverified: {len(flagged)}{f' ({", ".join(flagged)})' if flagged else ''}")
     print(f"errors: {len(report.errors)}, warnings: {len(report.warnings)}")
 
     return 1 if report.errors else 0

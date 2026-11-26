@@ -3,6 +3,15 @@ Changelog
 
 Unreleased
 ----------
+- Require Python 3.15 across validate.py, scripts/generate_prayer.py and
+  scripts/verify_provenance.py, and pin python-version: "3.15" in
+  .github/workflows/validate.yml. Python 3.11-3.13 are now in security-only
+  maintenance, and bumping to 3.15 brings unicodedata up from Unicode 14.0 to
+  17.0 (plus PEP 686 default UTF-8 mode) so normalisation, character classes
+  and case folding cover newly encoded minority and historical scripts
+  consistently locally and in CI. Drop the now-redundant __future__
+  annotations imports (PEP 649), use itertools.batched(..., strict=True) for
+  USFM verse splitting, and simplify pre-3.12 f-string workarounds (PEP 701).
 - Dependabot: .github/dependabot.yml proposes GitHub Actions updates weekly,
   in one pull request, and alerts and security updates are enabled on the
   repository.
