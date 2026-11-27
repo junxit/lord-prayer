@@ -5,8 +5,12 @@
 
 Provenance may only be added to a file whose wording actually came from the edition
 being cited. This tool does not label files; it *verifies* them. For each language it
-downloads every candidate New Testament from eBible.org, extracts Matthew 6:9-13, and
-compares it word for word against the text already in the file.
+downloads every candidate New Testament from eBible.org, extracts the prayer from
+Matthew 6:9-13 exactly as generate_prayer.py does, and compares it word for word
+against the text already in the file. Sharing the generator's extraction means verse
+9's narrative introduction is removed at the boundary the edition itself prints, so
+the comparison needs no allowance for it; an edition the generator cannot extract is
+reported rather than compared.
 
     uv run scripts/verify_provenance.py                 # report on every unsourced file
     uv run scripts/verify_provenance.py Somali Breton   # report on named languages
@@ -32,16 +36,19 @@ import re
 import sys
 import unicodedata
 import urllib.request
-import zipfile
 from concurrent.futures import ThreadPoolExecutor
-from itertools import batched
 from pathlib import Path
+
+import generate_prayer  # the sibling script; run as a script, its directory is on sys.path
 
 REPO = Path(__file__).resolve().parent.parent
 PRAYER_DIR = REPO / "prayer"
 CATALOGUE = "https://ebible.org/Scriptures/translations.csv"
 UA = "lord-prayer-corpus/1.0 (+https://github.com/junxit/lord-prayer)"
 HEADER = "=== Traditional ==="
+# Bracketed lines that are notes about the file. Other bracketed lines are prayer
+# text, most often a doxology the edition prints as a textual variant.
+EDITORIAL = ("[Verified", "[UNVERIFIED", "[No ", "[The doxology")
 ZERO_WIDTH = {0x200B, 0x200C, 0x200D, 0x2060, 0xFEFF}
 # Characters used interchangeably for a glottal stop or ejective across orthographies.
 # Most are letters, not punctuation, so stripping punctuation alone does not fold them.
@@ -99,7 +106,7 @@ ALIASES = {
     "kirundi": "rundi",
     "iranian persian": "persian",
     "modern standard arabic": "arabic",
-    "serbo-croatian": "serbian",
+    "serbo croatian": "serbian",
     "western punjabi": "western panjabi",
     "eastern punjabi": "eastern panjabi",
 }
@@ -134,60 +141,30 @@ def words(text: str) -> list[str]:
     return text.split()
 
 
-def strip_usfm(text: str) -> str:
-    """Remove USFM markup, footnotes and cross-references.
-
-    Args:
-        text: Raw USFM.
-
-    Returns:
-        Plain text with whitespace collapsed.
-    """
-    text = re.sub(r"\\f\b.*?\\f\*", "", text, flags=re.S)
-    text = re.sub(r"\\x\b.*?\\x\*", "", text, flags=re.S)
-    text = re.sub(r"\|[^\\]*?(?=\\w\*)", "", text)
-    text = re.sub(r"\\\+?[a-zA-Z]+\d*\*?", " ", text)
-    return re.sub(r"\s+", " ", text).strip()
-
-
 def edition_prayer(translation_id: str) -> str:
-    """Fetch Matthew 6:9-13 from an eBible edition.
+    """Extract an eBible edition's prayer exactly as generate_prayer.py would.
 
     Args:
         translation_id: eBible translation identifier.
 
     Returns:
-        The five verses joined into one string.
+        The prayer from Matthew 6:9-13, without verse 9's narrative introduction.
 
     Raises:
-        LookupError: If Matthew, chapter 6 or the verses are absent.
+        LookupError: If the generator cannot extract the prayer from this edition.
     """
-    archive = zipfile.ZipFile(io.BytesIO(fetch(f"https://ebible.org/Scriptures/{translation_id}_usfm.zip")))
-    names = [n for n in archive.namelist() if re.search(r"(MAT|^41|-MAT)", n, re.I)]
-    if not names:
-        raise LookupError("no Matthew file")
-    raw = archive.read(names[0]).decode("utf-8", errors="replace")
-    if "\\c 6" not in raw:
-        raise LookupError("no chapter 6")
-    chapter = raw.split("\\c 6", 1)[1].split("\\c 7", 1)[0]
-    parts = re.split(r"\\v\s+(\d+)", chapter)
-    verses: dict[int, str] = {}
-    for number, body in batched(parts[1:], 2, strict=True):
-        try:
-            verses[int(number)] = strip_usfm(body)
-        except ValueError:
-            continue
-    found = [verses.get(n, "") for n in range(9, 14)]
-    if not any(found):
-        raise LookupError("verses 9-13 absent")
-    return " ".join(found)
+    verdict, lines, detail = generate_prayer.classify(translation_id)
+    if not lines:
+        raise LookupError(f"{verdict}: {detail}")
+    return " ".join(lines)
 
 
 def file_prayer(path: Path) -> list[list[str]]:
     """Read a file's Traditional text as comparison tokens.
 
-    Bracketed editorial lines are dropped. Both the whole section and its first
-    paragraph are returned, since a file may append a doxology the edition lacks.
+    Editorial notes are dropped; a bracketed prayer line, such as a doxology printed
+    as a textual variant, is kept. Both the whole section and its first paragraph
+    are returned, since a file may append a doxology the edition lacks.
 
     Args:
         path: A prayer file.
@@ -197,7 +174,7 @@ def file_prayer(path: Path) -> list[list[str]]:
     """
     text = path.read_text(encoding="utf-8")
     section = text.split(HEADER, 1)[1].split("=== Literal", 1)[0]
-    kept = "\n".join(ln for ln in section.split("\n") if not ln.strip().startswith("["))
+    kept = "\n".join(ln for ln in section.split("\n") if not ln.strip().startswith(EDITORIAL))
     paragraphs = [p for p in re.split(r"\n\s*\n", kept.strip()) if p.strip()]
     candidates = [words(kept)]
     if paragraphs:
@@ -213,16 +190,18 @@ def compare(path: Path, translation_id: str) -> tuple[float, int]:
         translation_id: eBible translation identifier.
 
     Returns:
-        The best (coverage, number of unmatched words) over the candidate texts.
+        The best (coverage, number of unmatched words) over the candidate texts. A
+        word counts as unmatched on either side: added in the file, or left out of it.
     """
     edition = words(edition_prayer(translation_id))
     best = (-1.0, 10**6)
     for candidate in file_prayer(path):
-        matcher = difflib.SequenceMatcher(None, candidate, edition, autojunk=False)
-        covered = sum(block.size for block in matcher.get_matching_blocks())
-        missing = sum(a2 - a1 for op, a1, a2, _, _ in matcher.get_opcodes() if op in ("replace", "delete"))
-        if (covered / len(candidate), -missing) > (best[0], -best[1]):
-            best = (covered / len(candidate), missing)
+        opcodes = difflib.SequenceMatcher(None, candidate, edition, autojunk=False).get_opcodes()
+        covered = sum(a2 - a1 for op, a1, a2, _, _ in opcodes if op == "equal")
+        missing = sum(max(a2 - a1, b2 - b1) for op, a1, a2, b1, b2 in opcodes if op != "equal")
+        score = covered / max(len(candidate), len(edition), 1)
+        if (score, -missing) > (best[0], -best[1]):
+            best = (score, missing)
     return best
 
 
