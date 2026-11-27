@@ -3,6 +3,13 @@ Changelog
 
 Unreleased
 ----------
+- Require Python 3.15+ across validate.py, scripts/generate_prayer.py and
+  scripts/verify_provenance.py, dropping security-only 3.11-3.13 and matching
+  what uv run provisions in CI. Pin the runner image, action SHAs, uv 0.13.10
+  and Python 3.15.2 in .github/workflows/validate.yml, document the Python
+  3.15+ prerequisite in README.md and CONTRIBUTING.md, drop the redundant
+  __future__ annotations imports (PEP 649), and use
+  itertools.batched(..., strict=True) for USFM verse splitting.
 - Dependabot: .github/dependabot.yml proposes GitHub Actions updates weekly,
   in one pull request, and alerts and security updates are enabled on the
   repository.

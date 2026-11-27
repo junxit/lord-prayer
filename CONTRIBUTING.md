@@ -2,7 +2,7 @@
 
 This repo collects the Lord's Prayer in as many languages as can be sourced honestly. The hard part is not the file format — it is knowing what counts as a real translation and what to do when one does not exist. Most of this document is about that.
 
-Before opening a PR:
+Before opening a PR (requires [uv](https://docs.astral.sh/uv/) and Python 3.15+; if Python 3.15+ is not installed locally, the first `uv run` downloads it and needs network access):
 
 ```bash
 uv run validate.py --write-index   # rebuild prayer/INDEX.md from the files on disk

@@ -113,6 +113,8 @@ uv run validate.py --write-index   # rebuild prayer/INDEX.md from the files on d
 uv run validate.py                 # check the corpus; exits non-zero on any error
 ```
 
+The scripts require [uv](https://docs.astral.sh/uv/) and Python 3.15+; if no local Python 3.15+ is installed, the first `uv run` downloads one automatically (requiring network access).
+
 Do not hand-edit `prayer/INDEX.md` — its language list, count and review-flag markers are generated. Everything else in that file is prose and is left untouched.
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) before adding a language. It covers what counts as an acceptable source, what to do when a tradition has no doxology, when a distinct Literal rendering is required, and how to flag text that could not be verified.
