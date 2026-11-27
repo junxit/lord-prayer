@@ -44,6 +44,10 @@ PROVENANCE_TOKENS = ("[Verified", "(Source:")
 AUTONYM_MARKER = "[autonym not recorded]"
 
 SECTION_RE = re.compile(r"^===.*===$")
+USFM_TAG_RE = re.compile(r"\\\+?[a-zA-Z]+\d*\*?")
+XREF_REMNANT_RE = re.compile(r"\b\d+:\d+[^*\n]*\*")
+VERSE_RANGE_REMNANT_RE = re.compile(r"^-\d+\s")
+TIF_RE = re.compile(r"\.tif\b", re.I)
 LANGUAGES_HEADING_RE = re.compile(r"^## Languages \((\d+)\)$")
 NEXT_HEADING_RE = re.compile(r"^## ")
 CURRENTLY_RE = re.compile(r"(?<=Currently: )[^.]*(?=\.)")
@@ -251,6 +255,32 @@ def paragraphs(block: str) -> list[str]:
     return [part for part in re.split(r"\n\s*\n", block.strip()) if part.strip()]
 
 
+def check_markup(lines: list[str], where: str, report: Report) -> None:
+    """Flag leftover USFM tags, attributes, cross-references and verse-range prefixes.
+
+    Args:
+        lines: File contents split into lines.
+        where: Repo-relative path, for error messages.
+        report: Report to record findings in.
+    """
+    for number, line in enumerate(lines[3:], start=4):
+        stripped = line.strip()
+        if not stripped or SECTION_RE.match(stripped):
+            continue
+        if stripped.startswith(("[Verified", "[UNVERIFIED", "[No ")) and stripped.endswith("]"):
+            continue
+        if '="' in line:
+            report.error(where, f'line {number} contains leftover attribute markup (\'="\')')
+        if TIF_RE.search(line):
+            report.error(where, f"line {number} contains a .tif figure reference")
+        if USFM_TAG_RE.search(line):
+            report.error(where, f"line {number} contains leftover USFM tag markup")
+        if XREF_REMNANT_RE.search(line):
+            report.error(where, f"line {number} contains an unstripped cross-reference")
+        if VERSE_RANGE_REMNANT_RE.match(stripped):
+            report.error(where, f"line {number} starts with an unstripped verse-range suffix")
+
+
 def check_prayer_file(path: Path, report: Report) -> Entry | None:
     """Validate one ``prayer/<Language>.txt`` file against the corpus format.
 
@@ -324,6 +354,7 @@ def check_prayer_file(path: Path, report: Report) -> Entry | None:
         report.error(where, "the Traditional section must have at least 2 paragraphs")
     if not literal.strip():
         report.error(where, "the Literal section is empty")
+    check_markup(lines, where, report)
 
     flagged = FLAG_TOKEN in text
     for number, line in enumerate(lines, start=1):
@@ -606,13 +637,17 @@ def load_corpus(report: Report) -> dict[str, Entry]:
     """
     seen: dict[str, list[Path]] = {}
     for path in prayer_files():
-        seen.setdefault(path.stem, []).append(path)
-    for stem, paths in sorted(seen.items()):
+        seen.setdefault(path.stem.casefold(), []).append(path)
+    duplicates: set[Path] = set()
+    for _, paths in sorted(seen.items()):
         if len(paths) > 1:
-            report.error(rel(paths[0]), f"{stem} also exists at {', '.join(rel(p) for p in paths[1:])}")
+            report.error(rel(paths[0]), f"{paths[0].stem} also exists at {', '.join(rel(p) for p in paths[1:])}")
+            duplicates.update(paths[1:])
 
     corpus: dict[str, Entry] = {}
     for path in prayer_files():
+        if path in duplicates:
+            continue
         parsed = check_prayer_file(path, report)
         if parsed is not None:
             corpus[path.stem] = parsed
@@ -760,7 +795,14 @@ def main() -> int:
     report = Report()
     corpus = load_corpus(report)
     if not corpus:
-        print("error: no prayer files found", file=sys.stderr)
+        for warning in report.warnings:
+            print(f"warning: {warning}")
+        sys.stdout.flush()
+        for error in report.errors:
+            print(f"error: {error}", file=sys.stderr)
+        if not report.errors:
+            print("error: no prayer files found", file=sys.stderr)
+        sys.stderr.flush()
         return 1
 
     if args.reshard:

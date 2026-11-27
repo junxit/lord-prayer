@@ -42,6 +42,9 @@ PRAYER_DIR = REPO / "prayer"
 CATALOGUE = "https://ebible.org/Scriptures/translations.csv"
 UA = "lord-prayer-corpus/1.0 (+https://github.com/junxit/lord-prayer)"
 HEADER = "=== Traditional ==="
+ID_MAT = re.compile(r"^\ufeff?\\id\s+MAT\b", re.I | re.M)
+VERSE_RE = re.compile(r"\\v\s+(\d+(?:-\d+)?)")
+MAX_INTRO_WORDS = 20
 ZERO_WIDTH = {0x200B, 0x200C, 0x200D, 0x2060, 0xFEFF}
 # Characters used interchangeably for a glottal stop or ejective across orthographies.
 # Most are letters, not punctuation, so stripping punctuation alone does not fold them.
@@ -99,7 +102,7 @@ ALIASES = {
     "kirundi": "rundi",
     "iranian persian": "persian",
     "modern standard arabic": "arabic",
-    "serbo-croatian": "serbian",
+    "serbo croatian": "serbian",
     "western punjabi": "western panjabi",
     "eastern punjabi": "eastern panjabi",
 }
@@ -135,7 +138,7 @@ def words(text: str) -> list[str]:
 
 
 def strip_usfm(text: str) -> str:
-    """Remove USFM markup, footnotes and cross-references.
+    """Remove USFM markup, footnotes, figures and cross-references.
 
     Args:
         text: Raw USFM.
@@ -143,9 +146,11 @@ def strip_usfm(text: str) -> str:
     Returns:
         Plain text with whitespace collapsed.
     """
-    text = re.sub(r"\\f\b.*?\\f\*", "", text, flags=re.S)
+    text = re.sub(r"\\fe?\b.*?\\fe?\*", "", text, flags=re.S)
     text = re.sub(r"\\x\b.*?\\x\*", "", text, flags=re.S)
-    text = re.sub(r"\|[^\\]*?(?=\\w\*)", "", text)
+    text = re.sub(r"\\rq\b.*?\\rq\*", "", text, flags=re.S)
+    text = re.sub(r"\\fig\b.*?\\fig\*", "", text, flags=re.S)
+    text = re.sub(r"\|[^\\]*?(?=\\\+?(?:w|rb)\*)", "", text)
     text = re.sub(r"\\\+?[a-zA-Z]+\d*\*?", " ", text)
     return re.sub(r"\s+", " ", text).strip()
 
@@ -163,22 +168,39 @@ def edition_prayer(translation_id: str) -> str:
         LookupError: If Matthew, chapter 6 or the verses are absent.
     """
     archive = zipfile.ZipFile(io.BytesIO(fetch(f"https://ebible.org/Scriptures/{translation_id}_usfm.zip")))
-    names = [n for n in archive.namelist() if re.search(r"(MAT|^41|-MAT)", n, re.I)]
-    if not names:
+    candidates = sorted(
+        (n for n in archive.namelist() if not n.endswith("/")),
+        key=lambda n: (0 if "mat" in n.lower() else 1, n),
+    )
+    raw = next(
+        (
+            text
+            for name in candidates
+            if ID_MAT.search((text := archive.read(name).decode("utf-8", errors="replace"))[:512])
+        ),
+        None,
+    )
+    if raw is None:
         raise LookupError("no Matthew file")
-    raw = archive.read(names[0]).decode("utf-8", errors="replace")
     if "\\c 6" not in raw:
         raise LookupError("no chapter 6")
     chapter = raw.split("\\c 6", 1)[1].split("\\c 7", 1)[0]
-    parts = re.split(r"\\v\s+(\d+)", chapter)
+    parts = VERSE_RE.split(chapter)
     verses: dict[int, str] = {}
-    for number, body in batched(parts[1:], 2, strict=True):
+    covered: set[int] = set()
+    for spec, body in batched(parts[1:], 2, strict=True):
+        start_s, _, end_s = spec.partition("-")
         try:
-            verses[int(number)] = strip_usfm(body)
+            lo = int(start_s)
+            hi = int(end_s) if end_s else lo
         except ValueError:
             continue
-    found = [verses.get(n, "") for n in range(9, 14)]
-    if not any(found):
+        cleaned = strip_usfm(body)
+        if cleaned:
+            verses[max(lo, 9) if lo < 9 <= hi else lo] = cleaned
+            covered.update(range(lo, hi + 1))
+    found = [verses[n] for n in range(9, 14) if n in verses]
+    if not found or not (covered & set(range(9, 14))):
         raise LookupError("verses 9-13 absent")
     return " ".join(found)
 
@@ -219,10 +241,21 @@ def compare(path: Path, translation_id: str) -> tuple[float, int]:
     best = (-1.0, 10**6)
     for candidate in file_prayer(path):
         matcher = difflib.SequenceMatcher(None, candidate, edition, autojunk=False)
-        covered = sum(block.size for block in matcher.get_matching_blocks())
-        missing = sum(a2 - a1 for op, a1, a2, _, _ in matcher.get_opcodes() if op in ("replace", "delete"))
-        if (covered / len(candidate), -missing) > (best[0], -best[1]):
-            best = (covered / len(candidate), missing)
+        opcodes = matcher.get_opcodes()
+        covered = sum(a2 - a1 for op, a1, a2, _, _ in opcodes if op == "equal")
+        intro = next(
+            (b2 for op, a1, _, _, b2 in opcodes if op == "insert" and a1 == 0 and b2 <= MAX_INTRO_WORDS),
+            0,
+        )
+        missing = sum(
+            max(a2 - a1, b2 - b1)
+            for op, a1, a2, b1, b2 in opcodes
+            if op in ("replace", "delete") or (op == "insert" and not (a1 == 0 and b2 <= MAX_INTRO_WORDS))
+        )
+        denom = max(len(candidate), len(edition) - intro, 1)
+        score = covered / denom
+        if (score, -missing) > (best[0], -best[1]):
+            best = (score, missing)
     return best
 
 

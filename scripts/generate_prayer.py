@@ -52,8 +52,19 @@ PRAYER_DIR = REPO / "prayer"
 UA = "lord-prayer-corpus/1.0 (+https://github.com/junxit/lord-prayer)"
 AUTONYM_MARKER = "[autonym not recorded]"
 
-COLON = re.compile(r"[:：︓]")
+ID_MAT = re.compile(r"^\ufeff?\\id\s+MAT\b", re.I | re.M)
+VERSE_RE = re.compile(r"\\v\s+(\d+(?:-\d+)?)")
+COLON = re.compile(r"(?!(?<=\d):(?=\d))(?!(?<=[a-z]):(?=[a-z]))[:：︓]")
 OPEN_QUOTE = re.compile(r"[\u201c\u2018\u00ab\u300c\u300e\u2039\u201e]")
+CLOSE_FOR = {
+    "\u201c": "\u201d",
+    "\u2018": "\u2019",
+    "\u00ab": "\u00bb",
+    "\u300c": "\u300d",
+    "\u300e": "\u300f",
+    "\u2039": "\u203a",
+    "\u201e": "\u201c",
+}
 MAX_INTRO_WORDS = 12
 MIN_REMAINDER_WORDS = 3
 
@@ -84,8 +95,9 @@ def target_path(english: str) -> Path:
     Returns:
         The path to write.
     """
+    folded = english.casefold()
     for path in prayer_files():
-        if path.stem == english:
+        if path.stem.casefold() == folded:
             return path
     shards = sorted(d.name for d in PRAYER_DIR.iterdir()
                     if d.is_dir() and re.match(r"^[a-z]-[a-z]$", d.name))
@@ -116,7 +128,7 @@ def fetch(url: str) -> bytes:
 
 
 def strip_usfm(text: str) -> str:
-    """Remove USFM markup, footnotes and cross-references.
+    """Remove USFM markup, footnotes, figures and cross-references.
 
     Args:
         text: Raw USFM.
@@ -124,10 +136,11 @@ def strip_usfm(text: str) -> str:
     Returns:
         Plain text with whitespace collapsed.
     """
-    text = re.sub(r"\\f\b.*?\\f\*", "", text, flags=re.S)
+    text = re.sub(r"\\fe?\b.*?\\fe?\*", "", text, flags=re.S)
     text = re.sub(r"\\x\b.*?\\x\*", "", text, flags=re.S)
     text = re.sub(r"\\rq\b.*?\\rq\*", "", text, flags=re.S)
-    text = re.sub(r"\|[^\\]*?(?=\\w\*)", "", text)
+    text = re.sub(r"\\fig\b.*?\\fig\*", "", text, flags=re.S)
+    text = re.sub(r"\|[^\\]*?(?=\\\+?(?:w|rb)\*)", "", text)
     text = re.sub(r"\\\+?[a-zA-Z]+\d*\*?", " ", text)
     return re.sub(r"\s+", " ", text).strip()
 
@@ -145,10 +158,20 @@ def matthew_six(translation_id: str) -> str:
         LookupError: If Matthew or chapter 6 is absent.
     """
     archive = zipfile.ZipFile(io.BytesIO(fetch(f"https://ebible.org/Scriptures/{translation_id}_usfm.zip")))
-    names = [n for n in archive.namelist() if re.search(r"(MAT|^41|-MAT)", n, re.I)]
-    if not names:
+    candidates = sorted(
+        (n for n in archive.namelist() if not n.endswith("/")),
+        key=lambda n: (0 if "mat" in n.lower() else 1, n),
+    )
+    raw = next(
+        (
+            text
+            for name in candidates
+            if ID_MAT.search((text := archive.read(name).decode("utf-8", errors="replace"))[:512])
+        ),
+        None,
+    )
+    if raw is None:
         raise LookupError("no Matthew file in archive")
-    raw = archive.read(names[0]).decode("utf-8", errors="replace")
     if "\\c 6" not in raw:
         raise LookupError("no chapter 6")
     return raw.split("\\c 6", 1)[1].split("\\c 7", 1)[0]
@@ -172,10 +195,19 @@ def poetry_lines(chapter: str) -> list[str]:
     segment = chapter[start: end if end > start else len(chapter)]
     if "\\q" not in segment:
         raise LookupError("prose edition (no poetry markers)")
-    segment = segment[segment.find("\\q"):]   # everything before is the introduction
-    lines = []
-    for chunk in re.split(r"\\q\d?\b", segment):
-        text = strip_usfm(re.sub(r"\\v\s+\d+", " ", chunk))
+    first_q = segment.find("\\q")
+    # Some editions set the opening address ("Our Father in heaven,") as a \p
+    # paragraph after verse 9's narrative introduction and start \q on line 2.
+    preamble = re.split(r"\\(?:p|m|pc|pmo?)\b", segment[:first_q])
+    lines = [
+        cleaned
+        for part in preamble[1:]
+        if (cleaned := strip_usfm(VERSE_RE.sub(" ", part)))
+        and not cleaned.endswith((":", "：", "︓"))
+    ]
+    for chunk in re.split(r"\\q\d?\b", segment[first_q:]):
+        chunk = re.split(r"\\(?:p|m|nb)\b", chunk, maxsplit=1)[0]
+        text = strip_usfm(VERSE_RE.sub(" ", chunk))
         if text:
             lines.append(text)
     if len(lines) < 4:
@@ -195,23 +227,38 @@ def prose_lines(chapter: str) -> list[str]:
     Raises:
         LookupError: If a verse is missing or no explicit boundary passes the guards.
     """
-    parts = re.split(r"\\v\s+(\d+)", chapter)
+    parts = VERSE_RE.split(chapter)
     verses: dict[int, str] = {}
-    for number, body in batched(parts[1:], 2, strict=True):
+    covered: set[int] = set()
+    for spec, body in batched(parts[1:], 2, strict=True):
+        start_s, _, end_s = spec.partition("-")
         try:
-            verses[int(number)] = strip_usfm(body)
+            lo = int(start_s)
+            hi = int(end_s) if end_s else lo
         except ValueError:
             continue
-    missing = [n for n in range(9, 14) if not verses.get(n)]
-    if missing:
-        raise LookupError(f"missing verses {missing}")
+        cleaned = strip_usfm(body)
+        if cleaned:
+            verses[lo] = cleaned
+            covered.update(range(lo, hi + 1))
+    missing = [n for n in range(9, 14) if n not in covered]
+    if missing or 9 not in verses:
+        raise LookupError(f"missing verses {missing or [9]}")
     for pattern in (COLON, OPEN_QUOTE):
-        match = pattern.search(verses[9])
-        if not match:
-            continue
-        head, tail = verses[9][: match.start()].strip(), verses[9][match.end():].strip()
-        if 1 <= len(head.split()) <= MAX_INTRO_WORDS and len(tail.split()) >= MIN_REMAINDER_WORDS:
-            return [tail] + [verses[n] for n in range(10, 14)]
+        for match in pattern.finditer(verses[9]):
+            head = verses[9][: match.start()].strip()
+            tail = verses[9][match.end():].strip()
+            if not (1 <= len(head.split()) <= MAX_INTRO_WORDS and len(tail.split()) >= MIN_REMAINDER_WORDS):
+                continue
+            if pattern is COLON and tail.startswith(("\u2015", "\u2014")):
+                continue
+            if pattern is OPEN_QUOTE:
+                quote = match.group()
+                closer = CLOSE_FOR.get(quote)
+                if closer and 0 <= tail.find(closer) < tail.find(quote):
+                    if closer not in tail[tail.find(quote) + 1:]:
+                        continue
+            return [tail] + [verses[n] for n in range(10, 14) if n in verses]
     raise LookupError("no explicit 9a/9b boundary passing the guards")
 
 
@@ -285,10 +332,13 @@ def calibrate() -> int:
     cases = []
     for path in prayer_files():
         text = path.read_text(encoding="utf-8")
-        # Only this script's own output records an extraction path. Files backfilled
-        # by verify_provenance.py were collated rather than generated, and composed
-        # files carry an [UNVERIFIED] note whose text can look like a provenance line.
-        if "obtained from eBible.org" not in text or "matches that edition word for word" in text:
+        # Only this script's own unedited output records an extraction path. Files
+        # backfilled by verify_provenance.py were collated rather than generated,
+        # hand-curated prose editions record the specific editorial changes made, and
+        # composed files carry an [UNVERIFIED] note.
+        if "obtained from eBible.org" not in text:
+            continue
+        if "Reproduced as printed" not in text and "No other change was made." not in text:
             continue
         # The identifier is the bracketed group followed by a comma. Take the last
         # such group before the verse reference: titles carry parentheses of their
