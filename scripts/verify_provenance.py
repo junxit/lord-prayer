@@ -275,7 +275,7 @@ def provenance_line(row: dict) -> str:
     rights = (row.get("Copyright") or "").replace("Copyright ", "").strip()
     return (
         f"[Verified from {row['title']} ({row['translationId']}), "
-        f"{f'{rights}, ' if rights else ''}Matthew 6:9-13. The wording in this file "
+        f"{rights + ', ' if rights else ''}Matthew 6:9-13. The wording in this file "
         f"matches that edition word for word; collated against the text published at eBible.org.]"
     )
 

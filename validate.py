@@ -821,7 +821,7 @@ def main() -> int:
     print(f"\nlanguages: {len(corpus)}")
     print(f"autonym: {named}/{len(corpus)}")
     print(f"provenance: {sourced}/{len(corpus)}")
-    print(f"unverified: {len(flagged)}{f' ({", ".join(flagged)})' if flagged else ''}")
+    print(f"unverified: {len(flagged)}" + (f" ({', '.join(flagged)})" if flagged else ""))
     print(f"errors: {len(report.errors)}, warnings: {len(report.warnings)}")
 
     return 1 if report.errors else 0
