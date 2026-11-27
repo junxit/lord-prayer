@@ -77,11 +77,11 @@ Record the source as the first line of the Traditional section, followed by a bl
 **Only cite an edition the text actually came from.** If you are adding provenance to an existing file rather than a new one, verify it first:
 
 ```bash
-uv run scripts/verify_provenance.py Somali        # compare against published editions
+uv run scripts/verify_provenance.py Breton        # compare against published editions
 uv run scripts/verify_provenance.py --apply       # record only exact matches
 ```
 
-The tool compares the file's wording against Matthew 6:9–13 in every eBible edition for that language and reports how many words differ. It writes a source line only on an exact word-for-word match. A near miss means the text came from somewhere else — a liturgy, or a different printing — and must not be attributed to the edition tested.
+The tool compares the file's wording against Matthew 6:9–13 in every eBible edition for that language and reports how many words differ. It writes a source line only on an exact word-for-word match. A near miss means the text came from somewhere else — a liturgy, or a different printing — and must not be attributed to the edition tested. An edition that marks no boundary between verse 9's introduction and the prayer — no colon, opening quotation mark or poetry line — is reported rather than compared, because the tool cannot tell a word left out of the file from the end of the introduction.
 
 ## When no published text exists
 

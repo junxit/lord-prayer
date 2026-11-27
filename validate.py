@@ -44,7 +44,6 @@ PROVENANCE_TOKENS = ("[Verified", "(Source:")
 AUTONYM_MARKER = "[autonym not recorded]"
 
 SECTION_RE = re.compile(r"^===.*===$")
-USFM_TAG_RE = re.compile(r"\\\+?[a-zA-Z]+\d*\*?")
 XREF_REMNANT_RE = re.compile(r"\b\d+:\d+[^*\n]*\*")
 VERSE_RANGE_REMNANT_RE = re.compile(r"^-\d+\s")
 TIF_RE = re.compile(r"\.tif\b", re.I)
@@ -273,8 +272,11 @@ def check_markup(lines: list[str], where: str, report: Report) -> None:
             report.error(where, f'line {number} contains leftover attribute markup (\'="\')')
         if TIF_RE.search(line):
             report.error(where, f"line {number} contains a .tif figure reference")
-        if USFM_TAG_RE.search(line):
-            report.error(where, f"line {number} contains leftover USFM tag markup")
+        # Any backslash, not just a whole tag: the generator strips every tag it
+        # recognizes, and what it misses is a fragment such as the "\*" a milestone
+        # leaves behind. No prayer text needs a backslash.
+        if "\\" in line:
+            report.error(where, f"line {number} contains a backslash, a leftover of USFM markup")
         if XREF_REMNANT_RE.search(line):
             report.error(where, f"line {number} contains an unstripped cross-reference")
         if VERSE_RANGE_REMNANT_RE.match(stripped):

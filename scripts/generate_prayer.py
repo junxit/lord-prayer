@@ -19,7 +19,9 @@ Two extraction paths, because editions differ in how they print the prayer:
 **Poetry.** Most editions set it with USFM ``\\q`` markers. That marker does two jobs
 no heuristic can do for a language we cannot read: it separates the narrative
 introduction of verse 9 ("Pray then like this:") from the prayer proper, and it gives
-the per-clause line structure the corpus uses.
+the per-clause line structure the corpus uses. A paragraph that follows the last line
+inside verse 13 is narrative ("This is how you should pray," said Jesus) and is cut,
+unless it carries the doxology or the close of the prayer's own quotation.
 
 **Prose.** Some editions print it as running text with no markers. The content of
 Matthew 6:9 is fixed across translations -- 9a introduces, 9b begins the prayer -- so
@@ -54,17 +56,34 @@ AUTONYM_MARKER = "[autonym not recorded]"
 
 ID_MAT = re.compile(r"^\ufeff?\\id\s+MAT\b", re.I | re.M)
 VERSE_RE = re.compile(r"\\v\s+(\d+(?:-\d+)?)")
-COLON = re.compile(r"(?!(?<=\d):(?=\d))(?!(?<=[a-z]):(?=[a-z]))[:：︓]")
+POETRY_LINE = re.compile(r"\\q\d?\b")
+# Paragraph markers; \b, a stanza break inside poetry, is not one.
+PARAGRAPH = re.compile(r"\\(?:p|m|mi|nb|pc|pr|po|pi\d?|pm[ocr]?|li\d?|ph\d?)\b")
+# A colon between a Latin-script letter and a lowercase one is part of a word in
+# orthographies that mark vowel length with it (Beami "sia:ma", "A:ma"), and one
+# between digits is a printed verse reference. Neither is a 9a/9b boundary. A colon
+# before a capital is one, even with the space missing (Dutch "aldus:Onze").
+LATIN = r"A-Za-z\u00C0-\u02AF\u0300-\u036F\u1E00-\u1EFF"
+LOWER_LATIN = rf"(?![A-Z\u00C0-\u00D6\u00D8-\u00DE])[{LATIN}]"
+COLON = re.compile(rf"(?!(?<=\d):(?=\d))(?!(?<=[{LATIN}]):(?={LOWER_LATIN}))[:：︓]")
+INTRO_END = re.compile(r"[:：︓፦]\W*$")
 OPEN_QUOTE = re.compile(r"[\u201c\u2018\u00ab\u300c\u300e\u2039\u201e]")
 CLOSE_FOR = {
-    "\u201c": "\u201d",
-    "\u2018": "\u2019",
-    "\u00ab": "\u00bb",
-    "\u300c": "\u300d",
-    "\u300e": "\u300f",
-    "\u2039": "\u203a",
-    "\u201e": "\u201c",
+    "\u201c": ("\u201d",),
+    "\u2018": ("\u2019",),
+    "\u00ab": ("\u00bb",),
+    "\u300c": ("\u300d",),
+    "\u300e": ("\u300f",),
+    "\u2039": ("\u203a",),
+    "\u201e": ("\u201c", "\u201d"),
 }
+QUOTE_MARKS = set(CLOSE_FOR) | {mark for closers in CLOSE_FOR.values() for mark in closers}
+# What strip_usfm() removes, for walking the printed text while keeping raw offsets.
+HIDDEN = re.compile(
+    r"\\(?:fe?|x|rq|fig)\b.*?\\(?:fe?|x|rq|fig)\*|\|[^\\]*?(?=\\\+?(?:w|rb)\*)|\\\+?[a-zA-Z]+\d*\*?",
+    re.S,
+)
+DIALOGUE_DASHES = ("\u2015", "\u2014", "\u2013")
 MAX_INTRO_WORDS = 12
 MIN_REMAINDER_WORDS = 3
 
@@ -177,6 +196,157 @@ def matthew_six(translation_id: str) -> str:
     return raw.split("\\c 6", 1)[1].split("\\c 7", 1)[0]
 
 
+def verse_span(chapter: str) -> tuple[int, int]:
+    """Locate verses 9-13: where verse 9 starts and where the next verse begins.
+
+    Args:
+        chapter: Raw USFM of Matthew 6.
+
+    Returns:
+        The offsets of verse 9's marker and of the first verse after 13 (or the
+        chapter's end).
+
+    Raises:
+        LookupError: If verse 9 is not marked on its own, or a verse range runs
+            past verse 13 and so would carry verse 14 into the prayer.
+    """
+    start, end = -1, len(chapter)
+    for match in VERSE_RE.finditer(chapter):
+        first, _, last = match.group(1).partition("-")
+        first, last = int(first), int(last or first)
+        if first <= 13 < last:
+            raise LookupError(f"verse range {match.group(1)} runs past verse 13")
+        if start < 0 and first == 9:
+            start = match.start()
+        elif start >= 0 and first >= 14:
+            end = match.start()
+            break
+    if start < 0:
+        raise LookupError("no verse 9")
+    return start, end
+
+
+def address_lines(preamble: str) -> list[str]:
+    """Recover an opening address set as a paragraph before the first poetry line.
+
+    Some editions print verse 9's narrative introduction, then the address ("Our
+    Father in heaven,") as a paragraph of its own, and start the poetry on the next
+    clause. The address is kept only when the introduction visibly ends first, at a
+    colon; otherwise everything before the first poetry line is introduction.
+
+    Args:
+        preamble: Raw USFM from verse 9's marker to the first poetry line.
+
+    Returns:
+        The address lines, often none.
+    """
+    intro, *paragraphs = PARAGRAPH.split(preamble)
+    if not INTRO_END.search(strip_usfm(VERSE_RE.sub(" ", intro))):
+        return []
+    lines = []
+    for part in paragraphs:
+        cleaned = strip_usfm(VERSE_RE.sub(" ", part))
+        if cleaned and not INTRO_END.search(cleaned):
+            lines.append(cleaned)
+    return lines
+
+
+def printed_text(segment: str) -> list[tuple[int, str]]:
+    """List the characters a reader sees, with their offsets in the raw USFM.
+
+    Args:
+        segment: Raw USFM.
+
+    Returns:
+        (offset, character) pairs in order, without markup, notes or figures.
+    """
+    printed, pos = [], 0
+    for hidden in HIDDEN.finditer(segment):
+        printed.extend((i, segment[i]) for i in range(pos, hidden.start()))
+        pos = hidden.end()
+    printed.extend((i, segment[i]) for i in range(pos, len(segment)))
+    return printed
+
+
+def quotation_marks(printed: list[tuple[int, str]]) -> list[tuple[int, str]]:
+    """Pick out the quotation marks from printed text.
+
+    A mark between two letters is skipped: it is an apostrophe or a glottal stop.
+
+    Args:
+        printed: Output of printed_text().
+
+    Returns:
+        (offset, mark) pairs in order.
+    """
+    marks = []
+    for k, (offset, char) in enumerate(printed):
+        if char not in QUOTE_MARKS:
+            continue
+        before = printed[k - 1][1] if k else " "
+        after = printed[k + 1][1] if k + 1 < len(printed) else " "
+        if not (before.isalpha() and after.isalpha()):
+            marks.append((offset, char))
+    return marks
+
+
+def prayer_end(segment: str, first_line: int, last_line: int) -> int:
+    """Find where the prayer ends after its last poetry line.
+
+    Many editions follow the last line, still inside verse 13, with a paragraph of
+    narrative ("This is how you should pray," said Jesus) or a lead-in to verse 14.
+    That paragraph is cut. It is kept when it carries a textual note, the way
+    editions mark the doxology as a variant, or is a bracketed variant. When the
+    prayer's own quotation is still open at the paragraph, the paragraph is kept up
+    to the mark that closes it (Dawro "Amen.'"), and dropped if it never closes
+    there. That quotation is the one opened between the introduction's last word and
+    the prayer's first, not one opened earlier for the rest of Jesus's speech.
+
+    Args:
+        segment: Raw USFM of verses 9-13.
+        first_line: Offset in the segment of the first poetry line's marker.
+        last_line: Offset in the segment where the last poetry line with text starts.
+
+    Returns:
+        The offset at which the prayer ends.
+    """
+    anchor = max((m.end() for m in VERSE_RE.finditer(segment, last_line)), default=last_line)
+    paragraph = PARAGRAPH.search(segment, anchor)
+    if not paragraph:
+        return len(segment)
+    after = segment[paragraph.start():]
+    if re.search(r"\\fe?\s", after) or strip_usfm(after).startswith("["):
+        return len(segment)
+    printed = printed_text(segment)
+    letters = [offset for offset, char in printed if char.isalpha()]
+    intro_end = max((offset for offset in letters if offset < first_line), default=-1)
+    first_word = min((offset for offset in letters if offset >= first_line), default=len(segment))
+    stack: list[str] = []
+    level = None
+    marks = quotation_marks(printed)
+    for offset, mark in marks:
+        if offset >= paragraph.start():
+            break
+        if stack and mark in CLOSE_FOR[stack[-1]]:
+            stack.pop()
+        elif mark in CLOSE_FOR:
+            stack.append(mark)
+            if intro_end < offset < first_word:
+                level = len(stack)
+    if level is None or len(stack) < level:
+        return paragraph.start()
+    for offset, mark in marks:
+        if offset < paragraph.start():
+            continue
+        if stack and mark in CLOSE_FOR[stack[-1]]:
+            stack.pop()
+            if len(stack) < level:
+                return offset + 1
+        elif mark in CLOSE_FOR:
+            stack.append(mark)
+    return paragraph.start()
+
+
 def poetry_lines(chapter: str) -> list[str]:
     """Extract the prayer as poetry lines, dropping the narrative introduction.
 
@@ -189,24 +359,18 @@ def poetry_lines(chapter: str) -> list[str]:
     Raises:
         LookupError: If the chapter has no usable poetry structure.
     """
-    start, end = chapter.find("\\v 9"), chapter.find("\\v 14")
-    if start < 0:
-        raise LookupError("no verse 9")
-    segment = chapter[start: end if end > start else len(chapter)]
+    start, end = verse_span(chapter)
+    segment = chapter[start:end]
     if "\\q" not in segment:
         raise LookupError("prose edition (no poetry markers)")
     first_q = segment.find("\\q")
-    # Some editions set the opening address ("Our Father in heaven,") as a \p
-    # paragraph after verse 9's narrative introduction and start \q on line 2.
-    preamble = re.split(r"\\(?:p|m|pc|pmo?)\b", segment[:first_q])
-    lines = [
-        cleaned
-        for part in preamble[1:]
-        if (cleaned := strip_usfm(VERSE_RE.sub(" ", part)))
-        and not cleaned.endswith((":", "：", "︓"))
-    ]
-    for chunk in re.split(r"\\q\d?\b", segment[first_q:]):
-        chunk = re.split(r"\\(?:p|m|nb)\b", chunk, maxsplit=1)[0]
+    lines = address_lines(segment[:first_q])
+    # The last poetry line with text: some editions end the prayer with an empty \q.
+    starts = [m.end() for m in POETRY_LINE.finditer(segment)]
+    ends = [m.start() for m in POETRY_LINE.finditer(segment)][1:] + [len(segment)]
+    last_line = max((s for s, e in zip(starts, ends) if strip_usfm(VERSE_RE.sub(" ", segment[s:e]))),
+                    default=first_q)
+    for chunk in POETRY_LINE.split(segment[first_q: prayer_end(segment, first_q, last_line)]):
         text = strip_usfm(VERSE_RE.sub(" ", chunk))
         if text:
             lines.append(text)
@@ -225,40 +389,65 @@ def prose_lines(chapter: str) -> list[str]:
         One string per verse, with verse 9's introduction removed.
 
     Raises:
-        LookupError: If a verse is missing or no explicit boundary passes the guards.
+        LookupError: If a verse is missing, a verse range runs past verse 13, or no
+            explicit boundary passes the guards.
     """
     parts = VERSE_RE.split(chapter)
     verses: dict[int, str] = {}
     covered: set[int] = set()
     for spec, body in batched(parts[1:], 2, strict=True):
-        start_s, _, end_s = spec.partition("-")
-        try:
-            lo = int(start_s)
-            hi = int(end_s) if end_s else lo
-        except ValueError:
-            continue
+        first, _, last = spec.partition("-")
+        first, last = int(first), int(last or first)
+        if first <= 13 < last:
+            raise LookupError(f"verse range {spec} runs past verse 13")
         cleaned = strip_usfm(body)
         if cleaned:
-            verses[lo] = cleaned
-            covered.update(range(lo, hi + 1))
+            verses[first] = cleaned
+            covered.update(range(first, last + 1))
     missing = [n for n in range(9, 14) if n not in covered]
     if missing or 9 not in verses:
         raise LookupError(f"missing verses {missing or [9]}")
+    return [prayer_start(verses[9])] + [verses[n] for n in range(10, 14) if n in verses]
+
+
+def prayer_start(verse: str) -> str:
+    """Remove verse 9's narrative introduction at the boundary the edition prints.
+
+    Args:
+        verse: Verse 9 as plain text.
+
+    Returns:
+        The verse from the start of the prayer.
+
+    Raises:
+        LookupError: If no colon or opening quotation mark passes the guards.
+    """
     for pattern in (COLON, OPEN_QUOTE):
-        for match in pattern.finditer(verses[9]):
-            head = verses[9][: match.start()].strip()
-            tail = verses[9][match.end():].strip()
+        skipped: set[int] = set()
+        for match in pattern.finditer(verse):
+            if match.start() in skipped:
+                continue
+            head, rest = verse[: match.start()].strip(), verse[match.end():]
+            tail = rest.strip()
             if not (1 <= len(head.split()) <= MAX_INTRO_WORDS and len(tail.split()) >= MIN_REMAINDER_WORDS):
                 continue
-            if pattern is COLON and tail.startswith(("\u2015", "\u2014")):
-                continue
+            if pattern is COLON and tail.startswith(DIALOGUE_DASHES) and COLON.search(rest):
+                # Spanish-style editions open the prayer itself with a dash after the
+                # colon. But when the dashed speech has a colon of its own (Lacandon:
+                # "Jesus said: [dash] I will teach you. Pray. Say to God: Our Father"),
+                # it may be a longer introduction, so no colon is trusted.
+                break
             if pattern is OPEN_QUOTE:
-                quote = match.group()
-                closer = CLOSE_FOR.get(quote)
-                if closer and 0 <= tail.find(closer) < tail.find(quote):
-                    if closer not in tail[tail.find(quote) + 1:]:
-                        continue
-            return [tail] + [verses[n] for n in range(10, 14) if n in verses]
+                closers = CLOSE_FOR[match.group()]
+                closed_at = min((i for c in closers if (i := rest.find(c)) >= 0), default=-1)
+                reopened_at = rest.find(match.group())
+                if 0 <= closed_at < reopened_at and not any(c in rest[reopened_at + 1:] for c in closers):
+                    # A quotation inside the introduction, closed before the prayer's
+                    # own unclosed one opens (Inoke). Skip it, and the mark closing it,
+                    # which in German-style quoting is the English opening mark.
+                    skipped.add(match.end() + closed_at)
+                    continue
+            return tail
     raise LookupError("no explicit 9a/9b boundary passing the guards")
 
 
@@ -319,12 +508,27 @@ def build(record: dict, verdict: str, lines: list[str]) -> str:
     )
 
 
-def calibrate() -> int:
-    """Check the classifier reproduces the decision recorded in existing files.
+def recorded_lines(text: str) -> list[str]:
+    """Read the prayer lines of a generated file, after its provenance line.
 
-    Every generated file states in its provenance line which path produced it. A
-    disagreement is a bug in the classifier, not a discovery, and must be fixed
-    before the classifier is trusted on new languages.
+    Args:
+        text: Contents of a prayer file written by build().
+
+    Returns:
+        The Traditional section's lines, without the provenance line.
+    """
+    section = text.split("=== Traditional ===", 1)[1].split("=== Literal", 1)[0]
+    return [line for line in section.splitlines() if line.strip()][1:]
+
+
+def calibrate() -> int:
+    """Check the classifier reproduces the decision and the text of existing files.
+
+    Every generated file states in its provenance line which path produced it, and
+    carries the lines that path extracted. A disagreement in either is a bug in the
+    classifier, not a discovery, and must be fixed before the classifier is trusted
+    on new languages. Checking the verdict alone misses a change in the extraction
+    rules that alters the text of files already in the corpus.
 
     Returns:
         Process exit code.
@@ -349,15 +553,22 @@ def calibrate() -> int:
         if not ids:
             continue
         expected = PROSE_BOUNDARY if "running prose" in text else POETRY
-        cases.append((path.stem, ids[-1], expected))
+        cases.append((path.stem, ids[-1], expected, recorded_lines(text)))
 
     print(f"calibrating against {len(cases)} generated files", file=sys.stderr)
     with ThreadPoolExecutor(max_workers=8) as pool:
-        verdicts = list(pool.map(lambda c: classify(c[1])[0], cases))
+        results = list(pool.map(lambda c: classify(c[1])[:2], cases))
 
-    bad = [(n, t, e, g) for (n, t, e), g in zip(cases, verdicts) if g != e]
-    for name, tid, expected, got in bad[:20]:
-        print(f"  MISMATCH {name} ({tid}): recorded {expected}, classifier says {got}")
+    bad = []
+    for (name, tid, expected, recorded), (verdict, lines) in zip(cases, results):
+        if verdict != expected:
+            bad.append(f"MISMATCH {name} ({tid}): recorded {expected}, classifier says {verdict}")
+        elif lines != recorded:
+            line = next((i for i, pair in enumerate(zip(lines, recorded), 1) if pair[0] != pair[1]),
+                        min(len(lines), len(recorded)) + 1)
+            bad.append(f"TEXT MISMATCH {name} ({tid}): extraction differs from the file at prayer line {line}")
+    for message in bad[:20]:
+        print(f"  {message}")
     print(f"\nagreed: {len(cases) - len(bad)}/{len(cases)}")
     return 1 if bad else 0
 

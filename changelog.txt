@@ -3,30 +3,40 @@ Changelog
 
 Unreleased
 ----------
-- Repair ten prayer files whose eBible extractions carried leftover markup,
-  unmarked cross-references, wrong verse-9 splits, dropped opening addresses
-  or verse-range prefixes (Abaknon, Australian Kriol, Beami, Inoke, Lacandon,
-  Mangga Buang, Mankanya, Migabac, Southwest Tanna, Wamey), and fix the
-  underlying corpus-tooling and validator defects:
+- Repair prayer files whose eBible extractions carried text that is not the
+  prayer, and fix the tooling defects behind them:
+  * Ten files repaired one by one: leftover \fig and word-attribute markup
+    (Australian Kriol, Wamey, Migabac), unmarked cross-references (Mangga
+    Buang), wrong verse-9 splits (Beami, Inoke, Lacandon), dropped opening
+    addresses (Abaknon, Mankanya) and a verse-range prefix (Southwest Tanna).
+  * 81 poetry files regenerated without the narrative that followed the
+    prayer's last line inside verse 13 ("This is how you should pray," said
+    Jesus), which they had carried as part of the prayer.
   * strip_usfm: strip \fig...\fig* and \fe...\fe* blocks and word attributes
-    on nested \+w* / \+rb* markers; drop trailing prose paragraphs after \q
-    blocks in poetry_lines.
-  * poetry_lines: preserve an opening prayer address set in a \p paragraph
-    between verse 9's introduction and the first \q marker.
-  * prose_lines: ignore word-internal and chapter:verse colons, skip dialogue-
-    dash speaker intros and closed inner quotes before an unclosed prayer
-    quote, and handle \v N-M verse ranges without dropping or duplicating
-    verses.
-  * matthew_six / edition_prayer: select Matthew by \id MAT header rather than
-    matching filename prefixes that pick 41-TOB (Tobit) in Deuterocanon
-    editions.
-  * verify_provenance: count omitted edition words as mismatches (tolerating
-    only a bounded leading insert for verse 9a's introduction) and fix the
-    normalised "serbo croatian" alias key.
-  * validate.py & .gitattributes: flag leftover USFM tags, attributes, .tif
+    on nested \+w* / \+rb* markers.
+  * poetry_lines: cut a narrative paragraph after the last \q line, unless it
+    carries a textual note, a bracketed doxology or the close of the prayer's
+    own quotation; keep an opening address set as its own paragraph only when
+    verse 9's introduction ends at a colon; and report a verse range that runs
+    past verse 13 instead of folding verse 14 into the prayer.
+  * prose_lines: ignore a colon inside a word or between digits; distrust a
+    colon followed by a dialogue dash only when the dashed speech has a colon
+    of its own; skip a closed quotation inside the introduction together with
+    its closing mark, so German-style quoting works; and report a verse range
+    that runs past verse 13.
+  * matthew_six: select Matthew by its \id MAT header rather than by filename
+    prefixes, which picked 41-TOB (Tobit) in editions with the Deuterocanon.
+  * --calibrate checks each generated file's text line by line, not only its
+    extraction path, and agrees for all 968 files.
+  * verify_provenance: extract each edition's prayer with generate_prayer.py's
+    own code, so the two cannot drift apart and verse 9's introduction needs no
+    allowance; count every word added or left out as a mismatch; keep bracketed
+    prayer lines when comparing; and fix the normalised "serbo croatian" alias
+    key. An edition with no explicit 9a/9b boundary is reported, not compared.
+  * validate.py and .gitattributes: flag backslashes, attribute markup, .tif
     references, unstripped cross-references and verse-range prefixes; check
     duplicate stems case-insensitively; print collected errors when no file
-    parses cleanly; and enforce LF checkouts via .gitattributes.
+    parses; and enforce LF checkouts.
 - Require Python 3.15+ across validate.py, scripts/generate_prayer.py and
   scripts/verify_provenance.py, dropping security-only 3.11-3.13 and matching
   what uv run provisions in CI. Pin the runner image, action SHAs, uv 0.13.10
@@ -34,6 +44,8 @@ Unreleased
   3.15+ prerequisite in README.md and CONTRIBUTING.md, drop the redundant
   __future__ annotations imports (PEP 649), and use
   itertools.batched(..., strict=True) for USFM verse splitting.
+- Dependabot: update actions/checkout to v7.0.1 and astral-sh/setup-uv to
+  v10.4.0 in .github/workflows/validate.yml, still pinned by commit SHA.
 - Dependabot: .github/dependabot.yml proposes GitHub Actions updates weekly,
   in one pull request, and alerts and security updates are enabled on the
   repository.
